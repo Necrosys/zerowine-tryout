@@ -75,8 +75,11 @@ DEBUGGING_TRICKS = {
 	"WPE PRO":"Winsock Packet Editor Pro detection",
 	"MiniSniffer":"MiniSniffer detection",
 	"EtherDetect Packet Sniffer":"EtherDetect Packet Sniffer detection",
-	"Uhack - 0/5000":"Uhack detection",
+	"Uhack - ":"Uhack detection",
 	"Winsock Expert":"Winsock Expert detection",
 	"Windows File Protection":"Windows File Protection detection",
 	"18467-41":"Generic Sysinternals tool detection",
+	"Syser":"Syser Debugger detection",
+	"SyserDbgMsg":"Syser Debugger detection",
+	"SyserBoot":"Syser Debugger detection",
 	}

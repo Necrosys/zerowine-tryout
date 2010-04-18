@@ -196,7 +196,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'SetWindowText.*""',
 	'CompareString',
 
-	'CreateSemaphoreA.*\(\w{8},\w{8},\w{8},\w{8\)',
+	'CreateSemaphoreA.*\(\w{8},\w{8},\w{8},\w{8}\)',
 	'CreateMutexW.*\(\w{8},\w{8},\w{8}\)',
 	
 	# Help
@@ -307,6 +307,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 #	'L"Scripting\.FileSystemObject\\\\\\\\CLSID"',
 #	'L"Scripting\.Signer\\\\\\\\CLSID"',
 	'L"WinMgmts\\\\\\\\CLSID"',
+	'L"Shell.Application\\\\\\\\CLSID"',
 	# Windows Explorer
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\AutoComplete",',
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\Performance",',
