@@ -182,9 +182,8 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegOpenKey.*L"shellex\\\\\\\\ContextMenuHandlers"', #
 	'RegGetValue.*L"Content Type",',
 	'RegGetValue.*L"DefaultIcon",',
-	'RegOpenKeyExW.*\(\w{8},\w{8},\w{8},\w{8},\w{8}\)',
-	'RegSetValueExW.*\(\w{8},\w{8},\w{8},\w{8},\w{8},\w{8}\)',
-	'RegOpenKeyExA.*\(\w{8},\w{8},\w{8},\w{8},\w{8}\)',
+	'RegOpenKeyEx.*\(\w{8},\w{8},\w{8},\w{8},\w{8}\)',
+	'RegSetValueEx.*\(\w{8},\w{8},\w{8},\w{8},\w{8},\w{8}\)',
 	
 	'RegCreateKey.*L"System\\\\\\\\CurrentControlSet\\\\\\\\Control\\\\\\\\Print\\\\\\\\Printers',
 	'RegOpenKeyW.*L"System\\\\\\\\CurrentControlSet\\\\\\\\Control\\\\\\\\Keyboard Layouts\\\\\\\\04090409",',
@@ -194,10 +193,11 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'CreateFileW.*L"NUL",',
 	
 	'SetWindowText.*""',
+	'SetDlgItemText.*""',
 	'CompareString',
 
-	'CreateSemaphoreA.*\(\w{8},\w{8},\w{8},\w{8}\)',
-	'CreateMutexW.*\(\w{8},\w{8},\w{8}\)',
+	'CreateSemaphore.*\(\w{8},\w{8},\w{8},\w{8}\)',
+	'CreateMutex.*\(\w{8},\w{8},\w{8}\)',
 	
 	# Help
 	'RegOpenKeyExA.*"Software\\\\\\\\Microsoft\\\\\\\\Windows",',
@@ -307,7 +307,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 #	'L"Scripting\.FileSystemObject\\\\\\\\CLSID"',
 #	'L"Scripting\.Signer\\\\\\\\CLSID"',
 	'L"WinMgmts\\\\\\\\CLSID"',
-	'L"Shell.Application\\\\\\\\CLSID"',
+	'L"Shell\.Application\\\\\\\\CLSID"',
 	# Windows Explorer
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\AutoComplete",',
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\Performance",',
