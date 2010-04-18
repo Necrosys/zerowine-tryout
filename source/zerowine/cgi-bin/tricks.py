@@ -72,4 +72,11 @@ DEBUGGING_TRICKS = {
 	"SbieDll.dll":"Sandboxie detection",
 #	"dbghelp.dll":"Debug help library detection",
 	"LOG_API.DLL":"Buster Sandbox Analyzer detection",
+	"WPE PRO":"Winsock Packet Editor Pro detection",
+	"MiniSniffer":"MiniSniffer detection",
+	"EtherDetect Packet Sniffer":"EtherDetect Packet Sniffer detection",
+	"Uhack - 0/5000":"Uhack detection",
+	"Winsock Expert":"Winsock Expert detection",
+	"Windows File Protection":"Windows File Protection detection",
+	"18467-41":"Generic Sysinternals tool detection",
 	}

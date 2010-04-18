@@ -80,6 +80,8 @@ INTERESTING_CALLS = [# "shdocvw",
 #	"ws2_32\.recv",
 #	"ws2_32\.getaddrinfo",
 #	"ws2_32\.gethostbyname",
+	"ws2_32\.WSCInstallProvider",
+	"ws2_32\.WSCWriteProviderOrder",
 	# Shell32
 	"shell32\.ShellExecute",
 	"shell32\.FindExecutable",
@@ -182,6 +184,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegGetValue.*L"DefaultIcon",',
 	'RegOpenKeyExW.*\(\w{8},\w{8},\w{8},\w{8},\w{8}\)',
 	'RegSetValueExW.*\(\w{8},\w{8},\w{8},\w{8},\w{8},\w{8}\)',
+	'RegOpenKeyExA.*\(\w{8},\w{8},\w{8},\w{8},\w{8}\)',
 	
 	'RegCreateKey.*L"System\\\\\\\\CurrentControlSet\\\\\\\\Control\\\\\\\\Print\\\\\\\\Printers',
 	'RegOpenKeyW.*L"System\\\\\\\\CurrentControlSet\\\\\\\\Control\\\\\\\\Keyboard Layouts\\\\\\\\04090409",',
@@ -192,6 +195,9 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	
 	'SetWindowText.*""',
 	'CompareString',
+
+	'CreateSemaphoreA.*\(\w{8},\w{8},\w{8},\w{8\)',
+	'CreateMutexW.*\(\w{8},\w{8},\w{8}\)',
 	
 	# Help
 	'RegOpenKeyExA.*"Software\\\\\\\\Microsoft\\\\\\\\Windows",',
@@ -269,6 +275,9 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	# Windows Script Host
 	'L"Software\\\\\\\\Microsoft\\\\\\\\Windows Script Host\\\\\\\\Settings"',
 	'L"VBSFile\\\\\\\\ScriptEngine"',
+	'L"VBEFile\\\\\\\\ScriptEngine"',
+	'L"JSFile\\\\\\\\ScriptEngine"',
+	'L"JSEFile\\\\\\\\ScriptEngine"',
 	# CLSID
 	'RegOpenKey.*L"Interface\\\\\\\\{.*}\\\\\\\\ProxyStubClsid32",',
 	'RegOpenKey.*L"Interface\\\\\\\\{.*}\\\\\\\\Typelib",',
@@ -277,11 +286,27 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegOpenKey.*L"InprocServer32"',
 	'RegOpenKey.*"TYPELIB\\\\\\\\{.*}\\\\\\\\6.0\\\\\\\\9",',
 	
-	'L"VBScript\\\\\\\\CLSID"',
-	'L"JavaScript\\\\\\\\CLSID"',
-	'L"WScript.Shell\\\\\\\\CLSID"',
+	'L"VBS.*\\\\\\\\CLSID"',
+#	'L"VBS Author\\\\\\\\CLSID"',
+#	'L"VBScript\\\\\\\\CLSID"',
+#	'L"VBScript Author\\\\\\\\CLSID"',
+#	'L"VBScript\.Encode\\\\\\\\CLSID"',
+#	'L"VBScript\.RegExp\\\\\\\\CLSID"',
+	'L"JavaScript.*\\\\\\\\CLSID"',
+	'L"JScript.*\\\\\\\\CLSID"',
+#	'L"JScript Author\\\\\\\\CLSID"',
+#	'L"JScript\.Encode\\\\\\\\CLSID"',
+	'L"WScript.*\\\\\\\\CLSID"',
+#	'L"WScript\.Network\\\\\\\\CLSID"',
+#	'L"WScript\.Network\.1\\\\\\\\CLSID"',
+#	'L"WScript\.Shell\\\\\\\\CLSID"',
+#	'L"WScript\.Shell\.1\\\\\\\\CLSID"',
+	'L"Scripting.*\\\\\\\\CLSID"',
+#	'L"Scripting\.Dictionary\\\\\\\\CLSID"',
+#	'L"Scripting\.Encoder\\\\\\\\CLSID"',
+#	'L"Scripting\.FileSystemObject\\\\\\\\CLSID"',
+#	'L"Scripting\.Signer\\\\\\\\CLSID"',
 	'L"WinMgmts\\\\\\\\CLSID"',
-	'L"Scripting.FileSystemObject\\\\\\\\CLSID"',
 	# Windows Explorer
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\AutoComplete",',
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\Performance",',

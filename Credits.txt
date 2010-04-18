@@ -2,6 +2,10 @@ Zero Wine Tryouts is a fork project based on Zero Wine (http://sourceforge.net/p
 
 The Zero Wine Tryouts project is maintained by Chae Jong Bin.
 
+Current project members 
+	Chae Jong Bin 
+	Frank Poz
+
 Zero Wine Tryouts depend on:
 	Python (http://www.python.org/)
 	Wine (http://www.winehq.org/)
