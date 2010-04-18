@@ -1,0 +1,138 @@
+= Changes for 20100325 =
+* Version Alpha 2
+* Update Wine. (1.1.41)
+* Update TrIDDefs.TRD. (3911 file types, 25/03/10)
+* Improvement view/download function.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Refactoring some code.
+* Some minor change.
+== Fixed ==
+* Fix dump download problem. (Regression)
+* Some minor fix.
+
+= Changes for 20100312 =
+* Version Alpha 1
+* Update Wine. (1.1.40)
+* Update TrIDDefs.TRD. (3899 file types, 03/03/10)
+* Implement view function.
+* Improvement extract javascript from pdf file.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Refactoring some code.
+* Some minor change.
+== Fixed ==
+* Some minor fix.
+
+= Changes for 20100301 =
+* Implement automatic pdf uncompress. (pdftk)
+* Implement extract javascript from pdf file.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Refactoring some code.
+* Some minor change.
+== Fixed ==
+* Some minor fix.
+
+= Changes for 20100224 =
+* Implement network packet dump. (TCPDUMP)
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Some minor change.
+== Fixed ==
+* Fix libzip.py related download problem. (Regression)
+* Some minor fix.
+
+= Changes for 20100211 =
+* Implement view/download differences(file, registry) feature. You can view/download registry modification, dropped files.
+* Improvement download function.
+* Some minor change.
+== Fixed ==
+* Some minor fix.
+
+= Changes for 20100208 =
+* Update Wine (1.1.38)
+* Implement automatic unpack. (UPX)
+* Improvement file headers function. Add TrID signature. (Requested by Keivan Komeilipour)
+* Improvement download function.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Some minor change.
+== Fixed ==
+* Lock related problem. (Regression)
+* Regsvr32 timeout problem.
+* Do not dump more wine exe files.
+* Some minor fix.
+
+= Changes for 20100204 =
+* Update userdb.txt (Keivan Komeilipour)
+* Implement additional files (such as DLLs) upload. You must upload zip archive file. Use 7zip recommended.
+* Implement Windows version change.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Some minor change.
+== Fixed ==
+* Dumping process silently.
+* Do not dump wine exe files.
+* Some minor fix.
+
+= Changes for 20100131 =
+* Update Wine (1.1.37)
+* Improvement result download. You can download complete result even if webpage timeout error occurs.
+* Improvement dump memory feature.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Refactoring some code.
+== Fixed ==
+* Print more process crash information.
+
+= Changes for 20100127 =
+* Improvement result download.
+* Add more anti-debugging pattern.
+* Better SEH error detection.
+* Almost complete rewrite of the calls.py. Makes the signature even more readable.
+== Fixed ==
+* Some false positive problem. (workaround)
+
+= Changes for 20100121 =
+* Improvement result download.
+* Add more anti-debugging pattern.
+* Refactoring some code.
+== Fixed ==
+* Uppercase hash problem.
+* Print more process crash information.
+
+= Changes for 20100119 =
+* Implement result download.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+== Fixed ==
+* Empty process name problem.
+* Print more process crash information.
+
+= Changes for 20100117 =
+* Moved calls from libmalware.py to seperate file calls.py.
+* Moved tricks from signatures.py to seperate file tricks.py.
+* Partial rewrite of the calls.py. Makes the signature more readable.
+* Implement lock.
+== Fixed ==
+* Uppercase process name problem.
+* Winedbg -auto webpage timeout problem - Kill process after timeout.
+* Print more process crash information.
+
+= Changes for 20100115 =
+== Fixed ==
+* RegOpenKey monitoring enabled. (disabled in 20100114)
+* iexplore problem - Kill iexplore after timeout.
+* Print more process crash information.
+
+= Changes for 20100114 =
+* Upgrade Debian etch to Debian lenny.
+* Change default password. (root:zerowine1/malware:malware1)
+* Disable SSH root login
+* Update Wine (1.1.35)
+* Update pefile (svn r68)
+* Update python-ptrace (0.6.2)
+* Update userdb.txt (http://research.pandasecurity.com/blogs/images/userdb.txt)
+* Add more wine drive
+* Some fix.
+== Fixed ==
+* Zombie Xvfb problem - Kill Xvfb before analyze
+* Some .wine directory problem - Backup script
+* Generate more hash.
+*  Refactoring code & config file.
+* Self delete malware.exe problem.
+*  Winedbg -auto webpage timeout problem - Set AeDebug to 0, Do not run Windbg -auto.
+*  Rundll32 problem - Kill rundll32 after timeout.

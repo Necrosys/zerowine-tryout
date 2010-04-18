@@ -1,0 +1,37 @@
+Zero Wine Tryouts is a fork project based on Zero Wine (http://sourceforge.net/projects/zerowine/) written by Joxean Koret.
+
+The Zero Wine Tryouts project is maintained by Chae Jong Bin.
+
+Zero Wine Tryouts depend on:
+	Python (http://www.python.org/)
+	Wine (http://www.winehq.org/)
+	Xvfb (http://www.x.org/archive/X11R6.8.2/doc/Xvfb.1.html)
+	pefile (http://code.google.com/p/pefile/) by Ero Carrera
+	python-ptrace (http://bitbucket.org/haypo/python-ptrace/wiki/) by Victor Stinner
+	TrID (http://mark0.net/soft-trid-e.html) by Marco Pontello
+	UPX (http://upx.sourceforge.net/) by:
+		Markus Franz Xaver Johannes Oberhumer
+		Laszlo Molnar
+	GNU (http://www.gnu.org/) software by Free Software Foundation (http://www.fsf.org/) , Inc.
+	TCPDUMP (http://www.tcpdump.org/) by:
+		Bill Fenner
+		David Young
+		Fulvio Risso
+		Guy Harris
+		Hannes Gredler
+		Michael Richardson
+	pdftk (http://www.accesspdf.com/pdftk/) by Sid Steward
+
+PEiD signatures by:
+	Keivan Komeilipour (http://www.keivan.ir/) (2010/02/04~)
+	Panda Security Research Blog (http://research.pandasecurity.com/) (2010/01/14~2010/01/31)
+
+Prebuilt QEMU image using:
+	Debian (http://www.debian.org/)
+	Wine for Debian (http://www.lamaresh.net/) by:
+		Maurilio Genovese
+		Ben Klein
+
+The design of Zero Wine Tryouts homepage is based on ffdshow tryouts (http://ffdshow-tryout.sourceforge.net) hompage.
+
+Please let me know if I've forgotten anyone!

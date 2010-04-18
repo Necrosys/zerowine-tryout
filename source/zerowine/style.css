@@ -1,0 +1,29 @@
+/* CSSTidy 1.2: Tue Jan 19 22:17:45 2010 */
+body
+{
+	font-family:courier, serif;
+}
+
+A:hover
+{
+	color:#999;
+	text-decoration:underline;
+}
+
+A:link
+{
+	color:#00C;
+	text-decoration:none;
+}
+
+A:visited
+{
+	color:#FC3;
+	text-decoration:none;
+}
+
+A:active
+{
+	color:red;
+	text-decoration:none;
+}
