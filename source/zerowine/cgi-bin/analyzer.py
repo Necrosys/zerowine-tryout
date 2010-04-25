@@ -14,7 +14,7 @@ def analyze(item, timeout, memory, version, subitem):
 	print
 	print "<h1>Sample analysis result</h1>" 
 	print "Original file name: <b>%s</b>" % cgi.escape(item.filename)
-	print "<br/>"
+	print "<br />"
 
 	startTime = time.ctime()
 
@@ -89,39 +89,39 @@ def analyze(item, timeout, memory, version, subitem):
 	if pdfJavaScript == " ":
 		colspan = colspan - 1
 
-	print "<br/>"
-	print "<div align='center'>"
-	print "General information:<br/><br/><table border='0'><tr>"
+	print "<br />"
+	print "<div>"
+	print "General information:<br /><br /><table><tr>"
 
 	if report != " ":
-		print "<td align='center'>"
+		print "<td>"
 		print """<a href="javascript:toggleShowReport()"><img src="/img/report.png" height="16" width="16"> Report</a>"""
 		print "</td>"
 
-	print "<td align='center'>"
+	print "<td>"
 	print """<a href="javascript:toggleShowHeaders()"><img src="/img/headers.png" height="16" width="16"> File headers</a>"""
 	print "</td>"
 
-	print "<td align='center'>"
+	print "<td>"
 	print """<a href="javascript:toggleShowStrings()"><img src="/img/strings.png" height="16" width="16"> File strings</a>"""
 	print "</td>"
 
 	if len(signatures) > 0:
-		print "<td align='center'>"
+		print "<td>"
 		print """<a href="javascript:toggleShowSignature()"><img src="/img/signature.png" height="16" width="16"> Signatures</a>"""
 		print "</td>"
 
 	if diff != " ":
-		print "<td align='center'>"
+		print "<td>"
 		print """<a href="javascript:toggleShowDifference()"><img src="/img/report.png" height="16" width="16"> Differences</a>"""
 		print "</td>"
 
 	if pdfJavaScript != " ":
-		print "<td align='center'>"
+		print "<td>"
 		print """<a href="javascript:toggleShowPdfJavaScript()"><img src="/img/strings.png" height="16" width="16"> PDF JavaScript</a>"""
 		print "</td>"
 
-	print "</tr><tr><td colspan='%s' align='center'><br/>" % (colspan)
+	print "</tr><tr><td colspan='%s'><br />" % (colspan)
 	
 	#print "<img src='/img/analyzing.jpg'/>"
 	print "</td></tr>"
@@ -134,7 +134,7 @@ def analyze(item, timeout, memory, version, subitem):
 		
 		print cgi.escape(report)
 		
-		print "</textarea><br/>"
+		print "</textarea><br />"
 		print "</div>"
 	
 	# File headers
@@ -188,8 +188,8 @@ def analyze(item, timeout, memory, version, subitem):
 	print "</td></tr>"
 	
 	# Dumps
-	print """<tr><td colspan='%s' align='left'>""" % (colspan)
-	print """<div align='left'><br/>Dumps:<br/><br/></div>"""
+	print """<tr><td colspan='%s'>""" % (colspan)
+	print """<div><br />Dumps:<br /><br /></div>"""
 	print """</td></tr>"""
 	print """<tr><td colspan='%s'>""" % (colspan)
 	
@@ -199,8 +199,8 @@ def analyze(item, timeout, memory, version, subitem):
 	
 	# Debugger detection tricks
 	if msg != " ":
-		print """<tr><td colspan='%s' align='left'>""" % (colspan)
-		print """<div align='left'><br/>Debugger detection tricks:<br/><br/></div>"""
+		print """<tr><td colspan='%s'>""" % (colspan)
+		print """<div><br />Debugger detection tricks:<br /><br /></div>"""
 		print """</td></tr>"""
 		print """<tr><td colspan='%s'>""" % (colspan)
 		
@@ -209,8 +209,8 @@ def analyze(item, timeout, memory, version, subitem):
 		print """</td></tr>"""
 	
 	# Virtual Machine detection tricks
-	print """<tr><td colspan='%s' align='left'>""" % (colspan)
-	print """<div align='left'><br/>Virtual Machine detection tricks:<br/><br/></div>"""
+	print """<tr><td colspan='%s'>""" % (colspan)
+	print """<div><br />Virtual Machine detection tricks:<br /><br /></div>"""
 	print """</td></tr>"""
 	print """<tr><td colspan='%s'>""" % (colspan)
 	
@@ -219,9 +219,9 @@ def analyze(item, timeout, memory, version, subitem):
 	print """</td></tr></table>"""
 	print """</div>"""
 	
-	print "<br/>"
+	print "<br />"
 
-	print "<br/><div align='center'>Analyze started at %s</div>" % (startTime)
-	print "<div align='center'>Analyze finished at %s</div>" % (finishTime)
+	print "<br /><div>Analyze started at %s</div>" % (startTime)
+	print "<div>Analyze finished at %s</div>" % (finishTime)
 	
 	printBodyFooter()
