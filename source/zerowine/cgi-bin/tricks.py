@@ -82,4 +82,5 @@ DEBUGGING_TRICKS = {
 	"Syser":"Syser Debugger detection",
 	"SyserDbgMsg":"Syser Debugger detection",
 	"SyserBoot":"Syser Debugger detection",
+	"AVP.AlertDialog":"Kaspersky Anti Virus detection",
 	}

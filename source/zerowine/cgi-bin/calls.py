@@ -172,7 +172,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegOpenKey.*L"command"',
 	'RegOpenKey.*L"shell"',
 	'RegOpenKey.*L"open"',
-	'RegOpenKey.*L"shell\\\\\\\\open\\\\\\\\command",', ##
+	'RegOpenKey.*".*shell\\\\\\\\open\\\\\\\\command",', ##
 	'RegOpenKey.*L"opennew"', ##
 	'RegOpenKey.*L"edit"', ##
 	'Reg(OpenKey|GetValue).*L".*wab_auto_file"', ##
@@ -195,6 +195,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'SetWindowText.*""',
 	'SetDlgItemText.*""',
 	'CompareString',
+	'MessageBox.*\(\w{8},\w{8},\w{8},\w{8}\)',
 
 	'CreateSemaphore.*\(\w{8},\w{8},\w{8},\w{8}\)',
 	'CreateMutex.*\(\w{8},\w{8},\w{8}\)',
@@ -221,6 +222,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegOpenKey.*L"Software\\\\\\\\Microsoft\\\\\\\\Internet Explorer\\\\\\\\International",',
 	'RegOpenKey.*"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Internet Settings\\\\\\\\Cache\\\\\\\\Content",',
 	'RegOpenKey.*L"PROTOCOLS\\\\\\\\Handler\\\\\\\\about",',
+	'RegOpenKey.*"InternetExplorer\.Application",',
 	# msvcrt._mbs*
 	'msvcrt\._mbs',
 	# oleaut32
@@ -308,6 +310,8 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 #	'L"Scripting\.Signer\\\\\\\\CLSID"',
 	'L"WinMgmts\\\\\\\\CLSID"',
 	'L"Shell\.Application\\\\\\\\CLSID"',
+	'L"HNetCfg\.FwMgr\\\\\\\\CLSID"',
+	'L"ADODB\.Stream\\\\\\\\CLSID"',
 	# Windows Explorer
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\AutoComplete",',
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\Performance",',
