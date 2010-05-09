@@ -167,7 +167,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'Reg(OpenKey|GetValue).*L"\w{2,9}file"',
 	'Reg(OpenKey|GetValue).*L"\w{2,9}\.file"',
 	'Reg(OpenKey|GetValue).*L"\w{2,9} File"',
-	'RegOpenKey.*L"\w{2,9}File"', ##
+	'RegOpenKey.*L"\w{7,14}\\\\\\\\DefaultIcon"', ###
 	'RegOpenKey.*L"ProgID"',
 	'RegOpenKey.*L"command"',
 	'RegOpenKey.*L"shell"',
@@ -192,7 +192,10 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	
 	'CreateFileW.*L"NUL",',
 	
+	'DrawText.* ""',
+	'DrawText.* L" "',
 	'SetWindowText.*""',
+	'SetWindowText.* " "',
 	'SetDlgItemText.*""',
 	'CompareString',
 	'MessageBox.*\(\w{8},\w{8},\w{8},\w{8}\)',
@@ -312,6 +315,8 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'L"Shell\.Application\\\\\\\\CLSID"',
 	'L"HNetCfg\.FwMgr\\\\\\\\CLSID"',
 	'L"ADODB\.Stream\\\\\\\\CLSID"',
+	'L"Microsoft\.XMLHTTP\\\\\\\\CLSID"',
+	'L"Shell\.Explorer\\\\\\\\CLSID"',
 	# Windows Explorer
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\AutoComplete",',
 	'"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\Explorer\\\\\\\\Performance",',
