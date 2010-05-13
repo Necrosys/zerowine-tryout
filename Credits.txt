@@ -25,6 +25,8 @@ Zero Wine Tryouts depend on:
 		Hannes Gredler
 		Michael Richardson
 	pdftk (http://www.accesspdf.com/pdftk/) by Sid Steward
+	pdf-parser (http://blog.didierstevens.com/programs/pdf-tools/) by Didier Stevens
+	pdfid (http://blog.didierstevens.com/programs/pdf-tools/) by Didier Stevens
 
 PEiD signatures by:
 	Keivan Komeilipour (http://www.keivan.ir/) (2010/02/04~)

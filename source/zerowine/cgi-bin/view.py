@@ -20,6 +20,7 @@ def viewResult(dirName):
 	origFileName = readFile(dirName, FILE_NAME_ORIG_FILENAME)
 	hashes = readFile(dirName, FILE_HASH_FILENAME)
 	headers = readFile(dirName, FILE_HEADER_FILENAME)
+	pdfAnalysis = readFile(dirname, FILE_PDF_ANALYSIS_FILENAME)
 	strings = readFile(dirName, FILE_STRING_FILENAME)
 	pdfJavaScript = readFile(dirName, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
 
@@ -55,7 +56,7 @@ def viewResult(dirName):
 		showWarning(warnings)
 		showWarning("One or more spawned processes crashed while running!")
 
-	colspan = 6
+	colspan = 7
 
 	if report == " ":
 		colspan = colspan - 1
@@ -64,6 +65,8 @@ def viewResult(dirName):
 	if diff == " ":
 		colspan = colspan - 1
 	if pdfJavaScript == " ":
+		colspan = colspan - 1
+	if pdfAnalysis == "":
 		colspan = colspan - 1
 
 	print "<br />"
@@ -161,6 +164,11 @@ def viewResult(dirName):
 		
 		print "</textarea>"
 		print "</div>"
+
+	if pdfAnalysis != "":
+		print "<td align='center'>"
+		print """<a href="javascript:toggleShowPdfAnalysis()"><img src="/img/strings.png" height="16" width="16"> PDF Analysis</a>"""
+		print "</td>"
 	
 	print "</td></tr>"
 	

@@ -6,7 +6,8 @@ import time
 from config import *
 from libutils import *
 from libmalware import (analyzeMalware, getStrings, getHeaders, analyzeCalls, showDumps,
-						showVMDetectionTricks, showDebuggingTricks, saveAsFile, unpackFile, getPdfJavaScript)
+						showVMDetectionTricks, showDebuggingTricks, saveAsFile, unpackFile, getPdfJavaScript,
+						pdfid, pdfparser_a, pdftk_dump_data)
 
 def analyze(item, timeout, memory, version, subitem):
 	printBodyHeader()
@@ -30,6 +31,20 @@ def analyze(item, timeout, memory, version, subitem):
 			break
 
 	headers = getHeaders(fileName)
+
+	# pdf analysis
+	pdfAnalysis = ""
+	output_pdftk = pdftk_dump_data(headers, fileName)
+	if len(output_pdftk) > 0:
+		pdfAnalysis += "===== PDFTK dump_data =====\n%s\n\n" % (output_pdftk)
+	output_pdfid = pdfid(headers, fileName)
+	if len(output_pdfid) > 0:
+		pdfAnalysis += "===== PDFID =====\n%s\n\n" % (output_pdfid)
+	output_pdfparser = pdfparser_a(headers, fileName)
+	if len(output_pdfparser) > 0:
+		pdfAnalysis += "===== PDFPARSER -a =====\n%s\n\n" % (output_pdfparser)
+
+
 	unpackFile(headers, fileName)
 	stringList = getStrings(fileName)
 	strings = "".join(stringList)
@@ -63,6 +78,7 @@ def analyze(item, timeout, memory, version, subitem):
 	saveAsFile(headers, dirName, FILE_HEADER_FILENAME)
 	saveAsFile(strings, dirName, FILE_STRING_FILENAME)
 	saveAsFile(pdfJavaScript, dirName, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
+	saveAsFile(pdfAnalysis, dirName, FILE_PDF_ANALYSIS_FILENAME)
 
 	saveAsFile(report, dirName, REPORT_FILENAME)
 	saveAsFile(signatures, dirName, REPORT_SIGNATURE_FILENAME)
@@ -78,7 +94,7 @@ def analyze(item, timeout, memory, version, subitem):
 
 	# HTML output
 
-	colspan = 6
+	colspan = 7
 
 	if report == " ":
 		colspan = colspan - 1
@@ -87,6 +103,8 @@ def analyze(item, timeout, memory, version, subitem):
 	if diff == " ":
 		colspan = colspan - 1
 	if pdfJavaScript == " ":
+		colspan = colspan - 1
+	if pdfAnalysis == "":
 		colspan = colspan - 1
 
 	print "<br />"
@@ -120,6 +138,12 @@ def analyze(item, timeout, memory, version, subitem):
 		print "<td>"
 		print """<a href="javascript:toggleShowPdfJavaScript()"><img src="/img/strings.png" height="16" width="16"> PDF JavaScript</a>"""
 		print "</td>"
+
+	if pdfAnalysis != "":
+		print "<td align='center'>"
+		print """<a href="javascript:toggleShowPdfAnalysis()"><img src="/img/strings.png" height="16" width="16"> PDF Analysis</a>"""
+		print "</td>"
+
 
 	print "</tr><tr><td colspan='%s'><br />" % (colspan)
 	
@@ -184,6 +208,15 @@ def analyze(item, timeout, memory, version, subitem):
 		
 		print "</textarea>"
 		print "</div>"
+
+	# PDF Analysis
+	if pdfAnalysis != "":
+		print """<div id='divPdfAnalysis' style="visibility:hidden;display:none;float: center; width: 50%;">"""
+		print """<textarea cols='150' rows='40'>"""
+		print cgi.escape(pdfAnalysis)
+		print "</textarea>"
+		print "</div>"
+
 	
 	print "</td></tr>"
 	

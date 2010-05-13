@@ -92,6 +92,10 @@ function toggleShowPdfJavaScript()
 {
 	toggleShowHide('divPdfJavaScript');
 }
+function toggleShowPdfAnalysis()
+{
+	toggleShowHide('divPdfAnalysis');
+}
 </script>
 """
 

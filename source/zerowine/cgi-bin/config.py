@@ -38,6 +38,7 @@ FILE_NAME_EXEC_FILENAME = "file.name.exec.txt"
 FILE_HASH_FILENAME = "file.hash.txt"
 FILE_HEADER_FILENAME = "file.header.txt"
 FILE_STRING_FILENAME = "file.string.txt"
+FILE_PDF_ANALYSIS_FILENAME = "file.pdf.analysis.txt"
 FILE_PDF_JAVASCRIPT_ORIG_FILENAME = "file.pdf.javascript.orig.txt"
 
 REPORT_FILENAME = "report.txt"
