@@ -5,9 +5,7 @@ import time
 
 from config import *
 from libutils import *
-from libmalware import (analyzeMalware, getStrings, getHeaders, analyzeCalls, showDumps,
-						showVMDetectionTricks, showDebuggingTricks, saveAsFile, unpackFile, getPdfJavaScript,
-						pdfid, pdfparser_a, pdftk_dump_data)
+from libmalware import *
 
 def analyze(item, timeout, memory, version, subitem):
 	printBodyHeader()
@@ -32,24 +30,12 @@ def analyze(item, timeout, memory, version, subitem):
 
 	headers = getHeaders(fileName)
 
-	# pdf analysis
-	pdfAnalysis = ""
-	output_pdftk = pdftk_dump_data(headers, fileName)
-	if len(output_pdftk) > 0:
-		pdfAnalysis += "===== PDFTK dump_data =====\n%s\n\n" % (output_pdftk)
-	output_pdfid = pdfid(headers, fileName)
-	if len(output_pdfid) > 0:
-		pdfAnalysis += "===== PDFID =====\n%s\n\n" % (output_pdfid)
-	output_pdfparser = pdfparser_a(headers, fileName)
-	if len(output_pdfparser) > 0:
-		pdfAnalysis += "===== PDFPARSER -a =====\n%s\n\n" % (output_pdfparser)
-
-
 	unpackFile(headers, fileName)
 	stringList = getStrings(fileName)
 	strings = "".join(stringList)
 
 	pdfJavaScript = "".join(getPdfJavaScript(stringList))
+	pdfAnalysis = getPdfAnalysis(headers, fileName)
 
 	report = "".join(msg[idx:])
 	signatures = analyzeCalls(msg[idx:])

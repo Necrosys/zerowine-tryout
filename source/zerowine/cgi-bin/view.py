@@ -20,7 +20,7 @@ def viewResult(dirName):
 	origFileName = readFile(dirName, FILE_NAME_ORIG_FILENAME)
 	hashes = readFile(dirName, FILE_HASH_FILENAME)
 	headers = readFile(dirName, FILE_HEADER_FILENAME)
-	pdfAnalysis = readFile(dirname, FILE_PDF_ANALYSIS_FILENAME)
+	pdfAnalysis = readFile(dirName, FILE_PDF_ANALYSIS_FILENAME)
 	strings = readFile(dirName, FILE_STRING_FILENAME)
 	pdfJavaScript = readFile(dirName, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
 
@@ -101,6 +101,11 @@ def viewResult(dirName):
 		print """<a href="javascript:toggleShowPdfJavaScript()"><img src="/img/strings.png" height="16" width="16"> PDF JavaScript</a>"""
 		print "</td>"
 
+	if pdfAnalysis != "":
+		print "<td align='center'>"
+		print """<a href="javascript:toggleShowPdfAnalysis()"><img src="/img/strings.png" height="16" width="16"> PDF Analysis</a>"""
+		print "</td>"
+
 	print "</tr><tr><td colspan='%s'><br />" % (colspan)
 	
 	#print "<img src='/img/analyzing.jpg'/>"
@@ -164,11 +169,17 @@ def viewResult(dirName):
 		
 		print "</textarea>"
 		print "</div>"
-
+	
+	# PDF Analysis
 	if pdfAnalysis != "":
-		print "<td align='center'>"
-		print """<a href="javascript:toggleShowPdfAnalysis()"><img src="/img/strings.png" height="16" width="16"> PDF Analysis</a>"""
-		print "</td>"
+		print """<div id='divPdfAnalysis' style="visibility:hidden;display:none;float: center; width: 50%;">"""
+		print """<textarea cols='150' rows='40'>"""
+		
+		print cgi.escape(pdfAnalysis)
+		
+		print "</textarea>"
+		print "</div>"
+	
 	
 	print "</td></tr>"
 	
