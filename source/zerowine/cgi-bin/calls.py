@@ -196,6 +196,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'DrawText.* L" "',
 	'SetWindowText.*""',
 	'SetWindowText.* " "',
+	'SetWindowText.*\(\w{8},\w{8}\)',
 	'SetDlgItemText.*""',
 	'CompareString',
 	'MessageBox.*\(\w{8},\w{8},\w{8},\w{8}\)',

@@ -102,7 +102,7 @@ def viewResult(dirName):
 		print "</td>"
 
 	if pdfAnalysis != "":
-		print "<td align='center'>"
+		print "<td>"
 		print """<a href="javascript:toggleShowPdfAnalysis()"><img src="/img/strings.png" height="16" width="16"> PDF Analysis</a>"""
 		print "</td>"
 
