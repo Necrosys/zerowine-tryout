@@ -37,7 +37,6 @@ def viewResult(dirName):
 
 	# HTML output
 
-	print
 	print "<h1>Sample analysis result</h1>" 
 	print "Original file name: <b>%s</b>" % cgi.escape(origFileName)
 	print "<br />"
@@ -56,133 +55,8 @@ def viewResult(dirName):
 		showWarning(warnings)
 		showWarning("One or more spawned processes crashed while running!")
 
-	colspan = 7
+	colspan = printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnalysis)
 
-	if report == " ":
-		colspan = colspan - 1
-	if len(signatures) == 0:
-		colspan = colspan - 1
-	if diff == " ":
-		colspan = colspan - 1
-	if pdfJavaScript == " ":
-		colspan = colspan - 1
-	if pdfAnalysis == "":
-		colspan = colspan - 1
-
-	print "<br />"
-	print "<div>"
-	print "General information:<br /><br /><table><tr>"
-
-	if report != " ":
-		print "<td>"
-		print """<a href="javascript:toggleShowReport()"><img src="/img/report.png" height="16" width="16"> Report</a>"""
-		print "</td>"
-
-	print "<td>"
-	print """<a href="javascript:toggleShowHeaders()"><img src="/img/headers.png" height="16" width="16"> File headers</a>"""
-	print "</td>"
-
-	print "<td>"
-	print """<a href="javascript:toggleShowStrings()"><img src="/img/strings.png" height="16" width="16"> File strings</a>"""
-	print "</td>"
-
-	if len(signatures) > 0:
-		print "<td>"
-		print """<a href="javascript:toggleShowSignature()"><img src="/img/signature.png" height="16" width="16"> Signatures</a>"""
-		print "</td>"
-
-	if diff != " ":
-		print "<td>"
-		print """<a href="javascript:toggleShowDifference()"><img src="/img/report.png" height="16" width="16"> Differences</a>"""
-		print "</td>"
-
-	if pdfJavaScript != " ":
-		print "<td>"
-		print """<a href="javascript:toggleShowPdfJavaScript()"><img src="/img/strings.png" height="16" width="16"> PDF JavaScript</a>"""
-		print "</td>"
-
-	if pdfAnalysis != "":
-		print "<td>"
-		print """<a href="javascript:toggleShowPdfAnalysis()"><img src="/img/strings.png" height="16" width="16"> PDF Analysis</a>"""
-		print "</td>"
-
-	print "</tr><tr><td colspan='%s'><br />" % (colspan)
-	
-	#print "<img src='/img/analyzing.jpg'/>"
-	print "</td></tr>"
-	print "<tr><td colspan='%s'>" % (colspan)
-	
-	# Report
-	if report != " ":
-		print """<div id='divData' style="visibility:hidden;display:none;float: center; width: 50%;">"""
-		print "<textarea cols='150' rows='40'>"
-		
-		print cgi.escape(report)
-		
-		print "</textarea><br />"
-		print "</div>"
-	
-	# File headers
-	print """<div id='divHeaders' style="visibility:hidden;display:none;float: center; width: 50%;">"""
-	print """<textarea cols='150' rows='40'>"""
-	
-	print cgi.escape(headers)
-	
-	print "</textarea>"
-	print "</div>"
-	
-	# File strings
-	print """<div id='divStrings' style="visibility:hidden;display:none;float: center; width: 50%;">"""
-	print """<textarea cols='150' rows='40'>"""
-	
-	print cgi.escape(strings)
-	
-	print "</textarea>"
-	print "</div>"
-	
-	# Signatures
-	if len(signatures) > 0:
-		print """<div id='divSignatures' style="visibility:hidden;display:none;float: center; width: 50%;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(signatures)
-		
-		print "</textarea>"
-		print "</div>"
-	
-	# Differences
-	if diff != " ":
-		print """<div id='divDifferences' style="visibility:hidden;display:none;float: center; width: 50%;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(diff)
-		
-		print "</textarea>"
-		print "</div>"
-	
-	# PDF JavaScript
-	if pdfJavaScript != " ":
-		print """<div id='divPdfJavaScript' style="visibility:hidden;display:none;float: center; width: 50%;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(pdfJavaScript)
-		
-		print "</textarea>"
-		print "</div>"
-	
-	# PDF Analysis
-	if pdfAnalysis != "":
-		print """<div id='divPdfAnalysis' style="visibility:hidden;display:none;float: center; width: 50%;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(pdfAnalysis)
-		
-		print "</textarea>"
-		print "</div>"
-	
-	
-	print "</td></tr>"
-	
 	# Dumps
 	print """<tr><td colspan='%s'>""" % (colspan)
 	print """<div><br />Dumps:<br /><br /></div>"""
