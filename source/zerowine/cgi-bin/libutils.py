@@ -83,8 +83,16 @@ def printBodyHeader():
 <tr>
 <td>""" % (getJavascript(), getCSS())
 
-def printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnalysis):
+def printBodyDiv(divId, divData):
+	print """<div id='%s' style="visibility:hidden;display:none;">""" % divId
+	print "<textarea cols='150' rows='40'>"
+	
+	print cgi.escape(divData)
+	
+	print "</textarea>"
+	print "</div>"
 
+def printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnalysis):
 	colspan = 7
 
 	if report == " ":
@@ -104,7 +112,7 @@ def printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnal
 
 	if report != " ":
 		print "<td>"
-		print """<a href="javascript:toggleShowHide('divData')"><img src="/img/report.png" height="16" width="16"> Report</a>"""
+		print """<a href="javascript:toggleShowHide('divReport')"><img src="/img/report.png" height="16" width="16"> Report</a>"""
 		print "</td>"
 
 	print "<td>"
@@ -143,71 +151,29 @@ def printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnal
 	
 	# Report
 	if report != " ":
-		print """<div id='divData' style="visibility:hidden;display:none;">"""
-		print "<textarea cols='150' rows='40'>"
-		
-		print cgi.escape(report)
-		
-		print "</textarea><br />"
-		print "</div>"
+		printBodyDiv("divReport", report)
 	
 	# File headers
-	print """<div id='divHeaders' style="visibility:hidden;display:none;">"""
-	print """<textarea cols='150' rows='40'>"""
-	
-	print cgi.escape(headers)
-	
-	print "</textarea>"
-	print "</div>"
+	printBodyDiv("divHeaders", headers)
 	
 	# File strings
-	print """<div id='divStrings' style="visibility:hidden;display:none;">"""
-	print """<textarea cols='150' rows='40'>"""
-	
-	print cgi.escape(strings)
-	
-	print "</textarea>"
-	print "</div>"
+	printBodyDiv("divStrings", strings)
 	
 	# Signatures
 	if len(signatures) > 0:
-		print """<div id='divSignatures' style="visibility:hidden;display:none;;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(signatures)
-		
-		print "</textarea>"
-		print "</div>"
+		printBodyDiv("divSignatures", signatures)
 	
 	# Differences
 	if diff != " ":
-		print """<div id='divDifferences' style="visibility:hidden;display:none;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(diff)
-		
-		print "</textarea>"
-		print "</div>"
+		printBodyDiv("divDifferences", diff)
 	
 	# PDF JavaScript
 	if pdfJavaScript != " ":
-		print """<div id='divPdfJavaScript' style="visibility:hidden;display:none;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(pdfJavaScript)
-		
-		print "</textarea>"
-		print "</div>"
-	
+		printBodyDiv("divPdfJavaScript", pdfJavaScript)
+
 	# PDF Analysis
 	if pdfAnalysis != "":
-		print """<div id='divPdfAnalysis' style="visibility:hidden;display:none;">"""
-		print """<textarea cols='150' rows='40'>"""
-		
-		print cgi.escape(pdfAnalysis)
-		
-		print "</textarea>"
-		print "</div>"
+		printBodyDiv("divPdfAnalysis", pdfAnalysis)
 	
 	print "</td></tr>"
 	

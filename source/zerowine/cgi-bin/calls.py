@@ -167,7 +167,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'Reg(OpenKey|GetValue).*L"\w{2,9}file"',
 	'Reg(OpenKey|GetValue).*L"\w{2,9}\.file"',
 	'Reg(OpenKey|GetValue).*L"\w{2,9} File"',
-	'RegOpenKey.*L"\w{7,14}\\\\\\\\DefaultIcon"', ###
+	'RegOpenKey.*L"\w{2,9}file\\\\\\\\DefaultIcon"', ###
 	'RegOpenKey.*L"ProgID"',
 	'RegOpenKey.*L"command"',
 	'RegOpenKey.*L"shell"',
@@ -193,6 +193,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'CreateFileW.*L"NUL",',
 	
 	'DrawText.* ""',
+	'DrawText.* " "',
 	'DrawText.* L" "',
 	'SetWindowText.*""',
 	'SetWindowText.* " "',
