@@ -39,8 +39,54 @@ def showWarning(msg):
 	print warning
 	return msg
 
-def cleanFile(str):
-	return "malware.exe"
+"""Given a buffer
+Check the "file type" using the magic module
+Return a descriptive string of the detected type, or None
+"""
+def buffertype(buffer):
+	import magic
+	ms = magic.open(magic.MAGIC_NONE)
+	ms.load()
+	type = ms.buffer(buffer)
+	ms.close()
+	return type
+
+"""Given a filepath
+Check the "file type" using the magic module
+Return a descriptive string of the detected type, or None
+"""
+def filetype(str):
+	import magic
+	ms = magic.open(magic.MAGIC_NONE)
+	ms.load()
+	type = ms.file(str)
+	ms.close()
+	return type
+
+"""Given filename and optional contents of file
+Return "clean" name, with extension based on filetype detection
+"""
+def cleanFile(str,buffer=None):
+	import re
+	# by default, assume exe
+	extension = 'exe'
+	# preserve extension if filename has one
+	parts = re.split("[.]",str)
+	if len(parts) > 1:
+		extension = parts[-1]
+	else:
+		# or assume exe if no extension
+		extension = 'exe'
+	# if buffer not empty, then guess based on content
+	if buffer != None:
+		type = buffertype(buffer)
+		# detect PDF
+		if type[0:12] == 'PDF document':
+			extension = 'pdf'
+		# detection EXE
+		elif type[0:17] == 'MS-DOS executable':
+			extension = 'exe'
+	return "malware." + extension
 
 # Avoid some tricks
 def execFile(str):
