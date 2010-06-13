@@ -83,4 +83,6 @@ DEBUGGING_TRICKS = {
 	"SyserDbgMsg":"Syser Debugger detection",
 	"SyserBoot":"Syser Debugger detection",
 	"AVP.AlertDialog":"Kaspersky Anti Virus detection",
+	"AVP.Product_Notification":"Kaspersky Anti Virus detection",
+	"AHNTASK_SESSION":"AhnLab Anti Virus detection",
 	}
