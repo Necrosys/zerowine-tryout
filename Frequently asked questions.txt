@@ -1,0 +1,21 @@
+= What is the login id and password for the prebuilt QEMU image? =
+* id: root, password: zerowine1
+* id: malware, password: malware1
+** Note: malware user run zerowine.
+
+= Why no signature? =
+* Generally, process is crashed.
+
+= Why does my browser page say connection timed out? =
+* Pure QEMU is too slow, please use QEMU accelerator. (e.g. KQEMU)
+* You need to reduce timeout value.
+* Use view/download function to get result.
+
+= Why I cant run MSIL(.net) application? =
+* You need to install .net framework to wine.
+* If you want install .net framework. See [http://appdb.winehq.org/objectManager.php?sClass=application&iId=2586 this] page.
+* After install you MUST make .wine directory backup file before analyze sample. (./backup/backup.tar.gz)
+
+= Why [insert sample name here] doesnt run? =
+* Maybe DLL missing or maybe it's not Wine compatible or maybe Anti-Wine or maybe Anti-Debug, etc...
+* If you can trace Wine debug log, debug it yourself.
