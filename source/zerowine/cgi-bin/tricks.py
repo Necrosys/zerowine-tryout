@@ -85,4 +85,5 @@ DEBUGGING_TRICKS = {
 	"AVP.AlertDialog":"Kaspersky Anti Virus detection",
 	"AVP.Product_Notification":"Kaspersky Anti Virus detection",
 	"AHNTASK_SESSION":"AhnLab Anti Virus detection",
+	"wscui_class":"Windows Security Center detection",
 	}

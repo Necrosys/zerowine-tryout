@@ -281,10 +281,10 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegOpenKeyA.*"1\.0\.0"',
 	# Windows Script Host
 	'L"Software\\\\\\\\Microsoft\\\\\\\\Windows Script Host\\\\\\\\Settings"',
-	'L"VBSFile\\\\\\\\ScriptEngine"',
-	'L"VBEFile\\\\\\\\ScriptEngine"',
-	'L"JSFile\\\\\\\\ScriptEngine"',
-	'L"JSEFile\\\\\\\\ScriptEngine"',
+	'"VBSFile\\\\\\\\ScriptEngine"',
+	'"VBEFile\\\\\\\\ScriptEngine"',
+	'"JSFile\\\\\\\\ScriptEngine"',
+	'"JSEFile\\\\\\\\ScriptEngine"',
 	# CLSID
 	'RegOpenKey.*L"Interface\\\\\\\\{.*}\\\\\\\\ProxyStubClsid32",',
 	'RegOpenKey.*L"Interface\\\\\\\\{.*}\\\\\\\\Typelib",',
@@ -361,17 +361,16 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'CreateSemaphore.*"winemenubuilder_semaphore"',
 	'RegSetValueExA.*\(null\)\/.*\.desktop',
 	'RegSetValueExA.*\(null\)\/.*\.menu',
-"""
+
 	# Visual Basic
-	'"SOFTWARE\\\\\\\\Microsoft\\\\\\\\VBA\\\\\\\\Monitors",',
+#	'"SOFTWARE\\\\\\\\Microsoft\\\\\\\\VBA\\\\\\\\Monitors",',
 	# Delphi
-	'"Software\\\\\\\\Borland\\\\\\\\Locales",',
-	'"Software\\\\\\\\Borland\\\\\\\\Delphi\\\\\\\\Locales",',
+#	'"Software\\\\\\\\Borland\\\\\\\\Locales",',
+#	'"Software\\\\\\\\Borland\\\\\\\\Delphi\\\\\\\\Locales",',
 	# AutoIt v3
-	'"Software\\\\\\\\AutoIt v3\\\\\\\\AutoIt",',
+#	'"Software\\\\\\\\AutoIt v3\\\\\\\\AutoIt",',
 	# .NET
-	'"Software\\\\\\\\Novell\\\\\\\\Mono",',
+#	'"Software\\\\\\\\Novell\\\\\\\\Mono",',
 	# WinRAR SFX
-	'"Software\\\\\\\\WinRAR SFX\\\\\\\\",',
-"""
+#	'"Software\\\\\\\\WinRAR SFX\\\\\\\\",',
 	]
