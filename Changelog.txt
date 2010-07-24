@@ -1,3 +1,21 @@
+= Changes for 20100724 =
+* Version Alpha 3
+== Source Code ==
+* Implemented PDF analysis (By Frank Poz)
+* Improved extract javascript from pdf file
+* Started implementing medium-level report (Suggested by Curt Wilson)
+* Added more signature/trick patterns
+* Refactored some code
+* Result page passed HTML5 validation
+* Some minor change
+== Prebuilt QEMU image ==
+* Updated Debian (5.0.5)
+* Updated Wine (1.1.42)
+* Updated pefile (svn r76)
+* Updated UPX (3.05)
+* Updated TrIDDefs.TRD (3978 file types, 05/07/10)
+* Some minor change.
+
 = Changes for 20100325 =
 * Version Alpha 2
 * Update Wine. (1.1.41)
