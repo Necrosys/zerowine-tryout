@@ -49,17 +49,20 @@ def viewResult(phrase, results):
 	# if results isempty, then return
 	if len(results) <= 0:
 		return
+	print "<table border=1 cellspacing=2>"
+	print "<tr><th>Hits</th><th>Analysis Type</th><th>Hash</th></tr>"
 	# sort results in num_of_matches order
 	results.sort(reverse=True, key=lambda match: match[2])
 	# foreach results
 	for result in results:
 		# TODO: print sample name, sample hash as link to full analysis, analysis context
 		# hash, type, num_matches
-		print "<div>"
-		print "<b>" + result[0] + "</b>"
-		print "Type: " + result[1] + "<br/>"
-		print "#of matches: %d" % result[2]
-		print "</div>"
+		print "<tr>"
+		print "<td>%d</td>" % result[2]
+		print "<td>" + result[1] + "</td>"
+		print '<td><a href="/cgi-bin/view.py?hash=' + result[0] + '">' + result[0] + "</a></td>"
+		print "</tr>"
+	print "</table>"
 
 	return
 
