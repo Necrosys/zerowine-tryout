@@ -32,6 +32,8 @@ def viewResult(dirName):
 
 	debuggingtricks = readFile(dirName, TRICK_DEBUG_FILENAME)
 
+	tags = readFile(dirName, TAGS_FILENAME)
+
 	printHeader()
 	printBodyHeader()
 
@@ -43,8 +45,10 @@ def viewResult(dirName):
 
 	hashes = hashes.split("\n")
 	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes
+	tags = tags.split("\n")
 
-	print "<br />MD5: %s<br />" % hashMD5
+	print "<br />Tags: <b>%s</b><br />" % "</b>, <b>".join(tags)
+	print "MD5: %s<br />" % hashMD5
 	print "SHA-1: %s<br />" % hashSHA1
 	print "SHA-224: %s<br />" % hashSHA224
 	print "SHA-256: %s<br />" % hashSHA256

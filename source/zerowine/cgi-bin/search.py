@@ -41,6 +41,9 @@ def searchTrickVM(hash, phrase):
 def searchDiff(hash, phrase):
 	return searchGeneric(hash, phrase, DIFF_FILENAME)
 
+def searchTags(hash, phrase):
+	return searchGeneric(hash, phrase, TAGS_FILENAME)
+
 def viewResult(phrase, results):
 	# print search header: search phrase, TODO:time took to search, TODO:number of samples searched
 	print '<h1>Search Results</h1>'
@@ -113,6 +116,9 @@ if cgiParameters.has_key("search"):
 			num_match = searchDiff(hash, phrase)
 			if num_match > 0:
 				results.append( [ hash, 'Diff', num_match ] )
+			num_match = searchTags(hash, phrase)
+			if num_match > 0:
+				results.append( [ hash, 'Tags', num_match ] )
 
 		# show results
 		printHeader()

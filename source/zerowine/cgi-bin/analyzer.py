@@ -7,7 +7,7 @@ from config import *
 from libutils import *
 from libmalware import *
 
-def analyze(item, timeout, memory, version, subitem):
+def analyze(item, timeout, memory, version, subitem, tags):
 	printBodyHeader()
 
 	print "<h1>Sample analysis result</h1>" 
@@ -76,6 +76,7 @@ def analyze(item, timeout, memory, version, subitem):
 
 	saveAsFile(startTime, dirName, ANALYZE_START_FILENAME)
 	saveAsFile(finishTime, dirName, ANALYZE_FINISH_FILENAME)
+	saveAsFile("\n".join(tags), dirName, TAGS_FILENAME)
 
 	# HTML output
 
