@@ -2246,6 +2246,10 @@ ep_only=true
 signature=E8 00 00 00 00 5E 83 C6 14 AD 89 C7 AD 89 C1 AD 30 07 47 E2 FB AD FF E0 C3 00 ?? ?? 00 ?? ?? ?? 00 ?? ?? ?? ?? ?? ?? ?? 00 55 50 58 2D 53 68 69 74 20 76 30 2E 31 20 2D 20 77 77 77 2E 62 6C 61 63 6B 6C 6F 67 69 63 2E 6E 65 74 20 2D 20 63 6F 64 65 20 62 79 20 5B 35 30 30 6D 68 7A 5D
 ep_only=true
 
+[Private exe Protector V3.1.4 -> SetiSoft Team - Mato - 20100705]
+signature=50 00 72 00 69 00 76 00 61 00 74 00 65 00 20 00 65 00 78 00 65 00 20 00 50 00 72 00 6F 00 74 00 65 00 63 00 74 00 6F 00 72 00 00 00 34 00 08 00 01 00 50 00 72 00 6F 00 64 00 75 00 63 00 74 00 56 00 65 00 72 00 73 00 69 00 6F 00 6E 00 00 00 33 00 2E 00 31 00 2E 00 34 00 2E 00 30
+ep_only=false
+
 [nPack v1.1 250 Beta -> NEOx]
 signature=83 3D 04 ?? ?? ?? 00 75 05 E9 01 00 00 00 C3 E8 46 00 00 00 E8 73 00 00 00 B8 2E ?? ?? ?? 2B 05 08 ?? ?? ?? A3 00 ?? ?? ?? E8 9C 00 00 00 E8 04 02 00 00 E8 FB 06 00 00 E8 1B 06 00 00 A1 00 ?? ?? ?? C7 05 04 ?? ?? ?? 01 00 00 00 01 05 00 ?? ?? ?? FF 35 00 ?? ?? ?? C3 C3 56 57 68
 ep_only=true
@@ -3610,7 +3614,7 @@ ep_only=false
 signature=33 F6 2E F6 06 B0 06 FF 74 12 0E 58 8B D8 81 E3 00 F0 75 08 B1 04 D3 E0 2B F0 D3 EE 06 5B 0E 58 2B C3 B1 04 BB 35 07 8B D3 D3 EB 81 E2 0F 00 74 01 43 2B F3 7D 02 03 F3 03 D8 03 DE B8 00 4A CD 21 73 04 B4 4C CD 21 A1 2C 00 2E A3 05 07 2E 8C
 ep_only=false
 
-[V-Load 0.9?
+[V-Load 0.9]
 signature=33 F6 2E F6 06 B0 06 FF 74 12 0E 58 8B D8 81 E3 00 F0 75 08 B1 04 D3 E0 2B F0 D3 EE 06 5B 0E 58 2B C3 B1 04 BB 3A 07 8B D3 D3 EB 81 E2 0F 00 74 01 43 2B F3 7D 02 03 F3 03 D8 03 DE B8 00 4A CD 21 73 04 B4 4C CD 21 A1 2C 00 2E A3 0A 07 2E 8C
 ep_only=false
 
@@ -4094,7 +4098,7 @@ ep_only=false
 signature=8B EC FA 33 C0 8E D0 BC 10 00 2E 8F 06 CD 03 2E 8F 06 D2 03 EB 01 9A 0E BB C2 03 53 5F EB 01 9A 17 8B E5 FB 48 D1 E8 EB 01 9A CE 9A 9C EB 01 9A 59 80 CD 01 51 9D EB 01 9A 1E 33 DB 8E DB C7 47 10 00 00 C7 47 12 00 00 0E 1F 8B EC EB 01 9A FA
 ep_only=false
 
-[CrypteXeC 0.9?
+[CrypteXeC 0.9]
 signature=8B EC FA C7 46 F7 40 07 42 81 FA BD F3 75 F9 FF 66 F7 08 42 BE 27 1F 5B CC C2 C5 74 4B A3 A3 DB 93 1F C9 A6 C9 3A 7A 27 9F 38 F1 99 67 22 85 50 55 9C 23 39 77 85 94 34 E5 18 F9 06 A3 3E FA C4 3A 69 04 E8 09 AC 5F 97 EE D8 BE DA 05 00 06 99
 ep_only=false
 
@@ -4530,7 +4534,7 @@ ep_only=false
 signature=E8 04 00 00 00 8B EC 5D C3 33 C0 5D 8B FD 81 ED 33 26 40 00 81 EF 00 00 00 00 83 EF 05 89 AD 88 27 40 00 8D 9D 07 29 40 00 8D B5 62 28 40 00 46 80 3E 00 74 24 56 FF 95 9D 29 40 00 46 80 3E 00 75 FA 46 80 3E 00 74 E7 50 56 50 FF 95 A1 29 40
 ep_only=false
 
-[LamerStop 1.0?
+[LamerStop 1.0]
 signature=E8 9D 01 05 B4 30 CD 21 33 C0 8E C0 26 A1 04 00 2E A3 79 01 26 A1 06 00 2E A3 77 01 BA 3F 01 FA 26 89 16 04 00 26 8C 0E 06 00 8B EC 9C 80 76 FF 01 9D 90 D1 89 00 84 36 90 5C FF 84 3B 90 E1 D8 84 14 90 29 84 06 90 E3 C8 84 18 90 8D 02 84 F7
 ep_only=false
 
@@ -4582,7 +4586,7 @@ ep_only=false
 signature=EB 02 C7 85 1E EB 03 CD 20 C7 9C EB 02 69 B1 60 EB 02 EB 01 EB 01 EB E8 03 00 00 00 E9 EB 04 58 40 50 C3 EB 01 EB EB 02 CD 20 EB 03 CD 20 EB FC EB 02 C7 85 E8 00 00 00 00 EB 03 CD 20 EA 5E EB 03 CD 20 69 0F 01 4E F4 EB 03 CD 20 EB EB 01 EB
 ep_only=false
 
-[PELOCknt 2.02?
+[PELOCknt 2.02]
 signature=EB 02 C7 85 1E EB 03 CD 20 EB EB 01 EB 9C EB 01 EB EB 02 CD 20 60 EB 03 CD 20 EB E8 03 00 00 00 E9 EB 04 58 40 50 C3 EB 04 CD 20 EB 02 EB 02 CD 20 EB 03 CD 20 EA FC EB 03 CD 20 69 E8 00 00 00 00 EB 02 EB 01 EB 01 EB 5E EB 02 CD 20 0F 01 4E
 ep_only=false
 
@@ -6902,7 +6906,7 @@ ep_only=true
 signature=EB 58 53 68 61 72 65 77 61 72 65 2D 56 65 72 73 69 6F 6E 20 45 78 65 53 74 65 61 6C 74 68 2C 20 63 6F 6E 74 61 63 74 20 73 75 70 70 6F 72 74 40 77 65 62 74 6F 6F 6C 6D 61 73 74 65 72 2E 63 6F
 ep_only=true
 
-[LZEXE 0.91?
+[LZEXE 0.91]
 signature=50 06 0E 1F 8B 0E 0C 00 8B F1 4E 89 F7 8C DB 03 1E 0A 00 8E C3 FD F3 A4 53 B8 00 00 50 CB 2E 8B 2E 08 00 00 DA 89 E8 3D 00 10 76 03 B8 00 10 29 C5 29 C2 29 C3 8E DA 8E C3 B1 03 D3 E0 89 C1
 ep_only=false
 
@@ -7114,7 +7118,7 @@ ep_only=true
 signature=8C D8 1E E8 00 00 83 C0 0F 5D B9 00 00 81 ED EB 03 40 8E D8 2B DB B2 00 00 17 FE C2 43 83 FB 10 75 F6 E2 ED 1F 8C C0 03 C3 2E 01 86 25 04 2E 03 86 29 04 FA 2E 8B A6 27 04 8E D0 EB 00 EA
 ep_only=false
 
-[Encriptor 1.00?
+[Encriptor 1.00]
 signature=B9 60 EA BE 87 01 BF 87 01 AC D0 C8 AA E2 FA BE 6E 01 BF 48 EE AC AA 81 FE 87 01 75 F8 8C C8 BF 48 EE FF E7 BE 88 01 BF 00 01 B9 60 EA F3 A4 B8 00 00 BB 00 00 B9 00 00 BF 00 01 FF E7 24
 ep_only=false
 
@@ -8566,10 +8570,6 @@ ep_only=true
 signature=FA BE 00 00 05 0C 00 07 1D 4A 46 1E 16 FD AC 44 ?? ?? ?? ?? F1 6D 84 D3 3D ?? ?? CF AF FB 34 DB 33 ?? ?? ?? ?? ?? D0 D6 ?? ?? 92 B4 24 9E
 ep_only=true
 
-[MASM/TASM (Lenguaje Compilador)]
-signature=6A 00 E8 ?? ?? 00 00 A3 ?? ?? 40 00 ?? ?? ?? ?? ?? ?? ?? 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 ?? ?? ??
-ep_only=true
-
 [aPack 0.98 - 0.99 -x [EXE]]
 signature=1E 06 8C CB BA 00 00 03 DA FC 33 F6 33 FF 4B 8E DB 8D 87 00 00 8E C0 B9 08 00 F3 A5 4A 75 EB 8E C3 8E D8 33 FF BE 00 00 05 00 00 0E 50
 ep_only=false
@@ -8628,6 +8628,10 @@ ep_only=true
 
 [* PseudoSigner 0.1 [JDPack 1.x / JDProtect 0.9] --> Anorganix]
 signature=60 E8 22 00 00 00 5D 8B D5 81 ED 90 90 90 90 2B 95 90 90 90 90 81 EA 06 90 90 90 89 95 90 90 90 90 83 BD 45 00 01 00 01 E9 ?? ?? ?? ??
+ep_only=true
+
+[MASM/TASM (Lenguaje Compilador)]
+signature=6A 00 E8 ?? ?? 00 00 A3 ?? ?? 40 00 ?? ?? ?? ?? ?? ?? ?? 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 ?? ?? ??
 ep_only=true
 
 [* PseudoSigner 0.1 [ExeSmasher] --> Anorganix]
@@ -16766,7 +16770,7 @@ ep_only=true
 signature=55 8B EC 56 57 BF ?? ?? ?? ?? 8B ?? ?? 3B F7 0F
 ep_only=true
 
-[?é²¸?EXE?‡ä»¶?†ç»‘??ä¼šå‘˜ä¸“ç‰ˆ -> ?ˆç»??
+[?é²¸?EXE?‡ä»¶?†ç»‘??ä¼šå‘˜ä¸“ç‰ˆ -> ?ˆç»?]
 signature=55 8B EC 83 C4 E4 53 56 57 33 C0 89 45 E4 89 45
 ep_only=true
 
