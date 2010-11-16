@@ -1,4 +1,14 @@
 #!/usr/bin/python
+#
+# To add a new search type, create a new function like below
+# and call it after the
+#     if not values or "all" in values:
+# line, like the others
+#         num_match = yourfunction(hash, phrase)
+#         if num_match > 0:
+#             results.append( [ hash, 'UNIQUE DESCRIPTIVE NAME', num_match ] )
+# remembering to create a UNIQUE DESCRIPTIVE NAME.
+#
 
 import os
 import cgi
@@ -8,6 +18,10 @@ from libutils import *
 from config import *
 from libmalware import *
 
+
+#############################################################
+# given a hash, search phrase, and filename to search within
+# return number of matches found
 def searchGeneric(hash, phrase, filename):
 	dirName = SAMPLE_DIR + os.sep + hash
 	if not os.path.isfile(dirName + os.sep + filename):
@@ -15,8 +29,9 @@ def searchGeneric(hash, phrase, filename):
 	text = readFile(dirName, filename)
 	return text.count(phrase)
 
-# given a hash and a search phrase
-# returns number of matches found
+#############################################################
+
+
 def searchStrings(hash, phrase):
 	return searchGeneric(hash, phrase, FILE_STRING_FILENAME)
 
@@ -76,6 +91,8 @@ cgiParameters = cgi.FieldStorage()
 # Check to see that we have our required parameters
 if cgiParameters.has_key("search"):
 	item = cgiParameters["search"]
+	# search only given type(s), default all
+	types = cgiParameters.getlist("type")
 
 	# iterate through results, building table of sample names and search contexts
 	if item.value and not item.value == "":
@@ -91,34 +108,40 @@ if cgiParameters.has_key("search"):
 		# iterate through samples' analyses
 		for hash in hashes:
 			# for each analysis type
-			num_match = searchStrings(hash, phrase)
-			# if searchX == 1 then results.append( [ sample name, analysis type that matched, number of matches ] )
-			if num_match > 0:
-				results.append( [ hash, 'Strings', num_match ] )
-			num_match = searchHashes(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'Hashes', num_match ] )
-			num_match = searchHeader(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'Header', num_match ] )
-			num_match = searchPDFAnalysis(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'PDF Analysis', num_match ] )
-			num_match = searchPDFJavascript(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'PDF Javascript', num_match ] )
-			num_match = searchTrickDebug(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'Debug Tricks', num_match ] )
-			num_match = searchTrickVM(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'VM Tricks', num_match ] )
-			num_match = searchDiff(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'Diff', num_match ] )
-			num_match = searchTags(hash, phrase)
-			if num_match > 0:
-				results.append( [ hash, 'Tags', num_match ] )
+			# if num_match > 0 then results.append( [ sample name, analysis type that matched, number of matches ] )
+			if not values or "all" in values or "strings" in values:
+				num_match = searchStrings(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'Strings', num_match ] )
+			if not values or "all" in values or "hashes" in values:
+				num_match = searchHashes(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'Hashes', num_match ] )
+			if not values or "all" in values or "pdfanalysis" in values:
+				num_match = searchPDFAnalysis(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'PDF Analysis', num_match ] )
+			if not values or "all" in values or "pdfanalysis" in values:
+				num_match = searchPDFJavascript(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'PDF Javascript', num_match ] )
+			if not values or "all" in values or "tags" in values:
+				num_match = searchTags(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'Tags', num_match ] )
+			if not values or "all" in values:
+				num_match = searchHeader(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'Header', num_match ] )
+				num_match = searchTrickDebug(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'Debug Tricks', num_match ] )
+				num_match = searchTrickVM(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'VM Tricks', num_match ] )
+				num_match = searchDiff(hash, phrase)
+				if num_match > 0:
+					results.append( [ hash, 'Diff', num_match ] )
 
 		# show results
 		printHeader()
