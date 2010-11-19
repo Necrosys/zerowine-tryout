@@ -2,7 +2,7 @@
 #
 # To add a new search type, create a new function like below
 # and call it after the
-#     if not values or "all" in values:
+#     if not types or "all" in types:
 # line, like the others
 #         num_match = yourfunction(hash, phrase)
 #         if num_match > 0:
@@ -109,27 +109,27 @@ if cgiParameters.has_key("search"):
 		for hash in hashes:
 			# for each analysis type
 			# if num_match > 0 then results.append( [ sample name, analysis type that matched, number of matches ] )
-			if not values or "all" in values or "strings" in values:
+			if not types or "all" in types or "strings" in types:
 				num_match = searchStrings(hash, phrase)
 				if num_match > 0:
 					results.append( [ hash, 'Strings', num_match ] )
-			if not values or "all" in values or "hashes" in values:
+			if not types or "all" in types or "hashes" in types:
 				num_match = searchHashes(hash, phrase)
 				if num_match > 0:
 					results.append( [ hash, 'Hashes', num_match ] )
-			if not values or "all" in values or "pdfanalysis" in values:
+			if not types or "all" in types or "pdfanalysis" in types:
 				num_match = searchPDFAnalysis(hash, phrase)
 				if num_match > 0:
 					results.append( [ hash, 'PDF Analysis', num_match ] )
-			if not values or "all" in values or "pdfanalysis" in values:
+			if not types or "all" in types or "pdfanalysis" in types:
 				num_match = searchPDFJavascript(hash, phrase)
 				if num_match > 0:
 					results.append( [ hash, 'PDF Javascript', num_match ] )
-			if not values or "all" in values or "tags" in values:
+			if not types or "all" in types or "tags" in types:
 				num_match = searchTags(hash, phrase)
 				if num_match > 0:
 					results.append( [ hash, 'Tags', num_match ] )
-			if not values or "all" in values:
+			if not types or "all" in types:
 				num_match = searchHeader(hash, phrase)
 				if num_match > 0:
 					results.append( [ hash, 'Header', num_match ] )
