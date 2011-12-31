@@ -16,7 +16,7 @@ else:
 	printHeader()
 
 	if not form.has_key("fileName"):
-		dieError("Bad arguments")
+		dieError("No file name")
 
 	item = form["fileName"]
 
@@ -74,5 +74,10 @@ else:
 	else:
 		version = form.getvalue("version")
 
-	analyze(item, timeout, memory, version, subitem, tags)
+	if not form.has_key("unpack"):
+		unpack = "False"
+	else:
+		unpack = form.getvalue("unpack")
+
+	analyze(item, timeout, memory, version, subitem, tags, unpack)
 	

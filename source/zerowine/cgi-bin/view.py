@@ -33,6 +33,7 @@ def viewResult(dirName):
 	debuggingtricks = readFile(dirName, TRICK_DEBUG_FILENAME)
 
 	tags = readFile(dirName, TAGS_FILENAME)
+	fileSize = readFile(dirName, FILE_SIZE_FILENAME)
 
 	printHeader()
 	printBodyHeader()
@@ -41,7 +42,7 @@ def viewResult(dirName):
 
 	print "<h1>Sample analysis result</h1>" 
 	print "Original file name: <b>%s</b>" % cgi.escape(origFileName)
-	print "<br />"
+	print "<br />File size: %s bytes<br />" % fileSize
 
 	hashes = hashes.split("\n")
 	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes

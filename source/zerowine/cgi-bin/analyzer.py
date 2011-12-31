@@ -7,7 +7,7 @@ from config import *
 from libutils import *
 from libmalware import *
 
-def analyze(item, timeout, memory, version, subitem, tags):
+def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	printBodyHeader()
 
 	print "<h1>Sample analysis result</h1>" 
@@ -16,7 +16,7 @@ def analyze(item, timeout, memory, version, subitem, tags):
 
 	startTime = time.ctime()
 
-	msg, dirName, fileName, execfileName, hashes, warnings, diff = analyzeMalware(item, timeout, memory, version, subitem)
+	msg, dirName, fileName, execfileName, hashes, warnings, diff, fileSize = analyzeMalware(item, timeout, memory, version, subitem)
 
 	dirName = SAMPLE_DIR + os.sep + dirName
 
@@ -29,7 +29,9 @@ def analyze(item, timeout, memory, version, subitem, tags):
 
 	headers = getHeaders(fileName)
 
-	unpackFile(headers, fileName)
+	if unpack == "True":
+		unpackFile(headers, fileName)
+
 	stringList = getStrings(fileName)
 	strings = "".join(stringList)
 
@@ -77,6 +79,7 @@ def analyze(item, timeout, memory, version, subitem, tags):
 	saveAsFile(startTime, dirName, ANALYZE_START_FILENAME)
 	saveAsFile(finishTime, dirName, ANALYZE_FINISH_FILENAME)
 	saveAsFile("\n".join(tags), dirName, TAGS_FILENAME)
+	saveAsFile(str(fileSize), dirName, FILE_SIZE_FILENAME)
 
 	# HTML output
 

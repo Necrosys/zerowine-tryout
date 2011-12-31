@@ -32,6 +32,10 @@ TRID_SIGNATURE_PATH = "%s/bin/TrIDDefs.TRD" % (NONGPL_DIR)
 MIN_TIMEOUT = 10
 MAX_TIMEOUT = 900
 
+# File size
+MIN_SIZE = 1024
+MAX_SIZE = 104857600
+
 # File name
 FILE_NAME_ORIG_FILENAME = "file.name.orig.txt"
 FILE_NAME_EXEC_FILENAME = "file.name.exec.txt"
@@ -56,6 +60,7 @@ ANALYZE_FINISH_FILENAME = "analyze.finish.txt"
 TCPDUMP_FILENAME = "dump-network-pcap"
 
 TAGS_FILENAME = "tags.txt"
+FILE_SIZE_FILENAME = "file.size.txt"
 
 # Other
 TCPDUMP_OPTION_READ = "-vvv -x -X"

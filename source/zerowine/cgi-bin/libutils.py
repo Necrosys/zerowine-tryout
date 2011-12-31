@@ -17,7 +17,7 @@ def isCgiMode():
 
 def dieError(msg):
 	if isCgiMode():
-		print "<font color='red'>%s</font>" % cgi.escape(msg)
+		print "<font color='red'>FATAL: %s</font>" % cgi.escape(msg)
 	else:
 		print msg
 	sys.exit(0)
