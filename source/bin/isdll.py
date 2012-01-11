@@ -7,9 +7,8 @@ def main(filename):
     pe = pefile.PE(filename, fast_load=True)
 
     if pe.FILE_HEADER.Characteristics & 0x2000 != 0:
-        return 0
-    else:
-        return 1
+		# If DLL
+        print "DLL"
 
 def usage():
     print "Usage:", sys.argv[0], "<PE file>"

@@ -23,7 +23,12 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	idx = -1
 	for line in msg:
 		idx += 1
+		# If EXE
 		if line.find("Starting process") > -1 and line.find(execfileName) > -1:
+			lines = msg[idx:]
+			break
+		# If DLL
+		elif line.find("load_native_dll") > -1 and line.find(execfileName) > -1:
 			lines = msg[idx:]
 			break
 
