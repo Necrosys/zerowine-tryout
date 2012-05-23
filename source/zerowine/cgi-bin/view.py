@@ -47,8 +47,14 @@ def viewResult(dirName):
 	hashes = hashes.split("\n")
 	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes
 	tags = tags.split("\n")
+	
+	# XSS protection
+	escapedTags = []
+	for tag in tags:
+		tag = cgi.escape(tag)
+		escapedTags.append(tag)
 
-	print "<br />Tags: <b>%s</b><br />" % "</b>, <b>".join(tags)
+	print "<br />Tags: <b>%s</b><br />" % "</b>, <b>".join(escapedTags)
 	print "MD5: %s<br />" % hashMD5
 	print "SHA-1: %s<br />" % hashSHA1
 	print "SHA-224: %s<br />" % hashSHA224

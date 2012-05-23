@@ -62,7 +62,7 @@ def searchTags(hash, phrase):
 def viewResult(phrase, results):
 	# print search header: search phrase, TODO:time took to search, TODO:number of samples searched
 	print '<h1>Search Results</h1>'
-	print '<h2>Search Phrase: "' + phrase + '"</h2>'
+	print '<h2>Search Phrase: "' + cgi.escape(phrase) + '"</h2>' # XSS protection
 	print '<p>Number of results: %d</p>' % len(results)
 	# if results isempty, then return
 	if len(results) <= 0:

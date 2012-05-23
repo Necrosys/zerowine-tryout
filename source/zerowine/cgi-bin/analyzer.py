@@ -10,10 +10,6 @@ from libmalware import *
 def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	printBodyHeader()
 
-	print "<h1>Sample analysis result</h1>" 
-	print "Original file name: <b>%s</b>" % cgi.escape(item.filename)
-	print "<br />"
-
 	startTime = time.ctime()
 
 	msg, dirName, fileName, execfileName, hashes, warnings, diff, fileSize = analyzeMalware(item, timeout, memory, version, subitem)
@@ -86,45 +82,8 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	saveAsFile("\n".join(tags), dirName, TAGS_FILENAME)
 	saveAsFile(str(fileSize), dirName, FILE_SIZE_FILENAME)
 
-	# HTML output
-
-	colspan = printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnalysis)
-	
-	# Dumps
-	print """<tr><td colspan='%s'>""" % (colspan)
-	print """<div><br />Dumps:<br /><br /></div>"""
-	print """</td></tr>"""
-	print """<tr><td colspan='%s'>""" % (colspan)
-	
-	showDumps(dirName)
-	
-	print "</td></tr>"
-	
-	# Debugger detection tricks
-	if msg != " ":
-		print """<tr><td colspan='%s'>""" % (colspan)
-		print """<div><br />Debugger detection tricks:<br /><br /></div>"""
-		print """</td></tr>"""
-		print """<tr><td colspan='%s'>""" % (colspan)
-		
-		showDebuggingTricks(msg)
-		
-		print """</td></tr>"""
-	
-	# Virtual Machine detection tricks
-	print """<tr><td colspan='%s'>""" % (colspan)
-	print """<div><br />Virtual Machine detection tricks:<br /><br /></div>"""
-	print """</td></tr>"""
-	print """<tr><td colspan='%s'>""" % (colspan)
-	
-	showVMDetectionTricks(fileName, dirName)
-	
-	print """</td></tr></table>"""
-	print """</div>"""
-	
-	print "<br />"
-
-	print "<br /><div>Analyze started at %s</div>" % (startTime)
-	print "<div>Analyze finished at %s</div>" % (finishTime)
+	# Result link
+	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes
+	print '<a href="/cgi-bin/view.py?hash=' + hashSHA512 + '">View result</a>'
 	
 	printBodyFooter()
