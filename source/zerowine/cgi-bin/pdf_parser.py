@@ -2,10 +2,10 @@
 
 __description__ = 'pdf-parser, use it to parse a PDF document'
 __author__ = 'Didier Stevens'
-__version__ = '0.3.7'
-__date__ = '2010/01/09'
+__version__ = '0.3.9'
+__date__ = '2012/03/11'
 __minimum_python_version__ = (2, 5, 1)
-__maximum_python_version__ = (2, 6, 4)
+__maximum_python_version__ = (3, 1, 2)
 
 """
 Source code put in public domain by Didier Stevens, no Copyright
@@ -33,6 +33,9 @@ History:
   2009/08/30: V0.3.6 TestPythonVersion
   2010/01/08: V0.3.7 Added RLE and LZW support (thanks pARODY); added dump option
   2010/01/09: Fixed parsing of incomplete startxref
+  2010/09/22: V0.3.8 Changed dump option, updated PrettyPrint, added debug option
+  2011/12/17: fixed bugs empty objects
+  2012/03/11: V0.3.9 fixed bugs double nested [] in PrettyPrintSub (thanks kurt)
 
 Todo:
   - handle printf todo
@@ -48,7 +51,11 @@ import zlib
 import binascii
 import hashlib
 import sys
-import cStringIO
+if sys.version_info[0] >= 3:
+    import io
+    cStringIO = io.StringIO
+else:
+    import cStringIO
 
 CHAR_WHITESPACE = 1
 CHAR_DELIMITER = 2
@@ -211,22 +218,22 @@ class cPDFParser:
                             if self.context != CONTEXT_NONE:
                                 self.content.append((CHAR_DELIMITER, self.token[1] + self.token2[1]))
                             elif self.verbose:
-                                print 'todo 1: %s' % (self.token[1] + self.token2[1])
+                                print('todo 1: %s' % (self.token[1] + self.token2[1]))
                         else:
                             self.oPDFTokenizer.unget(self.token2)
                             if self.context != CONTEXT_NONE:
                                 self.content.append(self.token)
                             elif self.verbose:
-                                print 'todo 2: %d %s' % (self.token[0], repr(self.token[1]))
+                                print('todo 2: %d %s' % (self.token[0], repr(self.token[1])))
                     elif self.context != CONTEXT_NONE:
                         self.content.append(self.token)
                     elif self.verbose:
-                        print 'todo 3: %d %s' % (self.token[0], repr(self.token[1]))
+                        print('todo 3: %d %s' % (self.token[0], repr(self.token[1])))
                 elif self.token[0] == CHAR_WHITESPACE:
                     if self.context != CONTEXT_NONE:
                         self.content.append(self.token)
                     elif self.verbose:
-                        print 'todo 4: %d %s' % (self.token[0], repr(self.token[1]))
+                        print('todo 4: %d %s' % (self.token[0], repr(self.token[1])))
                 else:
                     if self.context == CONTEXT_OBJ:
                         if self.token[1] == 'endobj':
@@ -267,11 +274,11 @@ class cPDFParser:
                                     self.oPDFTokenizer.unget(self.token3)
                                     self.oPDFTokenizer.unget(self.token2)
                                     if self.verbose:
-                                        print 'todo 6: %d %s' % (self.token[0], repr(self.token[1]))
+                                        print('todo 6: %d %s' % (self.token[0], repr(self.token[1])))
                             else:
                                 self.oPDFTokenizer.unget(self.token2)
                                 if self.verbose:
-                                    print 'todo 7: %d %s' % (self.token[0], repr(self.token[1]))
+                                    print('todo 7: %d %s' % (self.token[0], repr(self.token[1])))
                         elif self.token[1] == 'trailer':
                             self.context = CONTEXT_TRAILER
                             self.content = [self.token]
@@ -285,7 +292,7 @@ class cPDFParser:
                             else:
                                 self.oPDFTokenizer.unget(self.token2)
                                 if self.verbose:
-                                    print 'todo 9: %d %s' % (self.token[0], repr(self.token[1]))
+                                    print('todo 9: %d %s' % (self.token[0], repr(self.token[1])))
                         elif self.extract:
                             self.bytes = ''
                             while self.token:
@@ -293,7 +300,7 @@ class cPDFParser:
                                 self.token = self.oPDFTokenizer.Token()
                             return cPDFElementMalformed(self.bytes)
                         elif self.verbose:
-                            print 'todo 10: %d %s' % (self.token[0], repr(self.token[1]))
+                            print('todo 10: %d %s' % (self.token[0], repr(self.token[1])))
             else:
                 break
 
@@ -302,9 +309,9 @@ class cPDFElementComment:
         self.type = PDF_ELEMENT_COMMENT
         self.comment = comment
 #                        if re.match('^%PDF-[0-9]\.[0-9]', self.token[1]):
-#                            print repr(self.token[1])
+#                            print(repr(self.token[1]))
 #                        elif re.match('^%%EOF', self.token[1]):
-#                            print repr(self.token[1])
+#                            print(repr(self.token[1]))
 
 class cPDFElementXref:
     def __init__(self, content):
@@ -454,12 +461,12 @@ class cPDFElementMalformed:
         self.content = content
 
 def TrimLWhiteSpace(data):
-    while data[0][0] == CHAR_WHITESPACE:
+    while data != [] and data[0][0] == CHAR_WHITESPACE:
         data = data[1:]
     return data
 
 def TrimRWhiteSpace(data):
-    while data[-1][0] == CHAR_WHITESPACE:
+    while data != [] and data[-1][0] == CHAR_WHITESPACE:
         data = data[:-1]
     return data
 
@@ -468,8 +475,10 @@ class cPDFParseDictionary:
         self.content = content
         self.nocanonicalizedoutput = nocanonicalizedoutput
         dataTrimmed = TrimLWhiteSpace(TrimRWhiteSpace(self.content))
-        if self.isOpenDictionary(dataTrimmed[0]) and self.isCloseDictionary(dataTrimmed[-1]):
-            self.parsed = self.ParseDictionary(dataTrimmed)
+        if dataTrimmed == []:
+            self.parsed = None
+        elif self.isOpenDictionary(dataTrimmed[0]) and self.isCloseDictionary(dataTrimmed[-1]):
+            self.parsed = self.ParseDictionary(dataTrimmed)[0]
         else:
             self.parsed = None
 
@@ -487,24 +496,35 @@ class cPDFParseDictionary:
                 if self.isOpenDictionary(tokens[0]):
                     state = 1
                 else:
-                    return None
+                    return None, tokens
             elif state == 1:
                 if self.isOpenDictionary(tokens[0]):
                     pass
                 elif self.isCloseDictionary(tokens[0]):
-                    return dictionary
+                    return dictionary, tokens
                 elif tokens[0][0] != CHAR_WHITESPACE:
                     key = ConditionalCanonicalize(tokens[0][1], self.nocanonicalizedoutput)
                     value = []
                     state = 2
             elif state == 2:
                 if self.isOpenDictionary(tokens[0]):
-                    pass
+                    value, tokens = self.ParseDictionary(tokens)
+                    dictionary.append((key, value))
+                    state = 1
                 elif self.isCloseDictionary(tokens[0]):
                     dictionary.append((key, value))
-                    return dictionary
+                    return dictionary, tokens
                 elif value == [] and tokens[0][0] == CHAR_WHITESPACE:
                     pass
+                elif value == [] and tokens[0][1] == '[':
+                    value.append(tokens[0][1])
+                elif value != [] and value[0] == '[' and tokens[0][1] != ']':
+                    value.append(tokens[0][1])
+                elif value != [] and value[0] == '[' and tokens[0][1] == ']':
+                    value.append(tokens[0][1])
+                    dictionary.append((key, value))
+                    value = []
+                    state = 1
                 elif value != [] and tokens[0][1][0] == '/':
                     dictionary.append((key, value))
                     key = ConditionalCanonicalize(tokens[0][1], self.nocanonicalizedoutput)
@@ -517,12 +537,21 @@ class cPDFParseDictionary:
     def retrieve(self):
         return self.parsed
 
+    def PrettyPrintSub(self, prefix, dictionary):
+        if dictionary != None:
+            print('%s<<' % prefix)
+            for e in dictionary:
+                if e[1] == []:
+                    print('%s  %s' % (prefix, e[0]))
+                elif type(e[1][0]) == type(''):
+                    print('%s  %s %s' % (prefix, e[0], ''.join(e[1]).strip()))
+                else:
+                    print('%s  %s' % (prefix, e[0]))
+                    self.PrettyPrintSub(prefix + '    ', e[1])
+            print('%s>>' % prefix)
+
     def PrettyPrint(self, prefix):
-        if self.parsed != None:
-            print '%s<<' % prefix
-            for e in self.parsed:
-                print '%s  %s %s' % (prefix, e[0], ''.join(e[1]))
-            print '%s>>' % prefix
+        self.PrettyPrintSub(prefix, self.parsed)
 
 def FormatOutput(data, raw):
     if raw:
@@ -534,32 +563,41 @@ def FormatOutput(data, raw):
         return repr(data)
 
 def PrintObject(object, options):
-    print 'obj %d %d' % (object.id, object.version)
-    print ' Type: %s' % ConditionalCanonicalize(object.GetType(), options.nocanonicalizedoutput)
-    print ' Referencing: %s' % ', '.join(map(lambda x: '%s %s %s' % x, object.GetReferences()))
-    stream = object.ContainsStream()
+    print('obj %d %d' % (object.id, object.version))
+    print(' Type: %s' % ConditionalCanonicalize(object.GetType(), options.nocanonicalizedoutput))
+    print(' Referencing: %s' % ', '.join(map(lambda x: '%s %s %s' % x, object.GetReferences())))
+    dataPrecedingStream = object.ContainsStream()
     oPDFParseDictionary = None
-    if stream:
-        print ' Contains stream'
-        print ' %s' % FormatOutput(stream, options.raw)
-        oPDFParseDictionary = cPDFParseDictionary(stream, options.nocanonicalizedoutput)
+    if dataPrecedingStream:
+        print(' Contains stream')
+        if options.debug:
+            print(' %s' % FormatOutput(dataPrecedingStream, options.raw))
+        oPDFParseDictionary = cPDFParseDictionary(dataPrecedingStream, options.nocanonicalizedoutput)
     else:
-        print ' %s' % FormatOutput(object.content, options.raw)
+        if options.debug:
+            print(' %s' % FormatOutput(object.content, options.raw))
         oPDFParseDictionary = cPDFParseDictionary(object.content, options.nocanonicalizedoutput)
-    print
-    oPDFParseDictionary.PrettyPrint(' ')
-    print
+    print('')
+    oPDFParseDictionary.PrettyPrint('  ')
+    print('')
     if options.filter and not options.dump:
         filtered = object.Stream()
         if filtered == []:
-            print ' %s' % FormatOutput(object.content, options.raw)
+            print(' %s' % FormatOutput(object.content, options.raw))
         else:
-            print ' %s' % FormatOutput(filtered, options.raw)
+            print(' %s' % FormatOutput(filtered, options.raw))
     if options.dump:
-        print 'Start dump:'
-        print object.Stream(False)
-        print 'End dump'
-    print
+        filtered = object.Stream(options.filter == True)
+        try:
+            fDump = open(options.dump, 'wb')
+            try:
+                fDump.write(filtered)
+            except:
+                print('Error writing file %s' % options.extract)
+            fDump.close()
+        except:
+            print('Error writing file %s' % options.extract)
+    print('')
     return
 
 def Canonicalize(sIn):
@@ -730,7 +768,7 @@ def Main():
 
     oParser = optparse.OptionParser(usage='usage: %prog [options] pdf-file\n' + __description__, version='%prog ' + __version__)
     oParser.add_option('-s', '--search', help='string to search in indirect objects (except streams)')
-    oParser.add_option('-f', '--filter', action='store_true', default=False, help='pass stream object through filters (FlateDecode, ASCIIHexDecode and ASCII85Decode only)')
+    oParser.add_option('-f', '--filter', action='store_true', default=False, help='pass stream object through filters (FlateDecode, ASCIIHexDecode, ASCII85Decode, LZWDecode and RunLengthDecode only)')
     oParser.add_option('-o', '--object', help='id of indirect object to select (version independent)')
     oParser.add_option('-r', '--reference', help='id of indirect object being referenced (version independent)')
     oParser.add_option('-e', '--elements', help='type of elements to select (cxtsi)')
@@ -741,16 +779,17 @@ def Main():
     oParser.add_option('-x', '--extract', help='filename to extract to')
     oParser.add_option('-H', '--hash', action='store_true', default=False, help='display hash of objects')
     oParser.add_option('-n', '--nocanonicalizedoutput', action='store_true', default=False, help='do not canonicalize the output')
-    oParser.add_option('-d', '--dump', action='store_true', default=False, help='dump unfiltered content of a stream')
+    oParser.add_option('-d', '--dump', help='filename to dump stream content to')
+    oParser.add_option('-D', '--debug', action='store_true', default=False, help='display debug info')
     (options, args) = oParser.parse_args()
 
     if len(args) != 1:
         oParser.print_help()
-        print ''
-        print '  %s' % __description__
-        print '  Source code put in the public domain by Didier Stevens, no Copyright'
-        print '  Use at your own risk'
-        print '  https://DidierStevens.com'
+        print('')
+        print('  %s' % __description__)
+        print('  Source code put in the public domain by Didier Stevens, no Copyright')
+        print('  Use at your own risk')
+        print('  https://DidierStevens.com')
 
     else:
         oPDFParser = cPDFParser(args[0], options.verbose, options.extract)
@@ -779,7 +818,7 @@ def Main():
                 elif c == 'i':
                     selectIndirectObject = True
                 else:
-                    print 'Error: unknown --elements value %s' % c
+                    print('Error: unknown --elements value %s' % c)
                     return
         else:
             selectIndirectObject = True
@@ -815,22 +854,25 @@ def Main():
                             dicObjectTypes[type].append(object.id)
                 else:
                     if object.type == PDF_ELEMENT_COMMENT and selectComment:
-                        print 'PDF Comment %s' % FormatOutput(object.comment, options.raw)
-                        print
+                        print('PDF Comment %s' % FormatOutput(object.comment, options.raw))
+                        print('')
                     elif object.type == PDF_ELEMENT_XREF and selectXref:
-                        print 'xref %s' % FormatOutput(object.content, options.raw)
-                        print
+                        if options.debug:
+                            print('xref %s' % FormatOutput(object.content, options.raw))
+                        else:
+                            print('xref')
+                        print('')
                     elif object.type == PDF_ELEMENT_TRAILER and selectTrailer:
                         oPDFParseDictionary = cPDFParseDictionary(object.content[1:], options.nocanonicalizedoutput)
                         if oPDFParseDictionary == None:
-                            print 'trailer %s' % FormatOutput(object.content, options.raw)
+                            print('trailer %s' % FormatOutput(object.content, options.raw))
                         else:
-                            print 'trailer'
-                            oPDFParseDictionary.PrettyPrint(' ')
-                        print
+                            print('trailer')
+                            oPDFParseDictionary.PrettyPrint('  ')
+                        print('')
                     elif object.type == PDF_ELEMENT_STARTXREF and selectStartXref:
-                        print 'startxref %d' % object.index
-                        print
+                        print('startxref %d' % object.index)
+                        print('')
                     elif object.type == PDF_ELEMENT_INDIRECT_OBJECT and selectIndirectObject:
                         if options.search:
                             if object.Contains(options.search):
@@ -845,10 +887,10 @@ def Main():
                             if EqualCanonical(object.GetType(), optionsType):
                                 PrintObject(object, options)
                         elif options.hash:
-                            print 'obj %d %d' % (object.id, object.version)
+                            print('obj %d %d' % (object.id, object.version))
                             rawContent = FormatOutput(object.content, True)
-                            print ' len: %d md5: %s' % (len(rawContent), hashlib.md5(rawContent).hexdigest())
-                            print
+                            print(' len: %d md5: %s' % (len(rawContent), hashlib.md5(rawContent).hexdigest()))
+                            print('')
                         else:
                             PrintObject(object, options)
                     elif object.type == PDF_ELEMENT_MALFORMED:
@@ -857,42 +899,42 @@ def Main():
                             try:
                                 fExtract.write(object.content)
                             except:
-                                print 'Error writing file %s' % options.extract
+                                print('Error writing file %s' % options.extract)
                             fExtract.close()
                         except:
-                            print 'Error writing file %s' % options.extract
+                            print('Error writing file %s' % options.extract)
             else:
                 break
 
         if options.stats:
-            print 'Comment: %s' % cntComment
-            print 'XREF: %s' % cntXref
-            print 'Trailer: %s' % cntTrailer
-            print 'StartXref: %s' % cntStartXref
-            print 'Indirect object: %s' % cntIndirectObject
+            print('Comment: %s' % cntComment)
+            print('XREF: %s' % cntXref)
+            print('Trailer: %s' % cntTrailer)
+            print('StartXref: %s' % cntStartXref)
+            print('Indirect object: %s' % cntIndirectObject)
             names = dicObjectTypes.keys()
             names.sort()
             for key in names:
-                print ' %s %d: %s' % (key, len(dicObjectTypes[key]), ', '.join(map(lambda x: '%d' % x, dicObjectTypes[key])))
+                print(' %s %d: %s' % (key, len(dicObjectTypes[key]), ', '.join(map(lambda x: '%d' % x, dicObjectTypes[key]))))
 
 def TestPythonVersion(enforceMaximumVersion=False, enforceMinimumVersion=False):
     if sys.version_info[0:3] > __maximum_python_version__:
         if enforceMaximumVersion:
-            print 'This program does not work with this version of Python (%d.%d.%d)' % sys.version_info[0:3]
-            print 'Please use Python version %d.%d.%d' % __maximum_python_version__
+            print('This program does not work with this version of Python (%d.%d.%d)' % sys.version_info[0:3])
+            print('Please use Python version %d.%d.%d' % __maximum_python_version__)
             sys.exit()
         else:
-            print 'This program has not been tested with this version of Python (%d.%d.%d)' % sys.version_info[0:3]
-            print 'Should you encounter problems, please use Python version %d.%d.%d' % __maximum_python_version__
+            print('This program has not been tested with this version of Python (%d.%d.%d)' % sys.version_info[0:3])
+            print('Should you encounter problems, please use Python version %d.%d.%d' % __maximum_python_version__)
     if sys.version_info[0:3] < __minimum_python_version__:
         if enforceMinimumVersion:
-            print 'This program does not work with this version of Python (%d.%d.%d)' % sys.version_info[0:3]
-            print 'Please use Python version %d.%d.%d' % __maximum_python_version__
+            print('This program does not work with this version of Python (%d.%d.%d)' % sys.version_info[0:3])
+            print('Please use Python version %d.%d.%d' % __maximum_python_version__)
             sys.exit()
         else:
-            print 'This program has not been tested with this version of Python (%d.%d.%d)' % sys.version_info[0:3]
-            print 'Should you encounter problems, please use Python version %d.%d.%d' % __maximum_python_version__
+            print('This program has not been tested with this version of Python (%d.%d.%d)' % sys.version_info[0:3])
+            print('Should you encounter problems, please use Python version %d.%d.%d' % __maximum_python_version__)
 
 if __name__ == '__main__':
-    TestPythonVersion(enforceMaximumVersion=True)
+    TestPythonVersion()
     Main()

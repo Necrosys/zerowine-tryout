@@ -78,7 +78,7 @@ def viewResult(phrase, results):
 		print "<tr>"
 		print "<td>%d</td>" % result[2]
 		print "<td>" + result[1] + "</td>"
-		print '<td><a href="/cgi-bin/view.py?hash=' + result[0] + '">' + result[0] + "</a></td>"
+		print "<td><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=" + result[0] + "'>" + result[0] + "</a></td>"
 		print "</tr>"
 	print "</table>"
 

@@ -13,6 +13,7 @@ EXEC_DIR = "%s/drive_c" % (WINE_DIR)
 X_SERVER_NUMBER = "1"
 
 # Path
+CGI_PATH = "/cgi-bin"
 KILL_XVFB_PATH = "%s/bin/kill_xvfb.sh %s" % (HOME_DIR, X_SERVER_NUMBER)
 PREPARE_PATH = "%s/bin/prepare_zerowine.sh" % (HOME_DIR)
 LAUNCHER_PATH = "xvfb-run -n %s %s/bin/malware_launcher.sh" % (X_SERVER_NUMBER, HOME_DIR)
@@ -37,6 +38,9 @@ MIN_SIZE = 1024
 MAX_SIZE = 104857600
 
 # File name
+CGI_DOWNLOAD_FILENAME = "download.py"
+CGI_VIEW_FILENAME = "view.py"
+
 FILE_NAME_ORIG_FILENAME = "file.name.orig.txt"
 FILE_NAME_EXEC_FILENAME = "file.name.exec.txt"
 FILE_HASH_FILENAME = "file.hash.txt"
@@ -44,6 +48,7 @@ FILE_HEADER_FILENAME = "file.header.txt"
 FILE_STRING_FILENAME = "file.string.txt"
 FILE_PDF_ANALYSIS_FILENAME = "file.pdf.analysis.txt"
 FILE_PDF_JAVASCRIPT_ORIG_FILENAME = "file.pdf.javascript.orig.txt"
+FILE_SIZE_FILENAME = "file.size.txt"
 
 REPORT_FILENAME = "report.txt"
 REPORT_SIGNATURE_FILENAME = "report.signature.txt"
@@ -60,7 +65,6 @@ ANALYZE_FINISH_FILENAME = "analyze.finish.txt"
 TCPDUMP_FILENAME = "dump-network-pcap"
 
 TAGS_FILENAME = "tags.txt"
-FILE_SIZE_FILENAME = "file.size.txt"
 
 # Other
 TCPDUMP_OPTION_READ = "-vvv -x -X"

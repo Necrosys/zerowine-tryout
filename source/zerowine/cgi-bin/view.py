@@ -23,6 +23,7 @@ def viewResult(dirName):
 	pdfAnalysis = readFile(dirName, FILE_PDF_ANALYSIS_FILENAME)
 	strings = readFile(dirName, FILE_STRING_FILENAME)
 	pdfJavaScript = readFile(dirName, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
+	fileSize = readFile(dirName, FILE_SIZE_FILENAME)
 
 	report = readFile(dirName, REPORT_FILENAME)
 	signatures = readFile(dirName, REPORT_SIGNATURE_FILENAME)
@@ -33,7 +34,6 @@ def viewResult(dirName):
 	debuggingtricks = readFile(dirName, TRICK_DEBUG_FILENAME)
 
 	tags = readFile(dirName, TAGS_FILENAME)
-	fileSize = readFile(dirName, FILE_SIZE_FILENAME)
 
 	printHeader()
 	printBodyHeader()
@@ -55,7 +55,7 @@ def viewResult(dirName):
 		escapedTags.append(tag)
 
 	print "<br />Tags: <b>%s</b><br />" % "</b>, <b>".join(escapedTags)
-	print "MD5: %s<br />" % hashMD5
+	print "<br />MD5: %s<br />" % hashMD5
 	print "SHA-1: %s<br />" % hashSHA1
 	print "SHA-224: %s<br />" % hashSHA224
 	print "SHA-256: %s<br />" % hashSHA256

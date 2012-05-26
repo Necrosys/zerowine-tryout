@@ -2,8 +2,8 @@
 
 __description__ = 'Tool to test a PDF file'
 __author__ = 'Didier Stevens'
-__version__ = '0.0.11'
-__date__ = '2010/04/28'
+__version__ = '0.0.12'
+__date__ = '2012/03/03'
 
 """
 
@@ -29,6 +29,9 @@ History:
   2009/10/13: V0.0.9: added detection for CVE-2009-3459; added /RichMedia to disarm
   2010/01/11: V0.0.10: relaxed %PDF header checking
   2010/04/28: V0.0.11: added /Launch
+  2010/09/21: V0.0.12: fixed cntCharsAfterLastEOF bug; fix by Russell Holloway
+  2011/12/29: updated for Python 3, added keyword /EmbeddedFile
+  2012/03/03: added PDFiD2JSON; coded by Brandon Dixon
 
 Todo:
   - update XML example (entropy, EOF)
@@ -44,6 +47,17 @@ import math
 import operator
 import os.path
 import sys
+try:
+    import json
+except ImportError:
+    import simplejson as json
+
+#Convert 2 Bytes If Python 3
+def C2BIP3(string):
+    if sys.version_info[0] > 2:
+        return bytes([ord(x) for x in string])
+    else:
+        return string
 
 class cBinaryFile:
     def __init__(self, file):
@@ -71,7 +85,10 @@ class cBinaryFile:
         inbytes = self.infile.read(size - len(self.ungetted))
         if inbytes == '':
             self.infile.close()
-        result = self.ungetted + [ord(b) for b in inbytes]
+        if type(inbytes) == type(''):
+            result = self.ungetted + [ord(b) for b in inbytes]
+        else:
+            result = self.ungetted + [b for b in inbytes]
         self.ungetted = []
         return result
 
@@ -200,7 +217,7 @@ class cPDFEOF:
         elif self.token == '%%EO' and char == 'F':
             self.token += char
             return
-        elif self.token == '%%EOF' and (char == '\n' or char == '\r'):
+        elif self.token == '%%EOF' and (char == '\n' or char == '\r' or char == ' ' or char == '\t'):
             self.cntEOFs += 1
             self.cntCharsAfterLastEOF = 0
             if char == '\n':
@@ -268,10 +285,10 @@ def UpdateWords(word, wordExact, slash, words, hexcode, allNames, lastName, insi
         if fOut != None:
             if slash == '/' and '/' + word in ('/JS', '/JavaScript', '/AA', '/OpenAction', '/JBIG2Decode', '/RichMedia', '/Launch'):
                 wordExactSwapped = HexcodeName2String(SwapName(wordExact))
-                fOut.write(wordExactSwapped)
-                print '/%s -> /%s' % (HexcodeName2String(wordExact), wordExactSwapped)
+                fOut.write(C2BIP3(wordExactSwapped))
+                print('/%s -> /%s' % (HexcodeName2String(wordExact), wordExactSwapped))
             else:
-                fOut.write(HexcodeName2String(wordExact))
+                fOut.write(C2BIP3(HexcodeName2String(wordExact)))
     return ('', [], False, lastName, insideStream)
 
 class cCVE_2009_3459:
@@ -330,6 +347,7 @@ def PDFiD(file, allNames=False, extraData=False, disarm=False, force=False):
                 '/JBIG2Decode',
                 '/RichMedia',
                 '/Launch',
+                '/EmbeddedFile',
                )
     words = {}
     dates = []
@@ -367,7 +385,7 @@ def PDFiD(file, allNames=False, extraData=False, disarm=False, force=False):
             (pathfile, extension) = os.path.splitext(file)
             fOut = open(pathfile + '.disarmed' + extension, 'wb')
             for byteHeader in bytesHeader:
-                fOut.write(chr(byteHeader))
+                fOut.write(C2BIP3(chr(byteHeader)))
         else:
             fOut = None
         if oEntropy != None:
@@ -411,12 +429,12 @@ def PDFiD(file, allNames=False, extraData=False, disarm=False, force=False):
                         oBinaryFile.unget(d1)
                         (word, wordExact, hexcode, lastName, insideStream) = UpdateWords(word, wordExact, slash, words, hexcode, allNames, lastName, insideStream, oEntropy, fOut)
                         if disarm:
-                            fOut.write(char)
+                            fOut.write(C2BIP3(char))
                 else:
                     oBinaryFile.unget(d1)
                     (word, wordExact, hexcode, lastName, insideStream) = UpdateWords(word, wordExact, slash, words, hexcode, allNames, lastName, insideStream, oEntropy, fOut)
                     if disarm:
-                        fOut.write(char)
+                        fOut.write(C2BIP3(char))
             else:
                 oCVE_2009_3459.Check(lastName, word)
 
@@ -426,7 +444,7 @@ def PDFiD(file, allNames=False, extraData=False, disarm=False, force=False):
                 else:
                     slash = ''
                 if disarm:
-                    fOut.write(char)
+                    fOut.write(C2BIP3(char))
 
             if oPDFDate != None and oPDFDate.parse(char) != None:
                 dates.append([oPDFDate.date, lastName])
@@ -439,6 +457,15 @@ def PDFiD(file, allNames=False, extraData=False, disarm=False, force=False):
 
             byte = oBinaryFile.byte()
         (word, wordExact, hexcode, lastName, insideStream) = UpdateWords(word, wordExact, slash, words, hexcode, allNames, lastName, insideStream, oEntropy, fOut)
+
+        # check to see if file ended with %%EOF.  If so, we can reset charsAfterLastEOF and add one to EOF count.  This is never performed in
+        # the parse function because it never gets called due to hitting the end of file.
+        if byte == None and oPDFEOF != None:
+            if oPDFEOF.token == "%%EOF":
+                oPDFEOF.cntEOFs += 1
+                oPDFEOF.cntCharsAfterLastEOF = 0
+                oPDFEOF.token = ''
+
     except:
         attErrorOccured.nodeValue = 'True'
         attErrorMessage.nodeValue = traceback.format_exc()
@@ -510,8 +537,7 @@ def PDFiD(file, allNames=False, extraData=False, disarm=False, force=False):
     att.nodeValue = str(0)
     eleKeyword.setAttributeNode(att)
     if allNames:
-        keys = words.keys()
-        keys.sort()
+        keys = sorted(words.keys())
         for word in keys:
             if not word in keywords:
                 eleKeyword = xmlDoc.createElement('Keyword')
@@ -527,7 +553,7 @@ def PDFiD(file, allNames=False, extraData=False, disarm=False, force=False):
                 eleKeyword.setAttributeNode(att)
     eleDates = xmlDoc.createElement('Dates')
     xmlDoc.documentElement.appendChild(eleDates)
-    dates.sort(lambda x, y: cmp(x[0], y[0]))
+    dates.sort(key=lambda x: x[0])
     for date in dates:
         eleDate = xmlDoc.createElement('Date')
         eleDates.appendChild(eleDate)
@@ -572,12 +598,56 @@ def Scan(directory, allNames, extraData, disarm, force):
                 Scan(os.path.join(directory, entry), allNames, extraData, disarm, force)
         else:
             result = PDFiD2String(PDFiD(directory, allNames, extraData, disarm, force), force)
-            print result
+            print(result)
             logfile = open('PDFiD.log', 'a')
-            print >> logfile, result
+            logfile.write(result + '\n')
             logfile.close()
     except:
         pass
+
+#function derived from: http://blog.9bplus.com/pdfidpy-output-to-json
+def PDFiD2JSON(xmlDoc, force): 
+    #Get Top Layer Data
+    errorOccured = xmlDoc.documentElement.getAttribute('ErrorOccured')
+    errorMessage = xmlDoc.documentElement.getAttribute('ErrorMessage')
+    filename = xmlDoc.documentElement.getAttribute('Filename')
+    header = xmlDoc.documentElement.getAttribute('Header')
+    isPdf = xmlDoc.documentElement.getAttribute('IsPDF')
+    version = xmlDoc.documentElement.getAttribute('Version')
+    entropy = xmlDoc.documentElement.getAttribute('Entropy')
+
+    #extra data
+    countEof = xmlDoc.documentElement.getAttribute('CountEOF')
+    countChatAfterLastEof = xmlDoc.documentElement.getAttribute('CountCharsAfterLastEOF')
+    totalEntropy = xmlDoc.documentElement.getAttribute('TotalEntropy')
+    streamEntropy = xmlDoc.documentElement.getAttribute('StreamEntropy')
+    nonStreamEntropy = xmlDoc.documentElement.getAttribute('NonStreamEntropy')
+    
+    keywords = []
+    dates = []
+
+    #grab all keywords
+    for node in xmlDoc.documentElement.getElementsByTagName('Keywords')[0].childNodes:
+        name = node.getAttribute('Name')
+        count = int(node.getAttribute('Count'))
+        if int(node.getAttribute('HexcodeCount')) > 0:
+            hexCount = int(node.getAttribute('HexcodeCount'))
+        else:
+            hexCount = 0
+        keyword = { 'count':count, 'hexcodecount':hexCount, 'name':name }
+        keywords.append(keyword)
+
+    #grab all date information
+    for node in xmlDoc.documentElement.getElementsByTagName('Dates')[0].childNodes:
+        name = node.getAttribute('Name')
+        value = node.getAttribute('Value')
+        date = { 'name':name, 'value':value }
+        dates.append(date)
+
+    data = { 'countEof':countEof, 'countChatAfterLastEof':countChatAfterLastEof, 'totalEntropy':totalEntropy, 'streamEntropy':streamEntropy, 'nonStreamEntropy':nonStreamEntropy, 'errorOccured':errorOccured, 'errorMessage':errorMessage, 'filename':filename, 'header':header, 'isPdf':isPdf, 'version':version, 'entropy':entropy, 'keywords': { 'keyword': keywords }, 'dates': { 'date':dates} }
+    complete = [ { 'pdfid' : data} ]
+    result = json.dumps(complete)
+    return result
 
 def Main():
     oParser = optparse.OptionParser(usage='usage: %prog [options] [pdf-file]\n' + __description__, version='%prog ' + __version__)
@@ -590,21 +660,21 @@ def Main():
 
     if len(args) == 0:
         if options.disarm:
-            print 'Option disarm not supported with stdin'
+            print('Option disarm not supported with stdin')
             options.disarm = False
-        print PDFiD2String(PDFiD('', options.all, options.extra, options.disarm, options.force), options.force)
+        print(PDFiD2String(PDFiD('', options.all, options.extra, options.disarm, options.force), options.force))
     elif len(args) == 1:
         if options.scan:
             Scan(args[0], options.all, options.extra, options.disarm, options.force)
         else:
-            print PDFiD2String(PDFiD(args[0], options.all, options.extra, options.disarm, options.force), options.force)
+            print(PDFiD2String(PDFiD(args[0], options.all, options.extra, options.disarm, options.force), options.force))
     else:
         oParser.print_help()
-        print ''
-        print '  %s' % __description__
-        print '  Source code put in the public domain by Didier Stevens, no Copyright'
-        print '  Use at your own risk'
-        print '  https://DidierStevens.com'
+        print('')
+        print('  %s' % __description__)
+        print('  Source code put in the public domain by Didier Stevens, no Copyright')
+        print('  Use at your own risk')
+        print('  https://DidierStevens.com')
         return
 
 if __name__ == '__main__':

@@ -67,6 +67,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	saveAsFile(strings, dirName, FILE_STRING_FILENAME)
 	saveAsFile(pdfJavaScript, dirName, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
 	saveAsFile(pdfAnalysis, dirName, FILE_PDF_ANALYSIS_FILENAME)
+	saveAsFile(str(fileSize), dirName, FILE_SIZE_FILENAME)
 
 	saveAsFile(report, dirName, REPORT_FILENAME)
 	saveAsFile(signatures, dirName, REPORT_SIGNATURE_FILENAME)
@@ -80,10 +81,10 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	saveAsFile(startTime, dirName, ANALYZE_START_FILENAME)
 	saveAsFile(finishTime, dirName, ANALYZE_FINISH_FILENAME)
 	saveAsFile("\n".join(tags), dirName, TAGS_FILENAME)
-	saveAsFile(str(fileSize), dirName, FILE_SIZE_FILENAME)
 
 	# Result link
 	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes
-	print '<a href="/cgi-bin/view.py?hash=' + hashSHA512 + '">View result</a>'
+	print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % hashSHA512
+	print "<br /><br /><a href='" + CGI_PATH + "/" + CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % hashSHA512
 	
 	printBodyFooter()
