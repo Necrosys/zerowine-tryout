@@ -34,7 +34,7 @@ PEiD signatures by:
 
 Prebuilt QEMU image using:
 	Debian (http://www.debian.org/)
-	Wine for Debian (http://www.lamaresh.net/) by:
+	Wine for Debian (http://www.lamaresh.net/) (~20120528) by:
 		Maurilio Genovese
 		Ben Klein
 

@@ -1,3 +1,24 @@
+= Changes for 20120528 =
+* Version Alpha 4
+== Source Code ==
+* Implemented sample search (By Frank Poz)
+* Implemented sample tagging (By Frank Poz)
+* Updated userdb.txt (Contributed by Keivan Komeilipour)
+* Updated pdfid.py (0.0.12)
+* Updated pdf_parser.py (0.3.9)
+* Updated UPX (3.08)
+* Partly merged from original ZeroWine 2.0
+* Refactored some code
+* Some minor change
+== Prebuilt QEMU image ==
+* Updated Debian (5.0.10)
+* Updated Wine (1.2.3)
+* Updated pefile (svn r117)
+* Updated TrID (2.11)
+* Updated TrIDDefs.TRD (4750 file types, 27/05/12)
+* Updated python-ptrace (0.6.4)
+* Some minor change
+
 = Changes for 20100724 =
 * Version Alpha 3
 == Source Code ==
