@@ -67,7 +67,7 @@ def viewResult(phrase, results):
 	# if results isempty, then return
 	if len(results) <= 0:
 		return
-	print "<table border=1 cellspacing=2>"
+	print "<table border=1>"
 	print "<tr><th>Hits</th><th>Analysis Type</th><th>Hash</th></tr>"
 	# sort results in num_of_matches order
 	results.sort(reverse=True, key=lambda match: match[2])

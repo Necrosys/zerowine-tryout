@@ -158,35 +158,35 @@ def printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnal
 
 	if report != " ":
 		print "<td>"
-		print """<a href="javascript:toggleShowHide('divReport')"><img src="/img/report.png" height="16" width="16"> Report</a>"""
+		print """<a href="javascript:toggleShowHide('divReport')"><img src="/img/report.png" height="16" width="16" alt="Report"> Report</a>"""
 		print "</td>"
 
 	print "<td>"
-	print """<a href="javascript:toggleShowHide('divHeaders');"><img src="/img/headers.png" height="16" width="16"> File headers</a>"""
+	print """<a href="javascript:toggleShowHide('divHeaders');"><img src="/img/headers.png" height="16" width="16" alt="File headers"> File headers</a>"""
 	print "</td>"
 
 	print "<td>"
-	print """<a href="javascript:toggleShowHide('divStrings')"><img src="/img/strings.png" height="16" width="16"> File strings</a>"""
+	print """<a href="javascript:toggleShowHide('divStrings')"><img src="/img/strings.png" height="16" width="16" alt="File strings"> File strings</a>"""
 	print "</td>"
 
 	if len(signatures) > 0:
 		print "<td>"
-		print """<a href="javascript:toggleShowHide('divSignatures')"><img src="/img/signature.png" height="16" width="16"> Signatures</a>"""
+		print """<a href="javascript:toggleShowHide('divSignatures')"><img src="/img/signature.png" height="16" width="16" alt="Signatures"> Signatures</a>"""
 		print "</td>"
 
 	if diff != " ":
 		print "<td>"
-		print """<a href="javascript:toggleShowHide('divDifferences')"><img src="/img/report.png" height="16" width="16"> Differences</a>"""
+		print """<a href="javascript:toggleShowHide('divDifferences')"><img src="/img/report.png" height="16" width="16" alt="Differences"> Differences</a>"""
 		print "</td>"
 
 	if pdfJavaScript != " ":
 		print "<td>"
-		print """<a href="javascript:toggleShowHide('divPdfJavaScript')"><img src="/img/strings.png" height="16" width="16"> PDF JavaScript</a>"""
+		print """<a href="javascript:toggleShowHide('divPdfJavaScript')"><img src="/img/strings.png" height="16" width="16" alt="PDF JavaScript"> PDF JavaScript</a>"""
 		print "</td>"
 
 	if pdfAnalysis != "":
 		print "<td>"
-		print """<a href="javascript:toggleShowHide('divPdfAnalysis')"><img src="/img/strings.png" height="16" width="16"> PDF Analysis</a>"""
+		print """<a href="javascript:toggleShowHide('divPdfAnalysis')"><img src="/img/strings.png" height="16" width="16" alt="PDF Analysis"> PDF Analysis</a>"""
 		print "</td>"
 
 	print "</tr><tr><td colspan='%s'><br />" % (colspan)
