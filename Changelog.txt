@@ -1,3 +1,7 @@
+= Changes for 20120530 =
+ == Prebuilt QEMU image ==
+ * Updated backup.tar.gz
+
 = Changes for 20120528 =
 * Version Alpha 4
 == Source Code ==
