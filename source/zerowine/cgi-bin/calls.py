@@ -134,7 +134,7 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'L"winedbg.exe"', '"RPCSSMasterMutex0x',
 	'L"System\\\\\\\\CurrentControlSet\\\\\\\\Control\\\\\\\\NetworkProvider\\\\\\\\Order',
 	# The following SHOULD be removed
-	'L"DejaVu', 'Font', 'L"__WINE_FONT_MUTEX__"', '() retval', '(TrueType)',
+	'L"DejaVu', 'Font', '() retval', '(TrueType)',
 	'WindowMetrics', 'desktop.ini', 'Colors",00000000', '{9D20AAE8-0625-44B0-9CA7-71889C2254D9}',
 	# Add more junk calls
 	'c:!windows!',
@@ -236,6 +236,8 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'trace:ole:dump_Variant',
 	
 	# Wine
+	'CreateMutexW.*L"__WINE_.*_MUTEX__"',
+	
 	'RegCreateKeyW.*L"Software\\\\\\\\Wine\\\\\\\\FileOpenAssociations"',
 	'RegCreateKeyW.*L"Software\\\\\\\\Wine\\\\\\\\MenuFiles"',
 	'RegOpenKey.*"Software\\\\\\\\Wine\\\\\\\\Drivers"',
@@ -277,8 +279,10 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegSetValueExA.*"fdwSupport"',
 	'RegSetValueExA.*"aFormatTagCache"',
 	# Wine (Gecko)
-	'L"C:\\\\\\\\windows\\\\\\\\system32\\\\\\\\gecko\\\\\\\\1\.0\.0\\\\\\\\wine_gecko\\\\\\\\',
-	'RegOpenKeyA.*"1\.0\.0"',
+	'L"C:\\\\\\\\windows\\\\\\\\system32\\\\\\\\gecko\\\\\\\\1\.0\.0\\\\\\\\wine_gecko\\\\\\\\', # 1.0
+	'RegOpenKeyA.*"1\.0\.0"', # 1.0
+	'L"C:\\\\\\\\windows\\\\\\\\system32\\\\\\\\gecko\\\\\\\\1\.6\\\\\\\\wine_gecko\\\\\\\\', # 1.6
+	'RegOpenKeyA.*"1\.6"', # 1.6
 	# Windows Script Host
 	'L"Software\\\\\\\\Microsoft\\\\\\\\Windows Script Host\\\\\\\\Settings"',
 	'"VBSFile\\\\\\\\ScriptEngine"',

@@ -1,3 +1,14 @@
+= Changes for 20120708 =
+== Prebuilt QEMU image ==
+* Updated Wine (1.5.8)
+* Updated backup.tar.gz (Improved malware compatibility)
+
+= Changes for 20120702 =
+== Prebuilt QEMU image ==
+* Updated Wine (1.5.7)
+* Updated Wine Gecko (1.6)
+* Updated backup.tar.gz
+
 = Changes for 20120530 =
 == Prebuilt QEMU image ==
 * Updated backup.tar.gz

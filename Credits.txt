@@ -38,6 +38,6 @@ Prebuilt QEMU image using:
 		Maurilio Genovese
 		Ben Klein
 
-The design of Zero Wine Tryouts homepage is based on ffdshow tryouts (http://ffdshow-tryout.sourceforge.net) hompage.
+The design of Zero Wine Tryouts homepage is based on ffdshow tryouts (http://ffdshow-tryout.sourceforge.net) homepage.
 
 Please let me know if I've forgotten anyone!
