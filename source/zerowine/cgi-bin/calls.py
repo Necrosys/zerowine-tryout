@@ -91,7 +91,7 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"user32\.SetWindowText":"",
 	"user32\.DrawText":"",
 #	"user32\.CreateWindow":"",
-	"user32\.SetWindowsHookEx":"/* Suspicious behavior: Install application-defined hook procedure without user interaction, Possible malware prefix: Trojan-Rootkit, Possible false positive: YES */\n",
+	"user32\.SetWindowsHookEx":"/* Suspicious behavior: Install application-defined hook procedure without user interaction, Possible malware prefix: Trojan, Possible false positive: YES */\n",
 	# Wininet
 #	"trace:wininet:InternetOpen":"",
 #	"trace:wininet:InternetCrack":"",
@@ -124,6 +124,13 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"urlmon\.URL":"",
 	# Driver init
 	"Call driver init ":"",
+	
+	# Errors
+	# LdrInitializeThunk
+	"err:module:LdrInitializeThunk":"",
+	# WinMain
+	"err:rundll32:wWinMain":"",
+	"err:rundll32:WinMain":"",
 	}
 
 JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\ThemeManager',
