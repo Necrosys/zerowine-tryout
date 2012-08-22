@@ -16,6 +16,7 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"advapi32\.RegDelete":"",
 	"advapi32\.RegGet":"",
 	"advapi32\.RegSetValue":"",
+	"advapi32\.RegQuery":"",
 	"advapi32\.CreateService":"/* Suspicious behavior: Create service object without user interaction, Possible malware prefix: Trojan, Possible false positive: YES */\n",
 	"advapi32\.OpenService":"",
 	"advapi32\.StartService":"",
@@ -28,6 +29,8 @@ INTERESTING_CALLS = {# "shdocvw":"",
 #	"ntdll\.ZwWriteFile":"",
 	"ntdll\.NtLoadDriver":"/* Suspicious behavior: Load device driver without user interaction, Possible malware prefix: Trojan-Rootkit, Possible false positive: YES */\n",
 	"ntdll\.ZwLoadDriver":"/* Suspicious behavior: Load device driver without user interaction, Possible malware prefix: Trojan-Rootkit, Possible false positive: YES */\n",
+	"ntdll\.NtMapViewOfSection":"",
+	"ntdll\.ZwMapViewOfSection":"",
 	"ntdll\.NtUnmapViewOfSection":"",
 	"ntdll\.ZwUnmapViewOfSection":"",
 	"ntdll\.NtSystemDebugControl":"",
@@ -126,6 +129,8 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"Call driver init ":"",
 	
 	# Errors
+	# Wine
+	"wine: cannot find":"",
 	# LdrInitializeThunk
 	"err:module:LdrInitializeThunk":"",
 	# WinMain
@@ -290,6 +295,8 @@ JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\
 	'RegOpenKeyA.*"1\.0\.0"', # 1.0
 	'L"C:\\\\\\\\windows\\\\\\\\system32\\\\\\\\gecko\\\\\\\\1\.6\\\\\\\\wine_gecko\\\\\\\\', # 1.6
 	'RegOpenKeyA.*"1\.6"', # 1.6
+	'L"C:\\\\\\\\windows\\\\\\\\system32\\\\\\\\gecko\\\\\\\\1\.7\\\\\\\\wine_gecko\\\\\\\\', # 1.7
+	'RegOpenKeyA.*"1\.7"', # 1.7
 	# Windows Script Host
 	'L"Software\\\\\\\\Microsoft\\\\\\\\Windows Script Host\\\\\\\\Settings"',
 	'"VBSFile\\\\\\\\ScriptEngine"',
