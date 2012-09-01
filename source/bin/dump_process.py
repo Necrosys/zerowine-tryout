@@ -139,7 +139,7 @@ def getMemorySegments(pid, debug = True):
             process_found = True
             address = getAddressFromLine(line)
             maps.append(address)
-            advanceLines(f, 9) # Ignore the next 9 lines from /proc/PID/smaps
+            advanceLines(f, 11) # Ignore the next 11 lines from /proc/PID/smaps
         elif process_found:
             fields = line.split(" ")
 
@@ -149,7 +149,7 @@ def getMemorySegments(pid, debug = True):
 
             address = getAddressFromLine(line)
             maps.append(address)
-            advanceLines(f, 9) # Ignore the next 9 lines from /proc/PID/smaps
+            advanceLines(f, 11) # Ignore the next 11 lines from /proc/PID/smaps
 
     f.close()
 
