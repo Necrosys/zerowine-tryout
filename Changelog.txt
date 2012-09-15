@@ -1,3 +1,16 @@
+= Changes for 20120915 =
+* Version Alpha 4.1
+== Source Code ==
+* Updated userdb.txt (Contributed by Keivan Komeilipour)
+* Some minor changes
+== Prebuilt QEMU image ==
+* Updated Debian (lenny-backports)
+* Updated Wine (1.5.13)
+* Updated Wine Gecko (1.7)
+* Updated pefile (svn r122)
+* Updated TrIDDefs.TRD (4860 file types, 12/09/12)
+* Some minor changes
+
 = Changes for 20120823 =
 == Prebuilt QEMU image ==
 * Updated Wine (1.5.11)
