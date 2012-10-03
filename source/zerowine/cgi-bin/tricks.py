@@ -1,14 +1,74 @@
 DETECTION_TRICKS = {
+# Virtual machine detection trick(s)
 	"Red Pill":"\x0f\x01\x0d\x00\x00\x00\x00\xc3",
-	"Virtual PC trick":"\x0f\x3f\x07\x0b",
-	"VMware trick":"VMXh",
 	"VMCheck.dll":"\x45\xC7\x00\x01",
-	"VMCheck.dll for Virtual PC":"\x0f\x3f\x07\x0b\xc7\x45\xfc\xff\xff\xff\xff",
-	"Virtual PC trick":"\x0F\xC7\xC8",
-	"Xen":"XenVMM", # Or XenVMMXenVMM
-	"Bochs & QEmu CPUID trick":"\x44\x4d\x41\x63",
 	"Torpig VMM trick": "\xE8\xED\xFF\xFF\xFF\x25\x00\x00\x00\xFF\x33\xC9\x3D\x00\x00\x00\x80\x0F\x95\xC1\x8B\xC1\xC3",
-	"Torpig (UPX) VMM trick": "\x51\x51\x0F\x01\x27\x00\xC1\xFB\xB5\xD5\x35\x02\xE2\xC3\xD1\x66\x25\x32\xBD\x83\x7F\xB7\x4E\x3D\x06\x80\x0F\x95\xC1\x8B\xC1\xC3"
+	"Torpig (UPX) VMM trick": "\x51\x51\x0F\x01\x27\x00\xC1\xFB\xB5\xD5\x35\x02\xE2\xC3\xD1\x66\x25\x32\xBD\x83\x7F\xB7\x4E\x3D\x06\x80\x0F\x95\xC1\x8B\xC1\xC3",
+
+	# Hyper-V detection trick(s)
+	"Hyper-V (1)":"VirtualMachine",
+	"Hyper-V (2)":"vmicheartbeat",
+	"Hyper-V (3)":"vmicvss",
+	"Hyper-V (4)":"vmicshutdown",
+	"Hyper-V (5)":"vmicexchange",
+	# Too general :(
+#	"Hyper-V (6)":"Hyper-V",
+
+	# VMware detection trick(s)
+	"VMware (Special port)":"VMXh",
+
+	"VMware (Replay Debugging Driver)":"vmdebug",
+	"VMware (Pointing Device Driver)":"vmmouse",
+	"VMware (Tools Service)":"VMTools",
+	"VMware (Server Memory Controller Service)":"VMMEMCTL",
+	# Too general :(
+#	"VMware":"vmware",
+
+	## Process(es)
+	"VMware (Tools Service)":"vmwareuser.exe",
+	"VMware (Tools tray application)":"vmwaretray.exe",
+
+	# Virtual PC detection trick(s)
+	"Virtual PC (Special instruction)":"\x0F\xC7\xC8",
+	"Virtual PC (Special instruction)":"\x0f\x3f\x07\x0b",
+	"VMCheck.dll for Virtual PC (Special instruction)":"\x0f\x3f\x07\x0b\xc7\x45\xfc\xff\xff\xff\xff",
+
+	"Virtual PC (Host Bus Driver)":"vpcbus",
+	"Virtual PC (Virtual Machine S3 Miniport Driver)":"vpc-s3",
+	"Virtual PC (Virtual USB Hub Driver)":"vpcuhub",
+	"Virtual PC (Mouse Integration Filter Driver)":"msvmmouf",
+
+	## Process(es)
+	"Virtual PC (Virtual Machine Services)":"vmsrvc.exe",
+	"Virtual PC (Virtual Machine User Services)":"vmusrvc.exe",
+
+	# VirtualBox detection trick(s)
+	"VirtualBox (ACPI)":"VBOX__",
+	"VirtualBox (Mouse)":"VBoxMouse",
+	"VirtualBox (Guest Additions)":"VBoxGuest",
+	"VirtualBox (Service)":"VBoxService",
+	"VirtualBox (Shared Folders)":"VBoxSF",
+	# Too short :(
+#	"VirtualBox (SystemBiosVersion)":"VBOX",
+
+	## Process(es)
+	"VirtualBox (Guest Additions Service)":"vboxservice.exe",
+	"VirtualBox (Guest Additions Tray Application)":"vboxtray.exe",
+	
+	# Xen hypervisor detection trick(s)
+	"Xen (CPUID)":"XenVMM", # Or XenVMMXenVMM
+	"Xen (XenPCI Driver)":"xenevtchn",
+	"Xen (XenNet Driver)":"xennet",
+	"Xen (XenNet Driver)":"xennet6",
+	"Xen (Citrix Tools for Virtual Machines Service)":"xensvc",
+	"Xen (Typo?)":"xenvdb",
+	"Xen (XenVbd Driver)":"xenvbd",
+
+	## Process(es)
+	"Xen (XenSource Windows guest agent)":"xenservice.exe",
+
+	# Bochs & QEMU detection trick(s)
+ 	"Bochs & QEMU (CPUID)":"\x44\x4d\x41\x63"
 	}
 
 DEBUGGING_TRICKS = {

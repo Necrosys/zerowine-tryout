@@ -23,7 +23,7 @@ def main(the_file):
             print "***Detected trick %s" % trick
 
         print
-        print "Total of %d trick(s) detected." % len(ret)
+        print "Total of %d trick(s) detected." % len(tricks)
     else:
         print "No trick detected."
 
@@ -57,5 +57,3 @@ if __name__ == "__main__":
         sys.exit(1)
     else:
         main(sys.argv[1])
-
-
