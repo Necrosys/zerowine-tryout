@@ -1,5 +1,7 @@
 DETECTION_TRICKS = {
-# Virtual machine detection trick(s)
+	# Virtual Machine detection trick(s)
+	# Static detection only!
+
 	"Red Pill":"\x0f\x01\x0d\x00\x00\x00\x00\xc3",
 	"VMCheck.dll":"\x45\xC7\x00\x01",
 	"Torpig VMM trick": "\xE8\xED\xFF\xFF\xFF\x25\x00\x00\x00\xFF\x33\xC9\x3D\x00\x00\x00\x80\x0F\x95\xC1\x8B\xC1\xC3",
@@ -16,6 +18,7 @@ DETECTION_TRICKS = {
 
 	# VMware detection trick(s)
 	"VMware (Special port)":"VMXh",
+	"VMware (Special port, Reversed string)":"hXMV",
 
 	"VMware (Replay Debugging Driver)":"vmdebug",
 	"VMware (Pointing Device Driver)":"vmmouse",
@@ -72,6 +75,9 @@ DETECTION_TRICKS = {
 	}
 
 DEBUGGING_TRICKS = {
+	# Debugger detection trick(s)
+	# Dynamic detection only!
+
 	"""
 	
 	Should be this way but, well, Python is a shit to analyze an string with the char '\'.

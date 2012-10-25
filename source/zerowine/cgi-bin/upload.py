@@ -11,12 +11,16 @@ form = cgi.FieldStorage()
 
 if not form:
 	printHeader()
-	dieError("Bad arguments")
+	dieError("Bad arguments.")
 else:
 	printHeader()
 
+	# Check sample directory
+	if os.access(SAMPLE_DIR, os.R_OK + os.W_OK) == False:
+		dieError("Sample directory does not exist or permission denied.")
+
 	if not form.has_key("fileName"):
-		dieError("No file name")
+		dieError("No file name.")
 
 	item = form["fileName"]
 
@@ -32,7 +36,7 @@ else:
 		subitem = ""
 
 	if not item.file or item.filename == "" or not item.filename:
-		dieError("Empty file given")
+		dieError("Empty file given.")
 
 	if not form.has_key("timeout"):
 		timeout = 0
@@ -42,7 +46,6 @@ else:
 			timeout = int(form.getvalue("timeout"))
 		except:
 			dieError("Invalid timeout: %s" % str(sys.exc_info()[1]))
-			sys.exit(0)
 
 	if timeout < MIN_TIMEOUT:
 		timeout = 0
@@ -59,7 +62,6 @@ else:
 			memory = int(form.getvalue("memory"))
 		except:
 			dieError("Invalid dump memory timeout: %s" % str(sys.exc_info()[1]))
-			sys.exit(0)
 
 	if memory < 0:
 		memory = 0

@@ -16,7 +16,6 @@ def downloadZip(hash):
 	if not isCleanDir(hash) or not os.path.exists(dirName):
 		printHeader()
 		dieError("Invalid hash.")
-		sys.exit(0)
 
 	createArchive(dirEntries(dirName, True), zipName, hash.lower())
 
@@ -25,12 +24,17 @@ def downloadZip(hash):
 	print
 	print file(zipName, "rb").read()
 
+# Check sample directory
+if os.access(SAMPLE_DIR, os.R_OK + os.W_OK) == False:
+	printHeader()
+	dieError("Sample directory does not exist or permission denied.")
+
 cgiParameters = cgi.FieldStorage()
 
 # Check to see that we have our required parameters
 if cgiParameters.has_key("fileName"):
 	item = cgiParameters["fileName"]
-	
+
 	if item.filename and not item.filename == "":
 		data = item.file.read()
 		hashes = generateHash(data)
@@ -48,12 +52,10 @@ if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
 	if not isCleanDir(hash) or not os.path.exists(dirName):
 		printHeader()
 		dieError("Invalid hash.")
-		sys.exit(0)
 
 	if not isCleanFile(dump):
 		printHeader()
 		dieError("Invalid filename.")
-		sys.exit(0)
 
 	print "Content-type: application/octet-stream"
 	print 'Content-Disposition: attachment; filename="%s"' % dump
@@ -65,11 +67,16 @@ if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
 elif cgiParameters.has_key("hash"):
 	hash = cgiParameters.getvalue("hash")
 
+	## If you want, you can comment out these lines
+	if hash == "":
+		printHeader()
+		dieError("Invalid hash.")
+	##
+
 	downloadZip(hash)
 	sys.exit(0)
 
 else:
-	print "Content-Type: text/html"
-	print
+	printHeader()
 	print "<H1>Error</H1>"
 	print "No hash or file given."

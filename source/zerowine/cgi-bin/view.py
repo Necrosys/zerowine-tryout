@@ -13,7 +13,6 @@ def viewResult(dirName):
 
 	finishTime = readFile(dirName, ANALYZE_FINISH_FILENAME)
 	if finishTime == " ":
-		printHeader()
 		dieError("Analysis not finished yet. Please try again later.")
 	startTime = readFile(dirName, ANALYZE_START_FILENAME)
 
@@ -35,7 +34,6 @@ def viewResult(dirName):
 
 	tags = readFile(dirName, TAGS_FILENAME)
 
-	printHeader()
 	printBodyHeader()
 
 	# HTML output
@@ -107,6 +105,12 @@ def viewResult(dirName):
 	
 	printBodyFooter()
 
+printHeader()
+
+# Check sample directory
+if os.access(SAMPLE_DIR, os.R_OK) == False:
+	dieError("Sample directory does not exist or permission denied.")
+
 cgiParameters = cgi.FieldStorage()
 
 # Check to see that we have our required parameters
@@ -121,7 +125,6 @@ if cgiParameters.has_key("fileName"):
 		dirName = SAMPLE_DIR + os.sep + hashes[-1]
 
 		if not isCleanDir(hashes[-1]) or not os.path.exists(dirName):
-			printHeader()
 			dieError("Invalid file.")
 
 		viewResult(dirName)
@@ -132,15 +135,12 @@ if cgiParameters.has_key("hash"):
 
 	dirName = SAMPLE_DIR + os.sep + hash.lower()
 
-	if not isCleanDir(hash) or not os.path.exists(dirName):
-		printHeader()
+	if hash == "" or not isCleanDir(hash) or not os.path.exists(dirName):
 		dieError("Invalid hash.")
 
 	viewResult(dirName)
 	sys.exit(0)
 
 else:
-	printHeader()
-	print
 	print "<H1>Error</H1>"
 	print "No hash or file given."

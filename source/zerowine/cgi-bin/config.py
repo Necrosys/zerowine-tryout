@@ -72,5 +72,8 @@ STRINGS_OPTION = "-n 4" # Do not change this. If you change this, libmalware.py'
 
 ALLOW_MULTIPLE_USERS = False
 DEFAULT_UMASK = 022
+
+# Display debug output
+DEBUG = True
 #
 ################################################################

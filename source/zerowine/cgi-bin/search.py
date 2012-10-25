@@ -84,7 +84,11 @@ def viewResult(phrase, results):
 
 	return
 
+printHeader()
 
+# Check sample directory
+if os.access(SAMPLE_DIR, os.R_OK) == False:
+	dieError("Sample directory does not exist or permission denied.")
 
 cgiParameters = cgi.FieldStorage()
 
@@ -144,7 +148,6 @@ if cgiParameters.has_key("search"):
 					results.append( [ hash, 'Diff', num_match ] )
 
 		# show results
-		printHeader()
 		printBodyHeader()
 		viewResult(phrase, results)
 		printBodyFooter()
@@ -152,7 +155,6 @@ if cgiParameters.has_key("search"):
 		sys.exit(0)
 
 # if error
-printHeader()
 print "<H1>Error</H1>"
 print "No search string given."
 

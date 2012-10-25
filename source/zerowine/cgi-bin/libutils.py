@@ -23,7 +23,8 @@ def dieError(msg):
 	sys.exit(0)
 
 def printHeader():
-	print "Content-Type: text/html\n"
+	if isCgiMode():
+		print "Content-Type: text/html\n"
 
 def showWarning(msg):
 	if isCgiMode():
