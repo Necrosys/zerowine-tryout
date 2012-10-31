@@ -155,6 +155,4 @@ if cgiParameters.has_key("search"):
 		sys.exit(0)
 
 # if error
-print "<H1>Error</H1>"
 print "No search string given."
-

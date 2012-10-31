@@ -78,5 +78,4 @@ elif cgiParameters.has_key("hash"):
 
 else:
 	printHeader()
-	print "<H1>Error</H1>"
 	print "No hash or file given."

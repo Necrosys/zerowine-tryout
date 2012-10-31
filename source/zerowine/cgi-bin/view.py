@@ -142,5 +142,4 @@ if cgiParameters.has_key("hash"):
 	sys.exit(0)
 
 else:
-	print "<H1>Error</H1>"
 	print "No hash or file given."

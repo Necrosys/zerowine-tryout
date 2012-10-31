@@ -29,6 +29,8 @@ else:
 		tags = form.getvalue("tags").strip()
 		if len(tags) > 0:
 			tags = [tag.strip() for tag in tags.split(",")]
+		else:
+			tags = []
 
 	if form.has_key("subfileName"):
 		subitem = form["subfileName"]
@@ -82,4 +84,3 @@ else:
 		unpack = form.getvalue("unpack")
 
 	analyze(item, timeout, memory, version, subitem, tags, unpack)
-	

@@ -45,6 +45,8 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 		signatures.append("End of signature. See report for more information.")
 	signatures = "\n".join(signatures)
 
+	tags = autoTag(tags, diff, "diff")
+
 	try:
 		diff.append("\nEnd of difference. Use download function for more information.")
 	except:
