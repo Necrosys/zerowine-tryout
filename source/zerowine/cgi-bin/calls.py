@@ -7,6 +7,7 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"KERNEL32\.OutputDebugString":"",
 	"KERNEL32\.IsDebuggerPresent":"",
 	"KERNEL32\.CheckRemoteDebuggerPresent":"",
+	"KERNEL32\.SetUnhandledExceptionFilter":"", # Need more tests
 	"KERNEL32\.UnhandledExceptionFilter":"",
 	"user32\.FindWindow":"", # For OllyDbg, i.e.
 	# Add more interesting calls
@@ -35,14 +36,17 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"ntdll\.ZwUnmapViewOfSection":"",
 	"ntdll\.NtSystemDebugControl":"",
 	"ntdll\.ZwSystemDebugControl":"",
-#	"ntdll\.NtQueryInformationProcess":"",
-#	"ntdll\.ZwQueryInformationProcess":"",
+	"ntdll\.NtQueryInformationProcess":"", # Need more tests
+	"ntdll\.ZwQueryInformationProcess":"", # Need more tests
+	"ntdll\.NtQueryObject":"", # Need more tests
+	"ntdll\.ZwQueryObject":"", # Need more tests
 	# Kernel32
 	"KERNEL32\.CreateSemaphore":"",
 	"KERNEL32\.CreateMutex":"",
 	"KERNEL32\.CreateProcess":"",
 #	"KERNEL32\.CreateThread":"",
 	"KERNEL32\.CreateRemoteThread":"",
+	"KERNEL32\.CreateToolhelp32Snapshot":"", # Need more tests
 	"KERNEL32\.Process32First":"",
 	"KERNEL32\.Process32Next":"",
 	"KERNEL32\.TerminateProcess":"",
@@ -68,6 +72,9 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"KERNEL32\.WinExec":"",
 	"KERNEL32\.GetTempPath":"",
 #	"KERNEL32\.OpenEvent":"",
+	"KERNEL32\.GetCurrentProcess":"", # Need more tests
+	"KERNEL32\.GetVersion":"", # Need more tests
+	'KERNEL32\.GetProcAddress(.*"CsrGetProcessId")':"/* Not implemented yet. Tested under pure Wine 1.5.23. */",
 	# Winsock
 	"trace:winsock:WSASocket.*created":"",
 	"trace:winsock:WS_bind":"",
@@ -98,6 +105,8 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"user32\.DrawText":"",
 #	"user32\.CreateWindow":"",
 	"user32\.SetWindowsHookEx":"/* Suspicious behavior: Install application-defined hook procedure without user interaction, Possible malware prefix: Trojan, False positive rate: High */\n",
+	"user32\.GetShellWindow":"", # Need more tests
+	"user32\.GetWindowThreadProcessId":"", # Need more tests
 	# Wininet
 #	"trace:wininet:InternetOpen":"",
 #	"trace:wininet:InternetCrack":"",
