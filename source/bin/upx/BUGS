@@ -8,7 +8,7 @@
 
 
                     The Ultimate Packer for eXecutables
-   Copyright (c) 1996-2011 Markus Oberhumer, Laszlo Molnar & John Reiser
+   Copyright (c) 1996-2013 Markus Oberhumer, Laszlo Molnar & John Reiser
                         http://upx.sourceforge.net
 
 
@@ -44,7 +44,7 @@ test file.
 
 win32/pe
 --------
- * writeable shared sections (`--force' *may* work)
+ * writable shared sections (`--force' *may* work)
  * certificates in the image
  * compressing files which contain a big BSS requires lots of memory
    during compression
