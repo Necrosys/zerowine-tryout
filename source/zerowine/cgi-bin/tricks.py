@@ -152,4 +152,6 @@ DEBUGGING_TRICKS = {
 	"AVP.Product_Notification":"Kaspersky Anti Virus detection",
 	"AHNTASK_SESSION":"AhnLab Anti Virus detection",
 	"wscui_class":"Windows Security Center detection",
+	"wine_get_unix_file_name":"Wine detection",
+	"wine_get_dos_file_name":"Wine detection"
 	}

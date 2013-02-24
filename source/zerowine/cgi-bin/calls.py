@@ -74,7 +74,8 @@ INTERESTING_CALLS = {# "shdocvw":"",
 #	"KERNEL32\.OpenEvent":"",
 	"KERNEL32\.GetCurrentProcess":"", # Need more tests
 	"KERNEL32\.GetVersion":"", # Need more tests
-	'KERNEL32\.GetProcAddress(.*"CsrGetProcessId")':"/* Not implemented yet. Tested under pure Wine 1.5.23. */",
+	'KERNEL32\.GetProcAddress(.*"CsrGetProcessId")':"/* Not implemented yet. Tested under pure Wine 1.5.23. */\n",
+	'KERNEL32\.GetProcAddress(.*"wine_get_.*_file_name")':"/* Wine detection trick */\n",
 	# Winsock
 	"trace:winsock:WSASocket.*created":"",
 	"trace:winsock:WS_bind":"",
@@ -107,6 +108,7 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	"user32\.SetWindowsHookEx":"/* Suspicious behavior: Install application-defined hook procedure without user interaction, Possible malware prefix: Trojan, False positive rate: High */\n",
 	"user32\.GetShellWindow":"", # Need more tests
 	"user32\.GetWindowThreadProcessId":"", # Need more tests
+	"user32\.GetCursorPos":"", # Need more tests
 	# Wininet
 #	"trace:wininet:InternetOpen":"",
 #	"trace:wininet:InternetCrack":"",
