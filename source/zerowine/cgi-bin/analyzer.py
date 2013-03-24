@@ -12,7 +12,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
 	startTime = time.ctime()
 
-	msg, dirName, fileName, execfileName, hashes, warnings, diff, fileSize = analyzeMalware(item, timeout, memory, version, subitem)
+	msg, dirName, fileName, execfileName, hashes, fileSize = analyzeMalware(item, timeout, memory, version, subitem)
 
 	dirName = SAMPLE_DIR + os.sep + dirName
 
@@ -44,6 +44,13 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	if len(signatures) > 0:
 		signatures.append("End of signature. See report for more information.")
 	signatures = "\n".join(signatures)
+
+	error, warnings = checkRuntimeErrors(msg)
+
+	if error == True:
+		showWarning("One or more spawned processes crashed while running!")
+
+	diff = diffFile(dirName)
 
 	tags = autoTag(tags, diff, "diff")
 
