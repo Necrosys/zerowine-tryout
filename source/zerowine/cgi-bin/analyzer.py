@@ -12,21 +12,31 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
 	startTime = time.ctime()
 
-	msg, dirName, fileName, execfileName, hashes, fileSize = analyzeMalware(item, timeout, memory, version, subitem)
+	dirName, fileName, hashes, fileSize, isRunable = analyzeStatic(item, timeout, subitem)
 
 	dirName = SAMPLE_DIR + os.sep + dirName
+	lockName = SAMPLE_DIR + os.sep + LOCK_FILENAME
 
-	idx = -1
-	for line in msg:
-		idx += 1
-		# If EXE
-		if line.find("Starting process") > -1 and line.find(execfileName) > -1:
-			lines = msg[idx:]
-			break
-		# If DLL
-		elif line.find("load_native_dll") > -1 and line.find(execfileName) > -1:
-			lines = msg[idx:]
-			break
+	if isRunable == True:
+		lockAnalyze(lockName)
+		
+		msg, execfileName = analyzeDynamic(fileName, timeout, memory, version)
+		
+		idx = -1
+		for line in msg:
+			idx += 1
+			# If EXE
+			if line.find("Starting process") > -1 and line.find(execfileName) > -1:
+				lines = msg[idx:]
+				break
+			# If DLL
+			elif line.find("load_native_dll") > -1 and line.find(execfileName) > -1:
+				lines = msg[idx:]
+				break
+	else:
+		msg = " "
+		idx = 0
+		execfileName = " "
 
 	headers = getHeaders(fileName)
 
@@ -50,7 +60,10 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	if error == True:
 		showWarning("One or more spawned processes crashed while running!")
 
-	diff = diffFile(dirName)
+	if isRunable == True:
+		diff = diffFile(dirName)
+	else:
+		diff = " "
 
 	tags = autoTag(tags, diff, "diff")
 
@@ -91,6 +104,9 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	saveAsFile(finishTime, dirName, ANALYZE_FINISH_FILENAME)
 	saveAsFile("\n".join(tags), dirName, TAGS_FILENAME)
 
+	if isRunable == True:
+		unlockAnalyze(lockName)
+	
 	# Result link
 	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes
 	print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % hashSHA512

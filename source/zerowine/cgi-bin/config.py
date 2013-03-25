@@ -66,6 +66,9 @@ TCPDUMP_FILENAME = "dump-network-pcap"
 
 TAGS_FILENAME = "tags.txt"
 
+ADDITIONAL_FILES_FILENAME = "additionalfiles.zip"
+LOCK_FILENAME = "locked"
+
 # Other
 TCPDUMP_OPTION_READ = "-vvv -x -X"
 STRINGS_OPTION = "-n 4" # Do not change this. If you change this, libmalware.py's getPdfJavaScript function will be broken.

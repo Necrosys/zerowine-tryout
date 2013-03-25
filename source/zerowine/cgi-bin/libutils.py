@@ -90,7 +90,7 @@ def cleanFile(str,buffer=None):
 	return "malware." + extension
 
 # Avoid some tricks
-def execFile(str):
+def execFile():
 	return "%s.exe" % ("".join(choice(string.ascii_letters + string.digits) for x in range(randint(1, 8))))
 
 def getJavascript():
