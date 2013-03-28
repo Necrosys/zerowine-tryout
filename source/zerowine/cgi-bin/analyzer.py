@@ -12,10 +12,12 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
 	startTime = time.ctime()
 
-	dirName, fileName, hashes, fileSize, isRunable = analyzeStatic(item, timeout, subitem)
+	hash, fileName, hashes, fileSize = analyzeStatic(item, subitem)
 
-	dirName = SAMPLE_DIR + os.sep + dirName
+	dirName = SAMPLE_DIR + os.sep + hash
 	lockName = SAMPLE_DIR + os.sep + LOCK_FILENAME
+
+	isRunable = checkRunnable(timeout, lockName, fileName)
 
 	if isRunable == True:
 		lockAnalyze(lockName)
