@@ -17,9 +17,9 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	dirName = SAMPLE_DIR + os.sep + hash
 	lockName = SAMPLE_DIR + os.sep + LOCK_FILENAME
 
-	isRunable = checkRunnable(timeout, lockName, fileName)
+	isRunnable = checkRunnable(timeout, lockName, fileName)
 
-	if isRunable == True:
+	if isRunnable == True:
 		lockAnalyze(lockName)
 		
 		msg, execfileName = analyzeDynamic(fileName, timeout, memory, version)
@@ -62,7 +62,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	if error == True:
 		showWarning("One or more spawned processes crashed while running!")
 
-	if isRunable == True:
+	if isRunnable == True:
 		diff = diffFile(dirName)
 	else:
 		diff = " "
@@ -106,7 +106,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	saveAsFile(finishTime, dirName, ANALYZE_FINISH_FILENAME)
 	saveAsFile("\n".join(tags), dirName, TAGS_FILENAME)
 
-	if isRunable == True:
+	if isRunnable == True:
 		unlockAnalyze(lockName)
 	
 	# Result link
