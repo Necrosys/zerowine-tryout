@@ -1,0 +1,30 @@
+#!/bin/sh
+### BEGIN INIT INFO
+#	Provides:		zwt
+#	Required-Start:		$all
+#	Required-Stop:		
+#	Default-Start:		2 3 4 5
+#	Default-Stop:		0 1 6
+#	Short-Description:	Zero Wine Tryouts
+### END INIT INFO
+
+set -e
+
+case "$1" in
+	start)
+		echo -n "Starting Zero Wine Tryouts..."
+		su malware -c "mkdir -p /tmp/vir"
+		su malware -c "/home/malware/bin/start_zerowine.sh"
+		echo "."
+		;;
+	stop)
+		echo -n "Stopping Zero Wine Tryouts..."
+		killall boa
+		echo "."
+		;;
+	*)
+		echo "Usage: /etc/init.d/$0 {start|stop}"
+		exit 1
+esac
+
+exit 0
