@@ -21,6 +21,8 @@ autoTags = [
 	{'dataType':'diff', 'method':'start', 'target':'+[System\\\\CurrentControlSet\\\\Services\\\\', 'result':'Service creation'},
 
 	{'dataType':'diff', 'method':'start', 'target':'c:/windows/system32/drivers/etc/hosts', 'result':'hosts file modification'},
+	
+	{'dataType':'diff', 'method':'start', 'target':'+shell=', 'result':'Automatic startup'},
 
 	# Substring
 	{'dataType':'diff', 'method':'substring', 'target':'\\\\shell\\\\open\\\\command] ', 'result':'shell open command'},
