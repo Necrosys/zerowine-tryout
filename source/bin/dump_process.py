@@ -181,8 +181,8 @@ class CPtraceDumper:
             self.dbg.addProcess(self.pid, False)
             #print "Attached to process"
         except:
-            print "Error adding process", sys.exc_info()[1]
-
+            #print "Error adding process", sys.exc_info()[1]
+            pass
         try:
             #print "Resolving process's name"
             self.processName = getProcessName(self.pid)
