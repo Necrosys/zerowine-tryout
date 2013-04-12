@@ -8,18 +8,34 @@
 #	Short-Description:	Zero Wine Tryouts
 ### END INIT INFO
 
+ZWT_NAME=zerowine
+BOA_NAME=boa
+USER=malware
+GROUP=malware
+SAMPLE_DIR=/tmp/vir
+
+ZWT_PATH=/home/$USER/$ZWT_NAME/
+BOA_PATH=/usr/bin/$BOA_NAME
+BOA_ARGS=" -c $ZWT_PATH"
+
+[ -x "$BOA_PATH" ] || exit 0
+[ -x "$ZWT_PATH" ] || exit 0
+
 set -e
 
 case "$1" in
 	start)
 		echo -n "Starting Zero Wine Tryouts..."
-		su malware -c "mkdir -p /tmp/vir"
-		su malware -c "/home/malware/bin/start_zerowine.sh"
+		su $USER -c "mkdir -p $SAMPLE_DIR"
+		start-stop-daemon --start --quiet \
+		 --chuid $USER:$GROUP --umask 0022 \
+		 --name $BOA_NAME --exec $BOA_PATH -- $BOA_ARGS
 		echo "."
 		;;
 	stop)
 		echo -n "Stopping Zero Wine Tryouts..."
-		killall boa
+		start-stop-daemon --stop --quiet \
+		 --name $BOA_NAME
 		echo "."
 		;;
 	*)
