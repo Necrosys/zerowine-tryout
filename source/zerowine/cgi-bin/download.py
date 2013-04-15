@@ -4,16 +4,16 @@ import os
 import cgi
 import sys
 
-from config import SAMPLE_DIR
+from config import SAMPLE_DIR, DEFAULT_HASH_ALGORITHM
 from libutils import printHeader, dieError, isCleanFile, isCleanDir
 from libzip import createArchive, dirEntries
-from libmalware import generateHash
+from libmalware import generateHash, checkDir
 
 def downloadZip(hash):
 	dirName = SAMPLE_DIR + os.sep + hash.lower()
 	zipName = SAMPLE_DIR + os.sep + hash.lower() + ".zip"
 
-	if not isCleanDir(hash) or not os.path.exists(dirName):
+	if not isCleanDir(hash) or not checkDir(hash.lower()):
 		printHeader()
 		dieError("Invalid hash.")
 
@@ -39,17 +39,14 @@ if cgiParameters.has_key("fileName"):
 		data = item.file.read()
 		hashes = generateHash(data)
 
-		# hashes[-1] = SHA-512
-		downloadZip(hashes[-1])
+		downloadZip(hashes[DEFAULT_HASH_ALGORITHM])
 		sys.exit(0)
 
 if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
 	hash = cgiParameters.getvalue("hash")
 	dump = cgiParameters.getvalue("dump")
 
-	dirName = SAMPLE_DIR + os.sep + hash.lower()
-
-	if not isCleanDir(hash) or not os.path.exists(dirName):
+	if not isCleanDir(hash) or not checkDir(hash.lower()):
 		printHeader()
 		dieError("Invalid hash.")
 

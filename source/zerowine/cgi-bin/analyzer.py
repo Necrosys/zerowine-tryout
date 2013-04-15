@@ -12,8 +12,9 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
 	startTime = time.ctime()
 
-	hash, fileName, hashes, fileSize = analyzeStatic(item, subitem)
+	fileName, hashes, fileSize = analyzeStatic(item, subitem)
 
+	hash = hashes[DEFAULT_HASH_ALGORITHM]
 	dirName = SAMPLE_DIR + os.sep + hash
 	lockName = SAMPLE_DIR + os.sep + LOCK_FILENAME
 
@@ -86,7 +87,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
 	saveAsFile(item.filename, dirName, FILE_NAME_ORIG_FILENAME)
 	saveAsFile(execfileName, dirName, FILE_NAME_EXEC_FILENAME)
-	saveAsFile("\n".join(hashes), dirName, FILE_HASH_FILENAME)
+	saveAsFile("\n".join(hashes.values()), dirName, FILE_HASH_FILENAME)
 	saveAsFile(headers, dirName, FILE_HEADER_FILENAME)
 	saveAsFile(strings, dirName, FILE_STRING_FILENAME)
 	saveAsFile(pdfJavaScript, dirName, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
@@ -110,8 +111,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 		unlockAnalyze(lockName)
 	
 	# Result link
-	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes
-	print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % hashSHA512
-	print "<br /><br /><a href='" + CGI_PATH + "/" + CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % hashSHA512
+	print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % hash
+	print "<br /><br /><a href='" + CGI_PATH + "/" + CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % hash
 	
 	printBodyFooter()

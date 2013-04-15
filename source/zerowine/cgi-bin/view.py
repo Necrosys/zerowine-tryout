@@ -43,6 +43,8 @@ def viewResult(dirName):
 	print "<br />File size: %s bytes<br />" % fileSize
 
 	hashes = hashes.split("\n")
+	# DIRTY HACK
+	hashes.sort(key = len)
 	hashMD5, hashSHA1, hashSHA224, hashSHA256, hashSHA384, hashSHA512 = hashes
 	tags = tags.split("\n")
 	
@@ -120,11 +122,10 @@ if cgiParameters.has_key("fileName"):
 	if item.filename and not item.filename == "":
 		data = item.file.read()
 		hashes = generateHash(data)
+		hash = hashes[DEFAULT_HASH_ALGORITHM]
+		dirName = SAMPLE_DIR + os.sep + hash
 
-		# hashes[-1] = SHA-512
-		dirName = SAMPLE_DIR + os.sep + hashes[-1]
-
-		if not isCleanDir(hashes[-1]) or not os.path.exists(dirName):
+		if not isCleanDir(hash) or not checkDir(hash):
 			dieError("Invalid file.")
 
 		viewResult(dirName)
@@ -135,7 +136,7 @@ if cgiParameters.has_key("hash"):
 
 	dirName = SAMPLE_DIR + os.sep + hash.lower()
 
-	if hash == "" or not isCleanDir(hash) or not os.path.exists(dirName):
+	if hash == "" or not isCleanDir(hash) or not checkDir(hash.lower()):
 		dieError("Invalid hash.")
 
 	viewResult(dirName)

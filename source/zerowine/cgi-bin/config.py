@@ -87,5 +87,7 @@ BUFFER_SIZE = 2097152
 # Minimum disk space
 MIN_DISK_SPACE = 209715200
 
+DEFAULT_HASH_ALGORITHM = "sha512"
+
 #
 ################################################################
