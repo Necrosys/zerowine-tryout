@@ -46,6 +46,8 @@ if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
 	hash = cgiParameters.getvalue("hash")
 	dump = cgiParameters.getvalue("dump")
 
+	dirName = SAMPLE_DIR + os.sep + hash.lower()
+
 	if not isCleanDir(hash) or not checkDir(hash.lower()):
 		printHeader()
 		dieError("Invalid hash.")
