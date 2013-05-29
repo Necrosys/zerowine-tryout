@@ -4,6 +4,8 @@ import os
 import cgi
 import sys
 
+import libhash
+
 from libutils import *
 from config import *
 from libmalware import *
@@ -121,8 +123,16 @@ if cgiParameters.has_key("fileName"):
 
 	if item.filename and not item.filename == "":
 		data = item.file.read()
-		hashes = generateHash(data)
+
+		libHash = libhash.LibHash()
+		libHash.generateHashesFromData(data)
+
+		hashes = libHash.__dict__
+
+		del libHash
+
 		hash = hashes[DEFAULT_HASH_ALGORITHM]
+
 		dirName = SAMPLE_DIR + os.sep + hash
 
 		if not isCleanDir(hash) or not checkDir(hash):

@@ -4,10 +4,12 @@ import os
 import cgi
 import sys
 
+import libhash
+
 from config import SAMPLE_DIR, DEFAULT_HASH_ALGORITHM
 from libutils import printHeader, dieError, isCleanFile, isCleanDir
 from libzip import createArchive, dirEntries
-from libmalware import generateHash, checkDir
+from libmalware import checkDir
 
 def downloadZip(hash):
 	dirName = SAMPLE_DIR + os.sep + hash.lower()
@@ -37,7 +39,13 @@ if cgiParameters.has_key("fileName"):
 
 	if item.filename and not item.filename == "":
 		data = item.file.read()
-		hashes = generateHash(data)
+
+		libHash = libhash.LibHash()
+		libHash.generateHashesFromData(data)
+
+		hashes = libHash.__dict__
+
+		del libHash
 
 		downloadZip(hashes[DEFAULT_HASH_ALGORITHM])
 		sys.exit(0)

@@ -154,6 +154,7 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	# Module
 	"err:module:import_dll":"",
 	"err:module:LdrInitializeThunk":"",
+	"err:module:attach_process_dlls":"",
 	# WinMain
 	"err:rundll32:wWinMain":"",
 	"err:rundll32:WinMain":"",
