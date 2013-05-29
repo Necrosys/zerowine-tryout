@@ -158,6 +158,8 @@ INTERESTING_CALLS = {# "shdocvw":"",
 	# WinMain
 	"err:rundll32:wWinMain":"",
 	"err:rundll32:WinMain":"",
+	# TLS callback
+	"Call TLS callback ":""
 	}
 
 JUNK_CALLS = ['L"Software\\\\\\\\Microsoft\\\\\\\\Windows\\\\\\\\CurrentVersion\\\\\\\\ThemeManager',

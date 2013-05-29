@@ -47,7 +47,9 @@ if cgiParameters.has_key("fileName"):
 
 		del libHash
 
-		downloadZip(hashes[DEFAULT_HASH_ALGORITHM])
+		hash = hashes[DEFAULT_HASH_ALGORITHM]
+
+		downloadZip(hash)
 		sys.exit(0)
 
 if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
