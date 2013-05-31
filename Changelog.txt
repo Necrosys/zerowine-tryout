@@ -1,3 +1,23 @@
+= Changes for 20120531 =
+* Version Alpha 5
+== Source Code ==
+* Internal improvements
+* Code refactoring
+* Implemented automatic tagging
+* Implemented buffer
+* Added check for sample directory
+* Added check for free disk space
+* Added check for debug output
+* Added more signature/trick patterns
+* Added LSB (Linux Standards Base) init script
+* Improved Wine processes killing
+* Updated Wine exceptions
+* Updated UPX (3.09)
+* Fixed bugs
+* Minor changes
+== Prebuilt virtual machine image ==
+* Skipped
+
 = Changes for 20120915 =
 * Version Alpha 4.1
 == Source Code ==
