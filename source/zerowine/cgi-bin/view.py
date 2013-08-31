@@ -135,7 +135,7 @@ if cgiParameters.has_key("fileName"):
 
 		dirName = SAMPLE_DIR + os.sep + hash
 
-		if not isCleanDir(hash) or not checkDir(hash):
+		if not isCleanDir(hash) or not checkDir(dirName):
 			dieError("Invalid file.")
 
 		viewResult(dirName)
@@ -146,7 +146,7 @@ if cgiParameters.has_key("hash"):
 
 	dirName = SAMPLE_DIR + os.sep + hash.lower()
 
-	if hash == "" or not isCleanDir(hash) or not checkDir(hash.lower()):
+	if hash == "" or not isCleanDir(hash) or not checkDir(dirName):
 		dieError("Invalid hash.")
 
 	viewResult(dirName)

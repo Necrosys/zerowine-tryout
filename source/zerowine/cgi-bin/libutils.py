@@ -3,9 +3,6 @@
 import os
 import sys
 import cgi
-import string
-
-from random import *
 
 def isCgiMode():
 	gateway = os.getenv("GATEWAY_INTERFACE")
@@ -48,9 +45,9 @@ def buffertype(buffer):
 	import magic
 	ms = magic.open(magic.MAGIC_NONE)
 	ms.load()
-	type = ms.buffer(buffer)
+	btype = ms.buffer(buffer)
 	ms.close()
-	return type
+	return btype
 
 """Given a filepath
 Check the "file type" using the magic module
@@ -60,9 +57,9 @@ def filetype(str):
 	import magic
 	ms = magic.open(magic.MAGIC_NONE)
 	ms.load()
-	type = ms.file(str)
+	ftype = ms.file(str)
 	ms.close()
-	return type
+	return ftype
 
 """Given filename and optional contents of file
 Return "clean" name, with extension based on filetype detection
@@ -80,18 +77,31 @@ def cleanFile(str,buffer=None):
 		extension = 'exe'
 	# if buffer not empty, then guess based on content
 	if buffer != None:
-		type = buffertype(buffer)
+		btype = buffertype(buffer)
 		# detect PDF
-		if type[0:12] == 'PDF document':
+		if btype[0:12] == 'PDF document':
 			extension = 'pdf'
 		# detection EXE
-		elif type[0:17] == 'MS-DOS executable':
+		elif btype[0:17] == 'MS-DOS executable':
 			extension = 'exe'
 	return "malware." + extension
 
 # Avoid some tricks
 def execFile():
-	return "%s.exe" % ("".join(choice(string.ascii_letters + string.digits) for x in range(randint(1, 8))))
+	import string
+	import random
+	
+	randomString = ""
+	
+	random.seed()
+	
+	for randomNumber in range(random.randint(1, 8)):
+		randomString += "".join(random.choice(string.ascii_letters + string.digits))
+	
+	# To avoid PyChecker warning.
+	del randomNumber
+	
+	return "%s.exe" % (randomString)
 
 def getJavascript():
 	return """<script type="text/javascript">
@@ -245,3 +255,7 @@ def isCleanDir(the_file):
 			if c not in ["-", "_"]:
 				return False
 	return True
+
+# To avoid PyChecker warning.
+def getString(string):
+	return string

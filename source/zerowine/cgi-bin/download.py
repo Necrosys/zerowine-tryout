@@ -15,7 +15,7 @@ def downloadZip(hash):
 	dirName = SAMPLE_DIR + os.sep + hash.lower()
 	zipName = SAMPLE_DIR + os.sep + hash.lower() + ".zip"
 
-	if not isCleanDir(hash) or not checkDir(hash.lower()):
+	if not isCleanDir(hash) or not checkDir(dirName):
 		printHeader()
 		dieError("Invalid hash.")
 
@@ -58,7 +58,7 @@ if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
 
 	dirName = SAMPLE_DIR + os.sep + hash.lower()
 
-	if not isCleanDir(hash) or not checkDir(hash.lower()):
+	if not isCleanDir(hash) or not checkDir(dirName):
 		printHeader()
 		dieError("Invalid hash.")
 
