@@ -14,13 +14,13 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
 	fileName, hashes, fileSize = analyzeStatic(item, subitem)
 
-	hash = hashes[DEFAULT_HASH_ALGORITHM]
-	dirName = SAMPLE_DIR + os.sep + hash
+	fhash = hashes[DEFAULT_HASH_ALGORITHM]
+	dirName = SAMPLE_DIR + os.sep + fhash
 	lockName = SAMPLE_DIR + os.sep + LOCK_FILENAME
 
 	isRunnable = checkRunnable(timeout, lockName, fileName)
 
-	if isRunnable == True:
+	if isRunnable:
 		lockAnalyze(lockName)
 		
 		msg, execfileName = analyzeDynamic(fileName, timeout, memory, version)
@@ -30,11 +30,9 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 			idx += 1
 			# If EXE
 			if line.find("Starting process") > -1 and line.find(execfileName) > -1:
-				lines = msg[idx:]
 				break
 			# If DLL
 			elif line.find("load_native_dll") > -1 and line.find(execfileName) > -1:
-				lines = msg[idx:]
 				break
 	else:
 		msg = " "
@@ -60,10 +58,10 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
 	error, warnings = checkRuntimeErrors(msg)
 
-	if error == True:
+	if error:
 		showWarning("One or more spawned processes crashed while running!")
 
-	if isRunnable == True:
+	if isRunnable:
 		diff = diffFile(dirName)
 	else:
 		diff = " "
@@ -107,11 +105,11 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 	saveAsFile(finishTime, dirName, ANALYZE_FINISH_FILENAME)
 	saveAsFile("\n".join(tags), dirName, TAGS_FILENAME)
 
-	if isRunnable == True:
+	if isRunnable:
 		unlockAnalyze(lockName)
 	
 	# Result link
-	print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % hash
-	print "<br /><br /><a href='" + CGI_PATH + "/" + CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % hash
+	print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % fhash
+	print "<br /><br /><a href='" + CGI_PATH + "/" + CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % fhash
 	
 	printBodyFooter()

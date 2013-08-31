@@ -46,9 +46,6 @@ class LibHash():
     def generateHashesFromData(self, data):
         for algorithm in self.__dict__.keys():
             self.generateHashFromData(data, algorithm)
-            # Removed duplicated code
-#            temp = getattr(hashlib, algorithm)
-#            self.__dict__[algorithm] = temp(data).hexdigest()
 
     def generateHashesFromFile(self, fileName):
         data = self.readDataFromFile(fileName)
