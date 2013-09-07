@@ -1,83 +1,90 @@
-<html> 
+<html>
 <head>
-   <meta charset="utf-8" />
-   <link href="/style.css" rel="StyleSheet" type="text/css">
+    <meta charset="utf-8"/>
+    <link href="style.css" rel="StyleSheet" type="text/css">
 </head>
 <body>
-<form action="/cgi-bin/upload.py" enctype="multipart/form-data" method="POST"
+<form action="cgi-bin/upload.py" enctype="multipart/form-data" method="POST"
       name="fmMalwareUpload">
-<table border="0" cellpading="0" cellspacing="0">
-   <tr>
-      <td background="/img/p.gif" width="35"></td>
-      <td background="/img/top.gif" colspan="3" height="35">&nbsp;</td>
-      <td background="/img/q.gif" height="35" width="40">&nbsp;</td>
-   </tr>
-   <tr>
-      <td background="/img/bg-left.gif" rowspan="10"></td>
-      <td colspan="3" valign="top"> 
-         <h1 valign="center"><font color="red">Zero Wine Tryouts</font>: A Malware
-         Analysis Tool</h1>
-         <h2>Upload | <a href="view.html">View</a> | <a href="download.html">Download</a> | <a href="search.html">Search</a></h2>
-         <h3>Upload a sample</h3>Select the sample file to upload and the options
-         to analyze it.<br><br> 
-      </td>
-      <td background="/img/bg-right.gif" rowspan="10">&nbsp;</td>
-   </tr>
-   <tr>
-      <td rowspan="7" valign="center"><img src="/img/zero.jpg"></td>
-      <td>Sample file (e.g. EXE file, DLL file, PDF file)</td>
-      <td><input name="fileName" type="file" /></td>
-   </tr>
-   <tr>
-      <td>Tags (separate with comma)</td>
-      <td><input name="tags" type="text" /></td>
-   </tr>
-   <tr>
-      <td>Additional files (zip archive file)</td>
-      <td><input name="subfileName" type="file" /></td>
-   </tr>
-   <tr>
-      <td>Dynamic analysis timeout at</td>
-      <td><input name="timeout" type="text" value="90" />seconds</td>
-   </tr>
-   <tr>
-      <td>Dump process memory at</td>
-      <td><input name="memory" type="text" value="0" />seconds</td>
-   </tr>
-   <tr><td>Set Windows version to</td>
-      <td><select name="version" />
-      <option value="win8">Windows 8</option>
-      <option value="win2008r2">Windows 2008 R2 SP1</option>
-      <option value="win7">Windows 7 SP1</option>
-      <option value="win2008">Windows 2008 SP2</option>
-      <option value="winvista">Windows Vista SP2</option>
-      <option value="win2003">Windows 2003 SP2</option>
-      <option value="winxp" selected>Windows XP SP3</option>
-      <option value="win2k">Windows 2000 SP4</option>
-      <option value="winme">Windows Me</option>
-      <option value="win98">Windows 98 SE</option>
-      <option value="win95">Windows 95</option>
-      <option value="nt40">Windows NT 4.0 SP6a</option>
-      <option value="nt351">Windows NT 3.51 SP5</option></select></td>
-   </tr>
-   <tr>
-      <td>Unpack sample file</td>
-      <td><input name="unpack" type="checkbox" value="True" checked /></td>
-   </tr>
-   <tr>
-      <td><input type="reset"></td>
-      <td><input type="submit"></td>
-   </tr>
-   <tr>
-      <td align="center" colspan="3">
-         <br>Windows is a registered trademark of Microsoft Corp. in the U.S. and other countries.<br><br><h5>Copyright (c) 2008, 2009 Joxean Koret</h5></td>
-   </tr>
-   <tr>
-      <td background="/img/b.gif" width="35">&nbsp;</td>
-      <td background="/img/bg-bottom.gif" colspan="3" height="36" width="35">&nbsp;</td>
-      <td background="/img/d.gif" width="35">&nbsp;</td>
-   </tr>
-</table>
+    <table border="0" cellpading="0" cellspacing="0">
+        <tr>
+            <td background="img/p.gif" width="35"></td>
+            <td background="img/top.gif" colspan="3" height="35">&nbsp;</td>
+            <td background="img/q.gif" height="35" width="40">&nbsp;</td>
+        </tr>
+        <tr>
+            <td background="img/bg-left.gif" rowspan="10"></td>
+            <td colspan="3" valign="top">
+                <h1 valign="center"><span style="color: red; ">Zero Wine Tryouts</span>: A Malware
+                    Analysis Tool</h1>
+
+                <h2>Upload | <a href="view.html">View</a> | <a href="download.html">Download</a> | <a
+                        href="search.html">Search</a></h2>
+
+                <h3>Upload a sample</h3>Select the sample file to upload and the options
+                to analyze it.<br><br>
+            </td>
+            <td background="img/bg-right.gif" rowspan="10">&nbsp;</td>
+        </tr>
+        <tr>
+            <td rowspan="7" valign="center"><img src="img/zero.jpg"></td>
+            <td>Sample file (e.g. EXE file, DLL file, PDF file)</td>
+            <td><input name="fileName" type="file"/></td>
+        </tr>
+        <tr>
+            <td>Tags (separate with comma)</td>
+            <td><input name="tags" type="text"/></td>
+        </tr>
+        <tr>
+            <td>Additional files (zip archive file)</td>
+            <td><input name="subfileName" type="file"/></td>
+        </tr>
+        <tr>
+            <td>Dynamic analysis timeout at</td>
+            <td><input name="timeout" type="text" value="90"/>seconds</td>
+        </tr>
+        <tr>
+            <td>Dump process memory at</td>
+            <td><input name="memory" type="text" value="0"/>seconds</td>
+        </tr>
+        <tr>
+            <td>Set Windows version to</td>
+            <td>
+                <select name="version">
+                    <option value="win8">Windows 8</option>
+                    <option value="win2008r2">Windows 2008 R2 SP1</option>
+                    <option value="win7">Windows 7 SP1</option>
+                    <option value="win2008">Windows 2008 SP2</option>
+                    <option value="winvista">Windows Vista SP2</option>
+                    <option value="win2003">Windows 2003 SP2</option>
+                    <option value="winxp" selected>Windows XP SP3</option>
+                    <option value="win2k">Windows 2000 SP4</option>
+                    <option value="winme">Windows Me</option>
+                    <option value="win98">Windows 98 SE</option>
+                    <option value="win95">Windows 95</option>
+                    <option value="nt40">Windows NT 4.0 SP6a</option>
+                    <option value="nt351">Windows NT 3.51 SP5</option>
+                </select></td>
+        </tr>
+        <tr>
+            <td>Unpack sample file</td>
+            <td><input name="unpack" type="checkbox" value="True" checked/></td>
+        </tr>
+        <tr>
+            <td><input type="reset"></td>
+            <td><input type="submit"></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="3">
+                <br>Windows is a registered trademark of Microsoft Corp. in the U.S. and other countries.<br><br><h5>
+                Copyright (c) 2008, 2009 Joxean Koret</h5></td>
+        </tr>
+        <tr>
+            <td background="img/b.gif" width="35">&nbsp;</td>
+            <td background="img/bg-bottom.gif" colspan="3" height="36" width="35">&nbsp;</td>
+            <td background="img/d.gif" width="35">&nbsp;</td>
+        </tr>
+    </table>
 </form>
 </body>
 </html> 

@@ -1,50 +1,53 @@
-<html> 
+<html>
 <head>
-   <meta charset="utf-8" />
-   <link href="/style.css" rel="StyleSheet" type="text/css">
+    <meta charset="utf-8"/>
+    <link href="style.css" rel="StyleSheet" type="text/css">
 </head>
 <body>
-<form action="/cgi-bin/download.py" enctype="multipart/form-data" method="POST" name="fmDownload">
-<table border="0" cellpadding="0" cellspacing="0">
-   <tr>
-      <td background="/img/p.gif" width="35"></td>
-      <td background="/img/top.gif" colspan="3" height="35"></td>
-      <td background="/img/q.gif" height="35" width="40"></td>
-   </tr>
-   <tr>
-      <td background="/img/bg-left.gif" rowspan="7">&nbsp;</td>
-      <td colspan="3" valign="top"> 
-         <h1 valign="center"><font color="red">Zero Wine Tryouts</font>: A Malware
-         Analysis Tool</h1>
-         <h2><a href="index.html">Upload</a> | <a href="view.html">View</a> | Download | <a href="search.html">Search</a></h2>
-         <h3>Download previous result (single zip archive file)</h3>
-      </td>
-      <td background="/img/bg-right.gif" rowspan="7">&nbsp;</td>
-   </tr>
-   <tr>
-      <td><br />Sample file</td>
-   </tr>
-   <tr>
-      <td><input name="fileName" type="file" /></td>
-   </tr>
-   <tr>
-      <td><br />or</td>
-   </tr>
-   <tr>
-      <td><br />Hash(MD5, SHA1, SHA224, SHA256, SHA384, SHA512)</td>
-   </tr>
-   <tr>
-      <td><input name="hash" size="128" type="text" /></td>
-   </tr>
-   <tr>
-      <td><br /><input type="submit"></td>
-   </tr>
-   <tr>
-      <td background="/img/b.gif" width="35"></td>
-      <td background="/img/bg-bottom.gif" colspan="3" height="36" width="35"></td>
-      <td background="/img/d.gif" width="35"></td>
-   </tr>
-</table>
+<form action="cgi-bin/download.py" enctype="multipart/form-data" method="POST" name="fmDownload">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td background="img/p.gif" width="35"></td>
+            <td background="img/top.gif" colspan="3" height="35"></td>
+            <td background="img/q.gif" height="35" width="40"></td>
+        </tr>
+        <tr>
+            <td background="img/bg-left.gif" rowspan="7">&nbsp;</td>
+            <td colspan="3" valign="top">
+                <h1 valign="center"><span style="color: red; ">Zero Wine Tryouts</span>: A Malware
+                    Analysis Tool</h1>
+
+                <h2><a href="index.html">Upload</a> | <a href="view.html">View</a> | Download | <a href="search.html">Search</a>
+                </h2>
+
+                <h3>Download previous result (single zip archive file)</h3>
+            </td>
+            <td background="img/bg-right.gif" rowspan="7">&nbsp;</td>
+        </tr>
+        <tr>
+            <td><br/>Sample file</td>
+        </tr>
+        <tr>
+            <td><input name="fileName" type="file"/></td>
+        </tr>
+        <tr>
+            <td><br/>or</td>
+        </tr>
+        <tr>
+            <td><br/>Hash(MD5, SHA1, SHA224, SHA256, SHA384, SHA512)</td>
+        </tr>
+        <tr>
+            <td><input name="hash" size="128" type="text"/></td>
+        </tr>
+        <tr>
+            <td><br/><input type="submit"></td>
+        </tr>
+        <tr>
+            <td background="img/b.gif" width="35"></td>
+            <td background="img/bg-bottom.gif" colspan="3" height="36" width="35"></td>
+            <td background="img/d.gif" width="35"></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html> 
