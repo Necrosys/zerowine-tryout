@@ -8,19 +8,20 @@ All rights Reserved
 
 import os
 import sys
-import time
 
 from ptrace.debugger.debugger import PtraceDebugger
-    
+
+
 def extractFileName(base_file):
     pos = base_file.find("\\")
 
     if pos > -1:
         rbase_file = base_file[::-1]
         pos = rbase_file.find("\\")
-        return base_file[len(base_file)-pos:]
+        return base_file[len(base_file) - pos:]
     else:
         return os.path.basename(base_file)
+
 
 def dumpSegment(f_in, f_out, segment, debug=True):
     """ Dump a segment of memory """
@@ -30,15 +31,15 @@ def dumpSegment(f_in, f_out, segment, debug=True):
         print "*** Dumping from 0x%x to 0x%x" % (segment[0], segment[1])
 
     start_pos = segment[0]
-    end_pos   = segment[1]
-    pos       = start_pos
+    end_pos = segment[1]
+    pos = start_pos
 
     if start_pos >= 0x7b800000:# or start_pos >= 0x560000:
         if debug:
             print "*** Wine's memory chunk detected, ignored..."
             return
 
-    if end_pos - start_pos > 1024*1024*50:
+    if end_pos - start_pos > 1024 * 1024 * 50:
         if debug:
             print "*** Memory chunk bigger than 50 MB, ignored..."
             return
@@ -56,10 +57,11 @@ def dumpSegment(f_in, f_out, segment, debug=True):
         pass
         #print "Error writting memory...", sys.exc_info()[1]
 
+
 def dumpProcessMemory(pid, out_file, segments, debug=True):
     """ Dump every segment of the process """
 
-    f_in  = file("/proc/%d/mem" % pid, "rb")
+    f_in = file("/proc/%d/mem" % pid, "rb")
 
     if type(out_file) == str:
         f_out = file(out_file, "wb")
@@ -77,11 +79,13 @@ def dumpProcessMemory(pid, out_file, segments, debug=True):
 
     f_in.close()
 
+
 def cleanCmdLine(name):
     """ Extract filename and remove leading 0x00 chars """
     name = os.path.basename(name)
     name.strip("\x00")
     return name
+
 
 def getProcessName(pid):
     """ Extract the program's name to dump """
@@ -94,26 +98,29 @@ def getProcessName(pid):
 
     return name
 
+
 def getAddressFromLine(line):
     """ Extract the start_address and end_address from a line with the format of
         the file /proc/PID/smaps """
     chunk = line.split(" ")[0].split("-")
     start_address = int(chunk[0], 16)
-    end_address   = int(chunk[1], 16)
+    end_address = int(chunk[1], 16)
 
     return [start_address, end_address]
+
 
 def advanceLines(f, lines):
     """ Advanced #<lines>  in file <f> """
     for i in xrange(lines): f.readline()
 
-def getMemorySegments(pid, debug = True):
+
+def getMemorySegments(pid, debug=True):
     """ Returns a list of [start_address, end_address] of the memory chunks """
 
     name = getProcessName(pid)
     name = extractFileName(name)
 
-    debug=False
+    debug = False
     if debug:
         print "*** Searching for process '%s'" % name
 
@@ -154,6 +161,7 @@ def getMemorySegments(pid, debug = True):
     f.close()
 
     return maps
+
 
 class CPtraceDumper:
     """ Ptrace Dumper """
@@ -202,17 +210,20 @@ class CPtraceDumper:
         #print "Quiting from ptrace debugger"
         self.dbg.quit()
 
+
 def main(pid, out_file):
     """ Attach to the process, dump the memory and detach from it """
     dbg = CPtraceDumper(pid, out_file)
     dbg.dump()
     dbg.quit()
 
+
 def usage():
     """ Show usage information """
     sys.stderr.writelines("Usage: " + sys.argv[0] + " <pid> <output file>")
     sys.stderr.write("\n")
     sys.stderr.flush()
+
 
 if __name__ == "__main__":
 
