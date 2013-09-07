@@ -72,10 +72,10 @@ def viewResult(dirName):
     colspan = printBody(report, headers, strings, signatures, diff, pdfJavaScript, pdfAnalysis)
 
     # Dumps
-    print """<tr><td colspan='%s'>""" % (colspan)
+    print """<tr><td colspan='%s'>""" % colspan
     print """<div><br />Dumps:<br /><br /></div>"""
     print """</td></tr>"""
-    print """<tr><td colspan='%s'>""" % (colspan)
+    print """<tr><td colspan='%s'>""" % colspan
 
     showDumps(dirName)
 
@@ -83,20 +83,20 @@ def viewResult(dirName):
 
     # Debugger detection tricks
     if debuggingtricks != " ":
-        print """<tr><td colspan='%s'>""" % (colspan)
+        print """<tr><td colspan='%s'>""" % colspan
         print """<div><br />Debugger detection tricks:<br /><br /></div>"""
         print """</td></tr>"""
-        print """<tr><td colspan='%s'>""" % (colspan)
+        print """<tr><td colspan='%s'>""" % colspan
 
         showDebuggingTricks(debuggingtricks.split("\n"))
 
         print """</td></tr>"""
 
     # Virtual Machine detection tricks
-    print """<tr><td colspan='%s'>""" % (colspan)
+    print """<tr><td colspan='%s'>""" % colspan
     print """<div><br />Virtual Machine detection tricks:<br /><br /></div>"""
     print """</td></tr>"""
-    print """<tr><td colspan='%s'>""" % (colspan)
+    print """<tr><td colspan='%s'>""" % colspan
 
     showVMDetectionTricks(TRICK_VM_FILENAME, dirName)
 
@@ -105,8 +105,8 @@ def viewResult(dirName):
 
     print "<br />"
 
-    print "<br /><div>Analyze started at %s</div>" % (startTime)
-    print "<div>Analyze finished at %s</div>" % (finishTime)
+    print "<br /><div>Analyze started at %s</div>" % startTime
+    print "<div>Analyze finished at %s</div>" % finishTime
 
     printBodyFooter()
 
@@ -114,7 +114,7 @@ def viewResult(dirName):
 printHeader()
 
 # Check sample directory
-if os.access(SAMPLE_DIR, os.R_OK) == False:
+if not os.access(SAMPLE_DIR, os.R_OK):
     dieError("Sample directory does not exist or permission denied.")
 
 cgiParameters = cgi.FieldStorage()
@@ -133,22 +133,22 @@ if cgiParameters.has_key("fileName"):
 
         del libHash
 
-        hash = hashes[DEFAULT_HASH_ALGORITHM]
+        fileHash = hashes[DEFAULT_HASH_ALGORITHM]
 
-        dirName = SAMPLE_DIR + os.sep + hash
+        dirName = SAMPLE_DIR + os.sep + fileHash
 
-        if not isCleanDir(hash) or not checkDir(dirName):
+        if not isCleanDir(fileHash) or not checkDir(dirName):
             dieError("Invalid file.")
 
         viewResult(dirName)
         sys.exit(0)
 
 if cgiParameters.has_key("hash"):
-    hash = cgiParameters.getvalue("hash")
+    fileHash = cgiParameters.getvalue("hash")
 
-    dirName = SAMPLE_DIR + os.sep + hash.lower()
+    dirName = SAMPLE_DIR + os.sep + fileHash.lower()
 
-    if hash == "" or not isCleanDir(hash) or not checkDir(dirName):
+    if fileHash == "" or not isCleanDir(fileHash) or not checkDir(dirName):
         dieError("Invalid hash.")
 
     viewResult(dirName)

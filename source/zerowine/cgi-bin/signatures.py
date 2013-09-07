@@ -1,14 +1,13 @@
 #!/usr/bin/python
 
 import sys
-
-from tricks import *
+from tricks import DETECTION_TRICKS
 
 
 def main(the_file):
     try:
         f = file(the_file, "rb")
-    except:
+    except IOError:
         print "Error opening file:", sys.exc_info()[1]
         sys.exit(1)
 
@@ -36,7 +35,6 @@ def check_trick_from_file(the_file):
 
 
 def check_tricks(buf):
-    tricks = 0
     ret = []
     for trick in DETECTION_TRICKS:
         if buf.find(DETECTION_TRICKS[trick]) > -1:

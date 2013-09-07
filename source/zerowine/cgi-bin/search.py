@@ -22,8 +22,8 @@ from libmalware import *
 #############################################################
 # given a hash, search phrase, and filename to search within
 # return number of matches found
-def searchGeneric(hash, phrase, filename):
-    dirName = SAMPLE_DIR + os.sep + hash
+def searchGeneric(fileHash, phrase, filename):
+    dirName = SAMPLE_DIR + os.sep + fileHash
     if not os.path.isfile(dirName + os.sep + filename):
         return 0
     text = readFile(dirName, filename)
@@ -32,40 +32,40 @@ def searchGeneric(hash, phrase, filename):
 #############################################################
 
 
-def searchStrings(hash, phrase):
-    return searchGeneric(hash, phrase, FILE_STRING_FILENAME)
+def searchStrings(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, FILE_STRING_FILENAME)
 
 
-def searchHashes(hash, phrase):
-    return searchGeneric(hash, phrase, FILE_HASH_FILENAME)
+def searchHashes(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, FILE_HASH_FILENAME)
 
 
-def searchHeader(hash, phrase):
-    return searchGeneric(hash, phrase, FILE_HEADER_FILENAME)
+def searchHeader(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, FILE_HEADER_FILENAME)
 
 
-def searchPDFAnalysis(hash, phrase):
-    return searchGeneric(hash, phrase, FILE_PDF_ANALYSIS_FILENAME)
+def searchPDFAnalysis(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, FILE_PDF_ANALYSIS_FILENAME)
 
 
-def searchPDFJavascript(hash, phrase):
-    return searchGeneric(hash, phrase, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
+def searchPDFJavascript(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, FILE_PDF_JAVASCRIPT_ORIG_FILENAME)
 
 
-def searchTrickDebug(hash, phrase):
-    return searchGeneric(hash, phrase, TRICK_DEBUG_FILENAME)
+def searchTrickDebug(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, TRICK_DEBUG_FILENAME)
 
 
-def searchTrickVM(hash, phrase):
-    return searchGeneric(hash, phrase, TRICK_VM_FILENAME)
+def searchTrickVM(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, TRICK_VM_FILENAME)
 
 
-def searchDiff(hash, phrase):
-    return searchGeneric(hash, phrase, DIFF_FILENAME)
+def searchDiff(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, DIFF_FILENAME)
 
 
-def searchTags(hash, phrase):
-    return searchGeneric(hash, phrase, TAGS_FILENAME)
+def searchTags(fileHash, phrase):
+    return searchGeneric(fileHash, phrase, TAGS_FILENAME)
 
 
 def viewResult(phrase, results):
@@ -98,7 +98,7 @@ def viewResult(phrase, results):
 printHeader()
 
 # Check sample directory
-if os.access(SAMPLE_DIR, os.R_OK) == False:
+if not os.access(SAMPLE_DIR, os.R_OK):
     dieError("Sample directory does not exist or permission denied.")
 
 cgiParameters = cgi.FieldStorage()
@@ -121,42 +121,42 @@ if cgiParameters.has_key("search"):
             if os.path.isdir(SAMPLE_DIR + os.sep + fn) and not os.path.islink(SAMPLE_DIR + os.sep + fn):
                 hashes.append(fn)
                 # iterate through samples' analyses
-        for hash in hashes:
+        for fileHash in hashes:
             # for each analysis type
             # if num_match > 0 then results.append( [ sample name, analysis type that matched, number of matches ] )
             if not types or "all" in types or "strings" in types:
-                num_match = searchStrings(hash, phrase)
+                num_match = searchStrings(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'Strings', num_match])
+                    results.append([fileHash, 'Strings', num_match])
             if not types or "all" in types or "hashes" in types:
-                num_match = searchHashes(hash, phrase)
+                num_match = searchHashes(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'Hashes', num_match])
+                    results.append([fileHash, 'Hashes', num_match])
             if not types or "all" in types or "pdfanalysis" in types:
-                num_match = searchPDFAnalysis(hash, phrase)
+                num_match = searchPDFAnalysis(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'PDF Analysis', num_match])
+                    results.append([fileHash, 'PDF Analysis', num_match])
             if not types or "all" in types or "pdfanalysis" in types:
-                num_match = searchPDFJavascript(hash, phrase)
+                num_match = searchPDFJavascript(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'PDF Javascript', num_match])
+                    results.append([fileHash, 'PDF Javascript', num_match])
             if not types or "all" in types or "tags" in types:
-                num_match = searchTags(hash, phrase)
+                num_match = searchTags(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'Tags', num_match])
+                    results.append([fileHash, 'Tags', num_match])
             if not types or "all" in types:
-                num_match = searchHeader(hash, phrase)
+                num_match = searchHeader(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'Header', num_match])
-                num_match = searchTrickDebug(hash, phrase)
+                    results.append([fileHash, 'Header', num_match])
+                num_match = searchTrickDebug(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'Debug Tricks', num_match])
-                num_match = searchTrickVM(hash, phrase)
+                    results.append([fileHash, 'Debug Tricks', num_match])
+                num_match = searchTrickVM(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'VM Tricks', num_match])
-                num_match = searchDiff(hash, phrase)
+                    results.append([fileHash, 'VM Tricks', num_match])
+                num_match = searchDiff(fileHash, phrase)
                 if num_match > 0:
-                    results.append([hash, 'Diff', num_match])
+                    results.append([fileHash, 'Diff', num_match])
 
         # show results
         printBodyHeader()

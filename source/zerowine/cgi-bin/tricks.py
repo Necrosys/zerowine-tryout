@@ -22,18 +22,18 @@ DETECTION_TRICKS = {
 
     "VMware (Replay Debugging Driver)": "vmdebug",
     "VMware (Pointing Device Driver)": "vmmouse",
-    "VMware (Tools Service)": "VMTools",
+    "VMware (Tools Service 1)": "VMTools",
     "VMware (Server Memory Controller Service)": "VMMEMCTL",
     # Too general :(
     #	"VMware":"vmware",
 
     ## Process(es)
-    "VMware (Tools Service)": "vmwareuser.exe",
+    "VMware (Tools Service 2)": "vmwareuser.exe",
     "VMware (Tools tray application)": "vmwaretray.exe",
 
     # Virtual PC detection trick(s)
-    "Virtual PC (Special instruction)": "\x0F\xC7\xC8",
-    "Virtual PC (Special instruction)": "\x0f\x3f\x07\x0b",
+    "Virtual PC (Special instruction 1)": "\x0F\xC7\xC8",
+    "Virtual PC (Special instruction 2)": "\x0f\x3f\x07\x0b",
     "VMCheck.dll for Virtual PC (Special instruction)": "\x0f\x3f\x07\x0b\xc7\x45\xfc\xff\xff\xff\xff",
 
     "Virtual PC (Host Bus Driver)": "vpcbus",
@@ -62,7 +62,7 @@ DETECTION_TRICKS = {
     "Xen (CPUID)": "XenVMM", # Or XenVMMXenVMM
     "Xen (XenPCI Driver)": "xenevtchn",
     "Xen (XenNet Driver)": "xennet",
-    "Xen (XenNet Driver)": "xennet6",
+    "Xen (XenNet6 Driver)": "xennet6",
     "Xen (Citrix Tools for Virtual Machines Service)": "xensvc",
     "Xen (Typo?)": "xenvdb",
     "Xen (XenVbd Driver)": "xenvbd",

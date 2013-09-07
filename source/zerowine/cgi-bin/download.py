@@ -12,23 +12,23 @@ from libzip import createArchive, dirEntries
 from libmalware import checkDir
 
 
-def downloadZip(hash):
-    dirName = SAMPLE_DIR + os.sep + hash.lower()
-    zipName = SAMPLE_DIR + os.sep + hash.lower() + ".zip"
+def downloadZip(fileHash):
+    dirName = SAMPLE_DIR + os.sep + fileHash.lower()
+    zipName = SAMPLE_DIR + os.sep + fileHash.lower() + ".zip"
 
-    if not isCleanDir(hash) or not checkDir(dirName):
+    if not isCleanDir(fileHash) or not checkDir(dirName):
         printHeader()
         dieError("Invalid hash.")
 
-    createArchive(dirEntries(dirName, True), zipName, hash.lower())
+    createArchive(dirEntries(dirName, True), zipName, fileHash.lower())
 
     print "Content-type: application/x-zip-compressed"
-    print 'Content-Disposition: attachment; filename="%s.zip"' % hash.lower()
+    print 'Content-Disposition: attachment; filename="%s.zip"' % fileHash.lower()
     print
     print file(zipName, "rb").read()
 
 # Check sample directory
-if os.access(SAMPLE_DIR, os.R_OK + os.W_OK) == False:
+if not os.access(SAMPLE_DIR, os.R_OK + os.W_OK):
     printHeader()
     dieError("Sample directory does not exist or permission denied.")
 
@@ -48,18 +48,18 @@ if cgiParameters.has_key("fileName"):
 
         del libHash
 
-        hash = hashes[DEFAULT_HASH_ALGORITHM]
+        fileHash = hashes[DEFAULT_HASH_ALGORITHM]
 
-        downloadZip(hash)
+        downloadZip(fileHash)
         sys.exit(0)
 
-if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
-    hash = cgiParameters.getvalue("hash")
+if cgiParameters.has_key("hash") and cgiParameters.has_key("dump"):
+    fileHash = cgiParameters.getvalue("hash")
     dump = cgiParameters.getvalue("dump")
 
-    dirName = SAMPLE_DIR + os.sep + hash.lower()
+    dirName = SAMPLE_DIR + os.sep + fileHash.lower()
 
-    if not isCleanDir(hash) or not checkDir(dirName):
+    if not isCleanDir(fileHash) or not checkDir(dirName):
         printHeader()
         dieError("Invalid hash.")
 
@@ -75,15 +75,15 @@ if (cgiParameters.has_key("hash") and cgiParameters.has_key("dump")):
     sys.exit(0)
 
 elif cgiParameters.has_key("hash"):
-    hash = cgiParameters.getvalue("hash")
+    fileHash = cgiParameters.getvalue("hash")
 
     ## If you want, you can comment out these lines
-    if hash == "":
+    if fileHash == "":
         printHeader()
         dieError("Invalid hash.")
         ##
 
-    downloadZip(hash)
+    downloadZip(fileHash)
     sys.exit(0)
 
 else:

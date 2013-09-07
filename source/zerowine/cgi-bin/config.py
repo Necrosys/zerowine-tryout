@@ -4,10 +4,10 @@
 
 # Dir
 HOME_DIR = "/home/malware"
-WINE_DIR = "%s/.wine" % (HOME_DIR)
-WINE_BACKUP_DIR = "%s/.winebackup" % (HOME_DIR)
+WINE_DIR = "%s/.wine" % HOME_DIR
+WINE_BACKUP_DIR = "%s/.winebackup" % HOME_DIR
 SAMPLE_DIR = "/tmp/vir"
-EXEC_DIR = "%s/drive_c" % (WINE_DIR)
+EXEC_DIR = "%s/drive_c" % WINE_DIR
 
 # X server
 X_SERVER_NUMBER = "1"
@@ -15,19 +15,19 @@ X_SERVER_NUMBER = "1"
 # Path
 CGI_PATH = "/cgi-bin"
 KILL_XVFB_PATH = "%s/bin/kill_xvfb.sh %s" % (HOME_DIR, X_SERVER_NUMBER)
-PREPARE_PATH = "%s/bin/prepare_zerowine.sh" % (HOME_DIR)
+PREPARE_PATH = "%s/bin/prepare_zerowine.sh" % HOME_DIR
 LAUNCHER_PATH = "xvfb-run -n %s %s/bin/malware_launcher.sh" % (X_SERVER_NUMBER, HOME_DIR)
-DIFF_PATH = "%s/bin/diff_zerowine.sh" % (HOME_DIR)
-PE_SIGNATURE_PATH = "%s/zerowine/userdb.txt" % (HOME_DIR)
-UPX_PATH = "%s/bin/upx/upx" % (HOME_DIR)
+DIFF_PATH = "%s/bin/diff_zerowine.sh" % HOME_DIR
+PE_SIGNATURE_PATH = "%s/zerowine/userdb.txt" % HOME_DIR
+UPX_PATH = "%s/bin/upx/upx" % HOME_DIR
 TCPDUMP_PATH = "/usr/sbin/tcpdump"
 PDFTK_PATH = "pdftk"
 STRINGS_PATH = "strings"
 
 # Non-GPL Path
-NONGPL_DIR = "%s/nongpl" % (HOME_DIR)
-TRID_PATH = "%s/bin/trid" % (NONGPL_DIR)
-TRID_SIGNATURE_PATH = "%s/bin/TrIDDefs.TRD" % (NONGPL_DIR)
+NONGPL_DIR = "%s/nongpl" % HOME_DIR
+TRID_PATH = "%s/bin/trid" % NONGPL_DIR
+TRID_SIGNATURE_PATH = "%s/bin/TrIDDefs.TRD" % NONGPL_DIR
 
 # Timeout
 MIN_TIMEOUT = 10
