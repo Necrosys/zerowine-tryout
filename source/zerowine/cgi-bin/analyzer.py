@@ -14,8 +14,8 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
     fileName, hashes, fileSize = analyzeStatic(item, subitem)
 
-    fhash = hashes[DEFAULT_HASH_ALGORITHM]
-    dirName = SAMPLE_DIR + os.sep + fhash
+    defaultHash = hashes[DEFAULT_HASH_ALGORITHM]
+    dirName = SAMPLE_DIR + os.sep + defaultHash
     lockName = SAMPLE_DIR + os.sep + LOCK_FILENAME
 
     isRunnable = checkRunnable(timeout, lockName, fileName)
@@ -70,7 +70,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
 
     try:
         diff.append("\nEnd of difference. Use download function for more information.")
-    except:
+    except AttributeError:
         pass
     diff = "".join(diff)
 
@@ -109,7 +109,7 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
         unlockAnalyze(lockName)
 
     # Result link
-    print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % fhash
-    print "<br /><br /><a href='" + CGI_PATH + "/" + CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % fhash
+    print "<br /><a href='" + CGI_PATH + "/" + CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % defaultHash
+    print "<br /><br /><a href='" + CGI_PATH + "/" + CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % defaultHash
 
     printBodyFooter()
