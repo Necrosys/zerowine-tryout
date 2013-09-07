@@ -10,6 +10,7 @@ __author__ = 'Chae Jong Bin'
 
 import hashlib
 
+
 class LibHash():
     def __init__(self):
         self.md5 = ''
@@ -54,12 +55,12 @@ class LibHash():
 
     def readHashFromData(self, data, algorithm):
         self.generateHashFromData("", algorithm)
-        
+
         for temp in data.splitlines():
             # Compare length
             if len(self.__dict__[algorithm]) == len(temp):
                 self.__dict__[algorithm] = temp
-        
+
     def readHashFromFile(self, fileName, algorithm):
         data = self.readDataFromFile(fileName)
 
@@ -68,7 +69,7 @@ class LibHash():
     def readHashesFromData(self, data):
         for algorithm in self.__dict__.keys():
             self.readHashFromData(data, algorithm)
-        
+
     def readHashesFromFile(self, fileName):
         data = self.readDataFromFile(fileName)
 

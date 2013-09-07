@@ -1,12 +1,11 @@
 #!/usr/bin/python
 
-import os
 import sys
 
 from tricks import *
 
-def main(the_file):
 
+def main(the_file):
     try:
         f = file(the_file, "rb")
     except:
@@ -27,6 +26,7 @@ def main(the_file):
     else:
         print "No trick detected."
 
+
 def check_trick_from_file(the_file):
     f = file(the_file, "rb")
     buf = f.read()
@@ -34,21 +34,25 @@ def check_trick_from_file(the_file):
 
     return check_tricks(buf)
 
+
 def check_tricks(buf):
     tricks = 0
     ret = []
     for trick in DETECTION_TRICKS:
-        if buf.find(DETECTION_TRICKS[trick])>-1:
+        if buf.find(DETECTION_TRICKS[trick]) > -1:
             ret.append(trick)
 
     return ret
 
+
 def usage():
     print "Usage:", sys.argv[0], "<file>"
+
 
 def banner():
     print "Virtual Machine Trick's Detector v0.1 - Joxean Koret "
     print
+
 
 if __name__ == "__main__":
     banner()

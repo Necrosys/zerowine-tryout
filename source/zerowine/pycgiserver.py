@@ -3,8 +3,10 @@
 import CGIHTTPServer
 import BaseHTTPServer
 
+
 class Handler(CGIHTTPServer.CGIHTTPRequestHandler):
     cgi_directories = ["/cgi-bin"]
+
 
 PORT = 8000
 

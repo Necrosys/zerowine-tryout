@@ -51,8 +51,10 @@ import zlib
 import binascii
 import hashlib
 import sys
+
 if sys.version_info[0] >= 3:
     import io
+
     cStringIO = io.StringIO
 else:
     import cStringIO
@@ -73,6 +75,7 @@ PDF_ELEMENT_TRAILER = 4
 PDF_ELEMENT_STARTXREF = 5
 PDF_ELEMENT_MALFORMED = 6
 
+
 def CopyWithoutWhiteSpace(content):
     result = []
     for token in content:
@@ -80,8 +83,10 @@ def CopyWithoutWhiteSpace(content):
             result.append(token)
     return result
 
+
 def Obj2Str(content):
     return ''.join(map(lambda x: repr(x[1])[1:-1], CopyWithoutWhiteSpace(content)))
+
 
 class cPDFDocument:
     def __init__(self, file):
@@ -105,6 +110,7 @@ class cPDFDocument:
         self.position -= 1
         self.ungetted.append(byte)
 
+
 def CharacterClass(byte):
     if byte == 0 or byte == 9 or byte == 10 or byte == 12 or byte == 13 or byte == 32:
         return CHAR_WHITESPACE
@@ -112,8 +118,10 @@ def CharacterClass(byte):
         return CHAR_DELIMITER
     return CHAR_REGULAR
 
+
 def IsNumeric(str):
     return re.match('^[0-9]+', str)
+
 
 class cPDFTokenizer:
     def __init__(self, file):
@@ -191,6 +199,7 @@ class cPDFTokenizer:
     def unget(self, byte):
         self.ungetted.append(byte)
 
+
 class cPDFParser:
     def __init__(self, file, verbose=False, extract=None):
         self.context = CONTEXT_NONE
@@ -237,7 +246,8 @@ class cPDFParser:
                 else:
                     if self.context == CONTEXT_OBJ:
                         if self.token[1] == 'endobj':
-                            self.oPDFElementIndirectObject = cPDFElementIndirectObject(self.objectId, self.objectVersion, self.content)
+                            self.oPDFElementIndirectObject = cPDFElementIndirectObject(self.objectId,
+                                                                                       self.objectVersion, self.content)
                             self.context = CONTEXT_NONE
                             self.content = []
                             return self.oPDFElementIndirectObject
@@ -304,11 +314,14 @@ class cPDFParser:
             else:
                 break
 
+
 class cPDFElementComment:
     def __init__(self, comment):
         self.type = PDF_ELEMENT_COMMENT
         self.comment = comment
-#                        if re.match('^%PDF-[0-9]\.[0-9]', self.token[1]):
+
+        #                        if re.match('^%PDF-[0-9]\.[0-9]', self.token[1]):
+
 #                            print(repr(self.token[1]))
 #                        elif re.match('^%%EOF', self.token[1]):
 #                            print(repr(self.token[1]))
@@ -318,10 +331,12 @@ class cPDFElementXref:
         self.type = PDF_ELEMENT_XREF
         self.content = content
 
+
 class cPDFElementTrailer:
     def __init__(self, content):
         self.type = PDF_ELEMENT_TRAILER
         self.content = content
+
 
 class cPDFElementIndirectObject:
     def __init__(self, id, version, content):
@@ -338,16 +353,19 @@ class cPDFElementIndirectObject:
                 dictionary += 1
             if content[i][0] == CHAR_DELIMITER and content[i][1] == '>>':
                 dictionary -= 1
-            if dictionary == 1 and content[i][0] == CHAR_DELIMITER and EqualCanonical(content[i][1], '/Type') and i < len(content) - 1:
-                return content[i+1][1]
+            if dictionary == 1 and content[i][0] == CHAR_DELIMITER and EqualCanonical(content[i][1],
+                                                                                      '/Type') and i < len(content) - 1:
+                return content[i + 1][1]
         return ''
 
     def GetReferences(self):
         content = CopyWithoutWhiteSpace(self.content)
         references = []
         for i in range(0, len(content)):
-            if i > 1 and content[i][0] == CHAR_REGULAR and content[i][1] == 'R' and content[i-2][0] == CHAR_REGULAR and IsNumeric(content[i-2][1]) and content[i-1][0] == CHAR_REGULAR and IsNumeric(content[i-1][1]):
-                references.append((content[i-2][1], content[i-1][1], content[i][1]))
+            if i > 1 and content[i][0] == CHAR_REGULAR and content[i][1] == 'R' and content[i - 2][
+                0] == CHAR_REGULAR and IsNumeric(content[i - 2][1]) and content[i - 1][0] == CHAR_REGULAR and IsNumeric(
+                    content[i - 1][1]):
+                references.append((content[i - 2][1], content[i - 1][1], content[i][1]))
         return references
 
     def References(self, index):
@@ -382,7 +400,8 @@ class cPDFElementIndirectObject:
                     countDirectories += 1
                 if self.content[i][0] == CHAR_DELIMITER and self.content[i][1] == '>>':
                     countDirectories -= 1
-                if countDirectories == 1 and self.content[i][0] == CHAR_DELIMITER and EqualCanonical(self.content[i][1], '/Filter'):
+                if countDirectories == 1 and self.content[i][0] == CHAR_DELIMITER and EqualCanonical(self.content[i][1],
+                                                                                                     '/Filter'):
                     state = 'filter'
             elif state == 'filter':
                 if self.content[i][0] == CHAR_DELIMITER and self.content[i][1][0] == '/':
@@ -441,8 +460,8 @@ class cPDFElementIndirectObject:
                     data = RunLengthDecode(data)
                 except:
                     return 'RunLengthDecode decompress failed'
-#            elif i.startswith('/CC')                        # CCITTFaxDecode
-#            elif i.startswith('/DCT')                       # DCTDecode
+                    #            elif i.startswith('/CC')                        # CCITTFaxDecode
+                    #            elif i.startswith('/DCT')                       # DCTDecode
             else:
                 return 'Unsupported filter: %s' % repr(filters)
         if len(filters) == 0:
@@ -450,25 +469,30 @@ class cPDFElementIndirectObject:
         else:
             return data
 
+
 class cPDFElementStartxref:
     def __init__(self, index):
         self.type = PDF_ELEMENT_STARTXREF
         self.index = index
+
 
 class cPDFElementMalformed:
     def __init__(self, content):
         self.type = PDF_ELEMENT_MALFORMED
         self.content = content
 
+
 def TrimLWhiteSpace(data):
     while data != [] and data[0][0] == CHAR_WHITESPACE:
         data = data[1:]
     return data
 
+
 def TrimRWhiteSpace(data):
     while data != [] and data[-1][0] == CHAR_WHITESPACE:
         data = data[:-1]
     return data
+
 
 class cPDFParseDictionary:
     def __init__(self, content, nocanonicalizedoutput):
@@ -553,6 +577,7 @@ class cPDFParseDictionary:
     def PrettyPrint(self, prefix):
         self.PrettyPrintSub(prefix, self.parsed)
 
+
 def FormatOutput(data, raw):
     if raw:
         if type(data) == type([]):
@@ -561,6 +586,7 @@ def FormatOutput(data, raw):
             return data
     else:
         return repr(data)
+
 
 def PrintObject(object, options):
     print('obj %d %d' % (object.id, object.version))
@@ -600,6 +626,7 @@ def PrintObject(object, options):
     print('')
     return
 
+
 def Canonicalize(sIn):
     if sIn == "":
         return sIn
@@ -614,7 +641,7 @@ def Canonicalize(sIn):
         while i < iLen:
             if sIn[i] == '#' and i < iLen - 2:
                 try:
-                    sCanonical += chr(int(sIn[i+1:i+3], 16))
+                    sCanonical += chr(int(sIn[i + 1:i + 3], 16))
                     i += 2
                 except:
                     sCanonical += sIn[i]
@@ -623,8 +650,10 @@ def Canonicalize(sIn):
             i += 1
         return sCanonical
 
+
 def EqualCanonical(s1, s2):
     return Canonicalize(s1) == s2
+
 
 def ConditionalCanonicalize(sIn, nocanonicalizedoutput):
     if nocanonicalizedoutput:
@@ -634,32 +663,36 @@ def ConditionalCanonicalize(sIn, nocanonicalizedoutput):
 
 # http://code.google.com/p/pdfminerr/source/browse/trunk/pdfminer/pdfminer/ascii85.py
 def ASCII85Decode(data):
-  import struct
-  n = b = 0
-  out = ''
-  for c in data:
-    if '!' <= c and c <= 'u':
-      n += 1
-      b = b*85+(ord(c)-33)
-      if n == 5:
-        out += struct.pack('>L',b)
-        n = b = 0
-    elif c == 'z':
-      assert n == 0
-      out += '\0\0\0\0'
-    elif c == '~':
-      if n:
-        for _ in range(5-n):
-          b = b*85+84
-        out += struct.pack('>L',b)[:n-1]
-      break
-  return out
+    import struct
+
+    n = b = 0
+    out = ''
+    for c in data:
+        if '!' <= c and c <= 'u':
+            n += 1
+            b = b * 85 + (ord(c) - 33)
+            if n == 5:
+                out += struct.pack('>L', b)
+                n = b = 0
+        elif c == 'z':
+            assert n == 0
+            out += '\0\0\0\0'
+        elif c == '~':
+            if n:
+                for _ in range(5 - n):
+                    b = b * 85 + 84
+                out += struct.pack('>L', b)[:n - 1]
+            break
+    return out
+
 
 def ASCIIHexDecode(data):
     return binascii.unhexlify(''.join([c for c in data if c not in ' \t\n\r']).rstrip('>'))
 
+
 def FlateDecode(data):
     return zlib.decompress(data)
+
 
 def RunLengthDecode(data):
     f = cStringIO.StringIO(data)
@@ -673,7 +706,7 @@ def RunLengthDecode(data):
         if runLength == 128:
             break
         runLength = ord(f.read(1))
-#    return sub(r'(\d+)(\D)', lambda m: m.group(2) * int(m.group(1)), data)
+        #    return sub(r'(\d+)(\D)', lambda m: m.group(2) * int(m.group(1)), data)
     return decompressed
 
 #### LZW code sourced from pdfminer
@@ -698,19 +731,19 @@ class LZWDecoder(object):
         v = 0
         while 1:
             # the number of remaining bits we can get from the current buffer.
-            r = 8-self.bpos
+            r = 8 - self.bpos
             if bits <= r:
                 # |-----8-bits-----|
                 # |-bpos-|-bits-|  |
                 # |      |----r----|
-                v = (v<<bits) | ((self.buff>>(r-bits)) & ((1<<bits)-1))
+                v = (v << bits) | ((self.buff >> (r - bits)) & ((1 << bits) - 1))
                 self.bpos += bits
                 break
             else:
                 # |-----8-bits-----|
                 # |-bpos-|---bits----...
                 # |      |----r----|
-                v = (v<<r) | (self.buff & ((1<<r)-1))
+                v = (v << r) | (self.buff & ((1 << r) - 1))
                 bits -= r
                 x = self.fp.read(1)
                 if not x: raise EOFError
@@ -721,7 +754,7 @@ class LZWDecoder(object):
     def feed(self, code):
         x = ''
         if code == 256:
-            self.table = [ chr(c) for c in xrange(256) ] # 0-255
+            self.table = [chr(c) for c in xrange(256)] # 0-255
             self.table.append(None) # 256
             self.table.append(None) # 257
             self.prevbuf = ''
@@ -733,9 +766,9 @@ class LZWDecoder(object):
         else:
             if code < len(self.table):
                 x = self.table[code]
-                self.table.append(self.prevbuf+x[0])
+                self.table.append(self.prevbuf + x[0])
             else:
-                self.table.append(self.prevbuf+self.prevbuf[0])
+                self.table.append(self.prevbuf + self.prevbuf[0])
                 x = self.table[code]
             l = len(self.table)
             if l == 511:
@@ -762,13 +795,16 @@ class LZWDecoder(object):
 def LZWDecode(data):
     return ''.join(LZWDecoder(cStringIO.StringIO(data)).run())
 
+
 def Main():
     """pdf-parser, use it to parse a PDF document
     """
 
-    oParser = optparse.OptionParser(usage='usage: %prog [options] pdf-file\n' + __description__, version='%prog ' + __version__)
+    oParser = optparse.OptionParser(usage='usage: %prog [options] pdf-file\n' + __description__,
+                                    version='%prog ' + __version__)
     oParser.add_option('-s', '--search', help='string to search in indirect objects (except streams)')
-    oParser.add_option('-f', '--filter', action='store_true', default=False, help='pass stream object through filters (FlateDecode, ASCIIHexDecode, ASCII85Decode, LZWDecode and RunLengthDecode only)')
+    oParser.add_option('-f', '--filter', action='store_true', default=False,
+                       help='pass stream object through filters (FlateDecode, ASCIIHexDecode, ASCII85Decode, LZWDecode and RunLengthDecode only)')
     oParser.add_option('-o', '--object', help='id of indirect object to select (version independent)')
     oParser.add_option('-r', '--reference', help='id of indirect object being referenced (version independent)')
     oParser.add_option('-e', '--elements', help='type of elements to select (cxtsi)')
@@ -778,7 +814,8 @@ def Main():
     oParser.add_option('-v', '--verbose', action='store_true', default=False, help='display malformed PDF elements')
     oParser.add_option('-x', '--extract', help='filename to extract to')
     oParser.add_option('-H', '--hash', action='store_true', default=False, help='display hash of objects')
-    oParser.add_option('-n', '--nocanonicalizedoutput', action='store_true', default=False, help='do not canonicalize the output')
+    oParser.add_option('-n', '--nocanonicalizedoutput', action='store_true', default=False,
+                       help='do not canonicalize the output')
     oParser.add_option('-d', '--dump', help='filename to dump stream content to')
     oParser.add_option('-D', '--debug', action='store_true', default=False, help='display debug info')
     (options, args) = oParser.parse_args()
@@ -915,7 +952,10 @@ def Main():
             names = dicObjectTypes.keys()
             names.sort()
             for key in names:
-                print(' %s %d: %s' % (key, len(dicObjectTypes[key]), ', '.join(map(lambda x: '%d' % x, dicObjectTypes[key]))))
+                print(
+                    ' %s %d: %s' % (
+                        key, len(dicObjectTypes[key]), ', '.join(map(lambda x: '%d' % x, dicObjectTypes[key]))))
+
 
 def TestPythonVersion(enforceMaximumVersion=False, enforceMinimumVersion=False):
     if sys.version_info[0:3] > __maximum_python_version__:
@@ -934,6 +974,7 @@ def TestPythonVersion(enforceMaximumVersion=False, enforceMinimumVersion=False):
         else:
             print('This program has not been tested with this version of Python (%d.%d.%d)' % sys.version_info[0:3])
             print('Should you encounter problems, please use Python version %d.%d.%d' % __maximum_python_version__)
+
 
 if __name__ == '__main__':
     TestPythonVersion()

@@ -81,7 +81,7 @@ DEBUG = True
 
 # Buffer
 USE_BUFFER = True # If you want full analysis: Please disable this.
-                  # Else if you want quick analysis: Please enable this.
+# Else if you want quick analysis: Please enable this.
 BUFFER_SIZE = 2097152
 
 # Minimum disk space

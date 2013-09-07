@@ -1,6 +1,8 @@
-import zipfile, os
+import zipfile
+import os
 
 from config import *
+
 
 def createArchive(fileList, archive, hash):
     """
@@ -10,12 +12,14 @@ def createArchive(fileList, archive, hash):
     try:
         a = zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED)
         for f in fileList:
-#            print "archiving file %s" % (f)
+        #            print "archiving file %s" % (f)
             fileName = os.path.join(f.split(SAMPLE_DIR + os.sep + hash))
             a.write(f, "".join(fileName))
         a.close()
         return True
-    except: return False
+    except:
+        return False
+
 
 def dirEntries(dir_name, subdir, *args):
     '''Return a list of file names found in directory 'dir_name'
@@ -41,18 +45,19 @@ def dirEntries(dir_name, subdir, *args):
                     fileList.append(dirfile)
         # recursively access file names in subdirectories
         elif os.path.isdir(dirfile) and subdir:
-#            print "Accessing directory:", dirfile
+        #            print "Accessing directory:", dirfile
             fileList.extend(dirEntries(dirfile, subdir, *args))
     return fileList
 
+
 def extractArchive(fileName, dirName):
-	zf = zipfile.ZipFile(fileName, 'r')
-	for path in zf.namelist():
-		if path.startswith('./'):
-			tgt = os.path.join(dirName, path[2:])
-		else:
-			tgt = os.path.join(dirName, path)
-		fp = open(tgt, 'wb')
-		fp.write(zf.read(path))
-		fp.close()
-	zf.close()
+    zf = zipfile.ZipFile(fileName, 'r')
+    for path in zf.namelist():
+        if path.startswith('./'):
+            tgt = os.path.join(dirName, path[2:])
+        else:
+            tgt = os.path.join(dirName, path)
+        fp = open(tgt, 'wb')
+        fp.write(zf.read(path))
+        fp.close()
+    zf.close()
