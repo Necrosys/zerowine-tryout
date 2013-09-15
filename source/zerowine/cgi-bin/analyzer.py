@@ -1,4 +1,7 @@
 #!/usr/bin/python
+"""
+    analyzer
+"""
 
 import time
 import os
@@ -30,10 +33,12 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
         for line in msg:
             idx += 1
             # If EXE
-            if line.find("Starting process") > -1 and line.find(execfileName) > -1:
+            if line.find("Starting process") > -1 \
+                    and line.find(execfileName) > -1:
                 break
             # If DLL
-            elif line.find("load_native_dll") > -1 and line.find(execfileName) > -1:
+            elif line.find("load_native_dll") > -1 \
+                    and line.find(execfileName) > -1:
                 break
     else:
         msg = " "
@@ -140,7 +145,13 @@ def analyze(item, timeout, memory, version, subitem, tags, unpack):
         libmalware.unlockAnalyze(lockName)
 
     # Result link
-    print "<br /><a href='" + config.CGI_PATH + "/" + config.CGI_VIEW_FILENAME + "?hash=%s'>View result</a>" % defaultHash
-    print "<br /><br /><a href='" + config.CGI_PATH + "/" + config.CGI_DOWNLOAD_FILENAME + "?hash=%s'>Download result</a>" % defaultHash
+    print "<br /><a href='" + \
+          config.CGI_PATH + "/" + \
+          config.CGI_VIEW_FILENAME + \
+          "?hash=%s'>View result</a>" % defaultHash
+    print "<br /><br /><a href='" + \
+          config.CGI_PATH + "/" + \
+          config.CGI_DOWNLOAD_FILENAME + \
+          "?hash=%s'>Download result</a>" % defaultHash
 
     libutils.printBodyFooter()

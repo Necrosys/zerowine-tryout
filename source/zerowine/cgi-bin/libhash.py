@@ -11,7 +11,7 @@ __author__ = 'Chae Jong Bin'
 import hashlib
 
 
-class LibHash():
+class LibHash(object):
     def __init__(self):
         self.md5 = ''
         self.sha1 = ''
@@ -31,7 +31,8 @@ class LibHash():
         xmlString = ""
 
         for algorithm in self.__dict__.keys():
-            xmlString += "<%s>%s</%s>\n" % (algorithm, self.__dict__[algorithm], algorithm)
+            xmlString += "<%s>%s</%s>\n" \
+            % (algorithm, self.__dict__[algorithm], algorithm)
 
         return xmlString
 
