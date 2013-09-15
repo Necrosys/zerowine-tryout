@@ -12,6 +12,7 @@ import hashlib
 
 
 class LibHash(object):
+
     def __init__(self):
         self.md5 = ''
         self.sha1 = ''
@@ -32,7 +33,7 @@ class LibHash(object):
 
         for algorithm in self.__dict__.keys():
             xmlString += "<%s>%s</%s>\n" \
-            % (algorithm, self.__dict__[algorithm], algorithm)
+                % (algorithm, self.__dict__[algorithm], algorithm)
 
         return xmlString
 
